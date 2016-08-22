@@ -1,0 +1,20 @@
+echo "------ Building and Installing $PYWAVELETS_SRC ----------"
+
+rm -rf $PYWAVELETS_SRC
+unzip /sw/sources/python/$PYTHON_VER/$PYWAVELETS_SRC.zip
+
+cd $PYWAVELETS_SRC
+
+python setup.py build 
+if [ $? -ne 0 ] ; then
+  echo "$PYWAVELETS_SRC setup.py build failed."
+  exit 1
+fi
+  
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$PYWAVELETS_SRC setup.py install --$SW_BLDDIR failed."
+  exit 1  
+fi
+
+cd ../

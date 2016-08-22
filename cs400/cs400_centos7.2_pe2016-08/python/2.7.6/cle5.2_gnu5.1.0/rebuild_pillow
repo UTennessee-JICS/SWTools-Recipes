@@ -1,0 +1,19 @@
+echo "------ Building and Installing $PILLOW_SRC ----------"
+
+rm -rf $PILLOW_SRC
+unzip /sw/sources/python/$PYTHON_VER/$PILLOW_SRC.zip
+
+cd $PILLOW_SRC
+
+python setup.py build 
+if [ $? -ne 0 ] ; then
+  echo "$PILLOW_SRC setup.py build failed."
+  exit 1
+fi
+  
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$PILLOW_SRC setup.py install --$SW_BLDDIR failed."
+  exit 1  
+fi
+cd ../

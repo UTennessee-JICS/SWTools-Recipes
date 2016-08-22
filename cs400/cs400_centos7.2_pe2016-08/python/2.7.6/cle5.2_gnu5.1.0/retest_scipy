@@ -1,0 +1,10 @@
+echo "Testing $SCIPY_SRC install"
+which python
+
+python -c 'import scipy; scipy.test()'
+if [ $? -ne 0 ] ; then
+  echo "$SCIPY_TEST test failed "
+  echo scipy:unverified >> $SW_BLDDIR/status
+else
+  echo scipy:verified >> $SW_BLDDIR/status
+fi

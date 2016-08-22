@@ -1,0 +1,50 @@
+#%Module
+#library and apps
+
+set desc	"This modulefile sets up environment to use CUDA."
+set whatis	"CUDA is a parallel computing platform that enables\
+                 GPU for general purpose processing."
+set builderr	"This library has not been built for this programming environment"
+
+#-- Replace string in @--@ as appropriate. This will be used to construct 
+#   the path to the installation dir
+
+set arch	cs400_centos7.2_pe2016-08
+set app 	cuda
+set ver 	7.5
+set swhome	/software/dev_tools/swtree
+set dependency	""
+
+set build	centos7.2_binary
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+set app_dir 	$swhome/$arch/$app/$ver/$build
+set app_inc	"-I$app_dir/include"
+set app_lib 	"-L$app_dir/lib64"
+
+set APP		[string toupper $app]
+set product	"NICS_${APP}"
+
+prepend-path    PATH            $app_dir/bin
+prepend-path	LD_LIBRARY_PATH $app_dir/lib64
+prepend-path	MANPATH		$app_dir/share/man
+
+setenv          ${APP}_DIR	$app_dir
+setenv          ${APP}_INC	$app_inc
+setenv          ${APP}_LIB	$app_lib
+
+prepend-path    PE_PRODUCT_LIST			$product
+
+prepend-path    PKG_CONFIG_PATH                 $app_dir/lib/pkgconfig   
+prepend-path    PE_PKGCONFIG_PRODUCTS           $product
+prepend-path    PE_PKGCONFIG_LIBS               $app
+setenv          ${product}_REQUIRED_PRODUCTS    ""

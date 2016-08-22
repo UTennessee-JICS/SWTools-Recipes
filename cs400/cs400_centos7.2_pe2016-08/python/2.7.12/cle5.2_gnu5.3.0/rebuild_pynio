@@ -1,0 +1,35 @@
+export F77=gfortran
+export F90=gfortran
+export F95=gfortran
+export FC=gfortran
+
+echo "------ Building and Installing $PYNIO_SRC ----------"
+
+rm -rf $PYNIO_SRC
+tar -zxf ${SW_SOURCES}/python/$PYTHON_VER/$PYNIO_SRC.tar.gz
+
+cd $PYNIO_SRC
+
+python setup.py build
+if [ $? -ne 0 ] ; then
+  echo "$PYNIO_SRC setup.py build failed."
+  exit 1
+fi
+
+cd ../
+echo "Patching file Nio.py"
+patch -p0 < ${SW_SOURCES}/python/$PYTHON_VER/Nio.py.diff
+
+cd $PYNIO_SRC
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$PYNIO_SRC setup.py install --$SW_BLDDIR failed."
+  exit 1  
+fi
+cd ../
+
+export F77=ftn
+export F90=ftn
+export F95=ftn
+export FC=ftn

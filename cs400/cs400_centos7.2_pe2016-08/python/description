@@ -1,0 +1,163 @@
+<h1>Python</h1>
+
+<p>Category: Program Dev-Languages
+</p>
+
+<h2>Description</h2>
+
+<p><a href="http://www.python.org/">Python</a> 
+is a clear and powerful object-oriented programming language, 
+comparable to Perl, Ruby, Scheme, or Java.</p>
+
+<p>For more information see <a href="http://www.python.org/"> 
+the Python home page </a>.</p>
+
+<p>Two versions of python, 2.7.X and 3.X, are provided and can be used by
+loading their corresponding modulefile.
+Python 2 installation also includes the following python packages.
+Please see the website for each of these packages for their 
+description:
+<ul>
+  <li> <a href="http://pypi.python.org/pypi/setuptools">setuptools </a>
+  <li> <a href="http://readthedocs.org/docs/nose/en/latest/">nose </a>
+  <li> <a href="https://pypi.python.org/pypi/numpy/1.6.1">numpy</a>
+  <li> <a href="http://www.scipy.org/">scipy</a>
+  <li> <a href="http://lxml.de/">lxml</a>
+  <li> <a href="http://dirac.cnrs-orleans.fr/plone/software/scientificpython/">
+       ScientificPython</a>
+  <li> <a href="http://matplotlib.sourceforge.net/">matplotlib</a>
+  <li> <a href="http://cython.org/">Cython</a>
+  <li> <a href="https://code.google.com/p/numexpr/">Numexpr</a>
+  <li> <a href="http://www.pytables.org/moin">PyTables</a>
+  <li> <a href="http://www.stsci.edu/institute/software_hardware/pyfits">PyFits</a>
+  <li> <a href="http://mpi4py.scipy.org/">MPI for Python (mpi4py)</a>
+  <li> <a href="http://www.pyngl.ucar.edu/Nio.shtml">PyNIO</a>
+  <li> <a href="http://www.h5py.org/">H5Py</a>
+  <li> <a href="https://pypi.python.org/pypi/Pillow/">Pillow</a>
+  <li> <a href="http://scikit-image.org/">scikit-image</a>
+  <li> <a href="http://www.pybytes.com/pywavelets/">PyWavelets</a>
+</ul>
+Some examples and usage of some of these packages is described below in the 
+<a href="#appendix">Python Packages</a> section.
+
+Python 3 only includes a subset of the above packages since some
+of the above-mentioned packages do not support Python 3 yet. The included 
+packages are: 
+<ul>
+  <li> <a href="http://pypi.python.org/pypi/distribute">distribute</a>
+  <li> <a href="http://readthedocs.org/docs/nose/en/latest/">nose</a>
+  <li> <a href="http://lxml.de/">lxml</a>
+</ul>
+
+<a name="usage"><h2>Usage</h2></a>
+
+<p>An older version of python (2.6) is available by default when you login.
+However, this version does not have any python packages such as Numpy and
+Scipy installed for it. If you wish to use python with these packages, you
+may load the python modulefile:
+<pre>module load python </pre>
+which by default loads python-2.7.X which includes all the packages
+mentioned above.
+
+<p>
+A version of Python 3 is also available as module. This
+version does not have as many python packages installed with it.
+<p>
+To view the versions available you can use: 
+
+<pre>module avail python </pre>
+
+<h2 name="appendix">Python Packages</h2>
+<a name="appendix"></a>
+  <h3>Numpy</h3>
+  <p> NumPy is a general-purpose array-processing package designed to
+  efficiently manipulate large multi-dimensional arrays of arbitrary
+  records without sacrificing too much speed for small multi-dimensional
+  arrays.  NumPy is built on the Numeric code base and adds features
+  introduced by numarray as well as an extended C-API and the ability to
+  create arrays of arbitrary type which also makes NumPy suitable for
+  interfacing with general-purpose data-base applications.
+
+  <p> This package contains:
+  <ul>
+  <li>a powerful N-dimensional array object</li>
+  <li>sophisticated (broadcasting) functions </li>
+  <li>basic linear algebra functions</li>
+  <li>basic Fourier transforms </li>
+  <li>sophisticated random number capabilities </li>
+  <li>tools for integrating Fortran code</li>
+  <li>tools for integrating C/C++ code</li>
+  </ul>
+
+  <p>Numpy module can be invoked using the following statement inside python
+  interpreter or script:
+  <pre> from numpy import * </pre>
+  or 
+  <pre> import numpy </pre>
+
+  <h3>Scipy</h3>
+  <p> SciPy (pronounced "Sigh Pie") is open-source software for mathematics,
+  science, and engineering. It is also the name of a very popular conference
+  on scientific programming with Python. The SciPy library depends on NumPy,
+  which provides convenient and fast N-dimensional array manipulation. 
+  The SciPy library is built to work with NumPy arrays, and provides many
+  user-friendly and efficient numerical routines such as routines for
+  numerical integration and optimization.
+  
+  <p>Scipy module can be invoked using the following statement inside python
+  interpreter or script:
+  <pre> from scipy import * </pre>
+  or 
+  <pre> import scipy </pre>
+
+  <h3>Matplotlib</h3>
+  <p>matplotlib is a python 2D plotting library which produces publication
+quality figures in a variety of hardcopy formats and interactive environments
+across platforms. matplotlib can be used in python scripts, the python and
+ipython shell (ala matlab or mathematica), web application servers, and six
+graphical user interface toolkits.
+
+<p>matplotlib tries to make easy things easy and hard things possible. 
+You can generate plots, histograms, power spectra, bar charts, errorcharts,
+scatterplots, etc, with just a few lines of code. For a sampling, see the
+screenshots, thumbnail gallery, and examples directory
+
+<p> Matplotlib package is included in python/2.7.1 installation,
+Please see the matplotlib 
+<a href=http://matplotlib.sourceforge.net/users/index.html>Matplotlib User Guide
+</a> for more information
+
+<p> Note that the default matplotlib behavior is to defer drawing a 
+plot until the end of a script.  If you want to change this behavior, 
+then create your own .matplotlibrc file with "interactive" set to True.  
+
+<p> The interactive property of the pyplot interface controls whether a 
+figure canvas is drawn on every pyplot command. If interactive is False 
+(default setting), then the figure state is updated on every plot command, 
+but will only be drawn on explicit calls to draw(). When interactive is True, 
+then every pyplot command triggers a draw.  The pyplot interface provides 
+four commands that are useful for interactive control:
+<pre>
+   isinteractive() -  returns the interactive setting True|False
+   ion() - turns interactive mode on
+   ioff() - turns interactive mode off
+   draw() - forces a figure redraw
+</pre>
+
+<p>Example 1: To generate simple plot, do the following:
+<pre>
+python
+>>> from pylab import *
+>>> ion()
+>>> plot([1,2,3])
+</pre>
+
+<p>Example 2: To generate 10,000 Gaussian random numbers and make
+a histogram plot binning the data into 100 bins, you simply need
+to type
+<pre>
+python
+>>> from pylab import randn, hist
+>>> x = randn(10000)
+>>> hist(x,100)
+</pre>
