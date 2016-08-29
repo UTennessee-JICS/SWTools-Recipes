@@ -1,0 +1,31 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PrgEnv-pgi
+  module unload PrgEnv-cray
+  module unload PrgEnv-gnu
+  module load PrgEnv-intel
+  module swap intel intel/15.0.2.164
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+
+module load python
+# env vars here
+
+PACKAGE=boost
+VERSION=1_59_0
+SRCDIR=${PACKAGE}_${VERSION}
+
+# these may need to go up in the special section between ###
+#export CC=cc
+#export CXX="CC -DMPICH_IGNORE_CXX_SEEK"
+export CC=cc
+export CXX=CC
+export F77=ftn
+export F90=ftn
+export F9C=ftn
+export F95=ftn
+export F9X=ftn
+export FC=ftn
+#export CPPFLAGS=-DpgiFortran
+

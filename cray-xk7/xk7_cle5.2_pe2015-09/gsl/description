@@ -1,0 +1,45 @@
+<h1>GNU Scientific Library</h1>
+
+<p> Category: Libraries-Math
+
+<h2>Description</h2>
+
+<p> The <a href="http://www.gnu.org/software/gsl/">GNU Scientific Library 
+(GSL)</a> is a numerical library for C and C++ programmers. It is free software 
+under the GNU General Public License.
+
+<p> The library provides a wide range of mathematical routines such as random 
+number generators, special functions and least-squares fitting. There are over 
+1000 functions in total with an extensive test suite.
+
+<p>The complete range of subject areas covered by the library includes,
+
+<table>
+<tr><td>Complex Numbers		<td>Roots of Polynomials
+<tr><td>Special Functions	<td>Vectors and Matrices
+<tr><td>Permutations		<td>Sorting
+<tr><td>BLAS Support		<td>Linear Algebra
+<tr><td>Eigensystems		<td>Fast Fourier Transforms
+<tr><td>Quadrature		<td>Random Numbers
+<tr><td>Quasi-Random Sequences	<td>Random Distributions
+<tr><td>Statistics		<td>Histograms
+<tr><td>N-Tuples		<td>Monte Carlo Integration
+<tr><td>Simulated Annealing	<td>Differential Equations
+<tr><td>Interpolation		<td>Numerical Differentiation
+<tr><td>Chebyshev Approximation	<td>Series Acceleration
+<tr><td>Discrete Hankel Transforms	<td>Root-Finding
+<tr><td>Minimization		<td>Least-Squares Fitting
+<tr><td>Physical Constants	<td>IEEE Floating-Point
+<tr><td>Discrete Wavelet Transforms&nbsp;&nbsp;	<td>Basis splines
+</table>
+
+<h2>Use</h2>
+
+<p> The GSL library is available as a <a href="/computing-resources/modules">
+module</a>. To use GSL library, simply load its modulefile:
+<pre>
+module load gsl
+</pre>
+The appropriate flags to compile and link with GSL are automatically
+passed when programs are compiled with the 
+<a href="/computing-resources/darter/compiling"> Cray compiler wrappers. </a>

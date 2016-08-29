@@ -1,0 +1,38 @@
+#%Module
+#@APPLICATION@ apps
+
+set desc	"This modulefile sets up environment to use LAMMPS."
+set whatis	"LAMMPS (Large-scale Atomic/Molecular Massively Parallel\
+                 Simulator) is a classical molecular dynamics code.\nThe\
+                 executable 'lmp_xe6' is available upon loading this\
+                 module."
+set onload	""
+
+set arch	xk7_cle5.2_pe2015-09
+set app 	lammps
+set ver 	15May15
+set build	cle5.2_gnu4.9.3
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set app_dir 	/sw/swtools/swtree/$arch/$app/$ver/$build
+
+prepend-path    PATH            $app_dir/bin
+
+set APP         [string toupper $app]
+
+setenv          ${APP}_DIR      $app_dir

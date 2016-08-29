@@ -1,0 +1,39 @@
+set -o verbose
+
+echo "------ Building and Installing $SCIPY_SRC ----------"
+
+export F77=gfortran
+export F90=gfortran
+export F95=gfortran
+export F9X=gfortran
+export FC=gfortran
+export LDFLAGS="-shared $LDFLAGS"
+
+echo "Scipy LDFLAGS" $LDFLAGS
+
+rm -rf $SCIPY_SRC  
+tar -zxf /sw/sources/python/$PYTHON_VER/$SCIPY_SRC.tar.gz
+
+cd $SCIPY_SRC
+
+python setup.py build
+if [ $? -ne 0 ] ; then
+  echo "scipy setup.py build failed."
+  exit 1
+fi
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "scipy setup.py install --$SW_BLDDIR failed."
+  exit 1  
+fi
+
+cd ../
+
+export F77=ftn
+export F90=ftn
+export F95=ftn
+export F9X=ftn
+export FC=ftn
+
+set +o verbose

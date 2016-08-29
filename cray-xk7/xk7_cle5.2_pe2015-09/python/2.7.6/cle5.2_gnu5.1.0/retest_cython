@@ -1,0 +1,18 @@
+echo "Testing $CYTHON"
+
+cd $CYTHON_SRC
+cython -V
+if [ $? -ne 0 ] ; then
+  echo "Cython test failed "
+  echo cython:unverified >> $SW_BLDDIR/status
+fi
+
+python runtests.py
+if [ $? -ne 0 ] ; then
+  echo "Cython test failed "
+  echo cython:unverified >> $SW_BLDDIR/status
+else
+  echo cython:verified >> $SW_BLDDIR/status
+fi
+
+cd $SW_BLDDIR

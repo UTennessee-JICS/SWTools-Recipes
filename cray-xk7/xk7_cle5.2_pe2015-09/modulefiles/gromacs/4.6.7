@@ -1,0 +1,49 @@
+#%Module
+#gromacs apps
+
+set desc	"This modulefile sets up environment to use Gromacs."
+set whatis	"Gromacs is GROMACS is a versatile package to perform\
+                 molecular dynamics, i.e. simulate the Newtonian equations\
+                 of motion for systems with hundreds to millions of particles."
+set onload	""
+
+set arch	xk7_cle5.2_pe2015-09
+set app 	gromacs 
+set ver 	4.6.7
+set build	cle5.2_gnu5.1.0
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set app_dir 	/sw/swtools/swtree/$arch/$app/$ver/$build
+set app_inc	"-I$app_dir/include"
+set app_lib 	"-L$app_dir/lib"
+
+prepend-path    PATH            $app_dir/bin
+prepend-path	MANPATH		$app_dir/share/man
+
+set APP         [string toupper $app]
+
+setenv          ${APP}_DIR      $app_dir
+setenv          ${APP}_INC      $app_inc
+setenv          ${APP}_LIB      $app_lib
+
+setenv          GMXDATA         $app_dir/share
+setenv          GMXBIN          $app_dir/bin
+setenv          GMXLDLIB        $app_dir/lib
+setenv          GMXMAN          $app_dir/share/man
+setenv          GMXLIB          $app_dir/share/gromacs/top
+setenv          GMXFONT         10x20

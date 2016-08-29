@@ -1,0 +1,72 @@
+#!/bin/ksh
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   unique work dir that local script can use
+# Output
+#   Return code of 0=success or 1=failure 
+##############################
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+set -o verbose
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include share doc man
+
+#clear out status file since re-making
+rm -f status
+
+rm -rf $SRCDIR
+tar -xf /sw/sources/${PACKAGE}/${VERSION}/${SRCDIR}.tar.gz
+cd $SRCDIR
+
+
+#Patch code to make it work with Intel compiler on DARTER
+if [[ $HOSTNAME =~ darter ]]; then
+echo 'Patching source code for XC30 and Intel compiler!!!'
+perl -i -pe 's/set\(CMAKE_SHARED_LIBRARY_LINK_\$\{lang\}_FLAGS \"-rdynamic\"\)/set\(CMAKE_SHARED_LIBRARY_LINK_\$\{lang\}_FLAGS \"\"\)/' ./Modules/Platform/Linux-Intel.cmake
+fi
+
+./bootstrap --prefix=$SW_BLDDIR 
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+make
+  if [ $? -ne 0 ] ; then
+    echo "$PACKAGE make failed"
+    exit 1
+  fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+cd ../
+
+############################### if this far, return 0
+exit 0

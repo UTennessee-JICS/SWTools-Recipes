@@ -1,0 +1,42 @@
+<h1>Boost</h1>
+
+<p> Category: Libraries-Communication 
+
+<h2>Description</h2>
+
+<p> 
+<a href=http://www.boost.org>Boost</a> is a compilation of free peer-reviewed 
+portable C++ source libraries.
+
+<p>An emphasize is placed on libraries that work well with the C++ 
+Standard Library. Boost libraries are intended to be widely useful, 
+and usable across a broad spectrum of applications. The Boost license 
+encourages both commercial and non-commercial use.
+
+<p>The aim is to establish "existing practice" and provide reference 
+implementations so that Boost libraries are suitable for eventual 
+standardization. Ten Boost libraries are already included in the C++ 
+Standards Committee's Library Technical Report (TR1) and will be in the 
+new C++0x Standard now being finalized. C++0x will also include several 
+more Boost libraries in addition to those from TR1. More Boost libraries 
+are proposed for TR2.
+
+<p>Further information on Boost can be found on 
+<a href="http://www.boost.org//"> Boost website. </a>
+
+
+<h2>Use</h2>
+Boost is available as a <a href="/computing-resources/modules">module</a>.
+To use Boost, simply load its modulefile:
+<pre>
+module load boost
+</pre>
+If any Boost libraries is required for linking, it needs to be specified
+explicitly. For example, to link with Boost filesystem library, specify
+<pre>
+CC mycode.cpp -lboost_fileystem -lboost_system
+</pre>
+
+Any other include and linking flags to point to the Boost location are 
+automatically passed when programs are compiled with the 
+<a href="/computing-resources/darter/compiling"> Cray compiler wrappers. </a>

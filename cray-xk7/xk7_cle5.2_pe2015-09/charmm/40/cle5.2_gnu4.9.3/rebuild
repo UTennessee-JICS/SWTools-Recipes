@@ -1,0 +1,135 @@
+#!/bin/ksh
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   unique work dir that local script can use
+# Output
+#   Return code of 0=success or 1=failure 
+##############################
+
+# exit 3 is a signal to the sw infrastructure that this template has not 
+# been updated; please delete it when ready
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+set -o verbose
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include doc share man etc libexec info
+
+#clear out status and old SRCDIR file since re-making
+rm -f status
+rm -rf $SRCDIR
+
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/c40b2.tar
+
+cd $SRCDIR
+
+#-- Patch intall.com to have 'craympi' option
+cat > install.com.patch << EOF
+--- install.com	2016-03-03 15:40:23.151101464 -0500
++++ install.com.mod	2016-07-26 12:00:20.874423597 -0400
+@@ -127,6 +127,7 @@
+ set mpispecial = 0
+ set mpif90 = 0
+ set nersc = 0
++set craympi = 0
+ set stopmark = 0
+ set ibm64 = 0
+ set qgamess = 0
+@@ -353,6 +354,7 @@
+     endif
+     if ( "\$opt" == 'mpif90'|| "\$opt" == 'MPIF90' ) set mpif90 = 1
+     if ( "\$opt" == 'nersc'|| "\$opt" == 'NERSC' ) set nersc = 1
++    if ( "\$opt" == 'craympi'|| "\$opt" == 'CRAYMPI' ) set craympi = 1
+ #    if ( "\$opt" == 'lammpi'|| "\$opt" == 'LAMMPI' ) set lammpi = 1
+     if ( "\$opt" == 'scali'|| "\$opt" == 'SCALI' ) then
+        set scali = 1
+@@ -388,6 +390,10 @@
+ #	set pgf95 = 1 # VO can use NERSC compilers other than pgi & gfortran
+ #	if ( \$gfortran == 1 ) set pgf95 = 0
+      endif
++     if (\$craympi == 1 ) then
++	set mpiset = 1
++	set mpif90 = 1
++     endif
+ # MF 03/2006
+ # read extra flags in the form of +TAG or -TAG to modify pref.dat
+     if ( { ( echo "\$opt" | grep "^+" >& /dev/null ) } ) then
+@@ -2015,6 +2021,7 @@
+ 	#sed -e 's/mpif90/ftn/g' -e 's/mpiifort/ftn/g' -e 's/mpicc/CC/g' -e 's/mpiicc/CC/g' -e 's/icc/CC/g' -e 's/gcc/cc/g' -e 's/g++/CC/g' < Makefile.tmp_\$\$ > Makefile_\$\$
+ 	#sed -e 's/mpif90/ftn/g' -e 's/mpicc/gcc/g' < Makefile.tmp_\$\$ > Makefile_\$\$
+     endif
++    
+ # PGI parallel MPI workaround to use gcc for domdec_gpu.cu; rmv 26aug2013
+     if ( \$pgf95 == 1 ) then
+         mv Makefile_\$\$ Makefile.tmp_\$\$
+@@ -2031,6 +2038,17 @@
+     sed -e 's/mpif90/ftn/g' -e 's/mpiifort/ftn/g' -e 's/mpicc/CC/g' -e 's/mpiicc/CC/g' -e 's/icc/CC/g' -e 's/gcc/CC/g' < Makefile.tmp_\$\$ > Makefile_\$\$
+     /bin/rm Makefile.tmp_\$\$
+ endif
++
++if ( \$craympi == 1 ) then
++    mv Makefile_\$\$ Makefile.tmp_\$\$
++    sed -e 's/mpif90/ftn/g' -e 's/mpiifort/ftn/g' \\
++        -e 's/mpicc/cc/g' -e 's/mpiicc/cc/g'  \\
++        -e 's/gcc/cc/g' -e 's/icc/cc/g' -e 's/pgcc/cc/g' \\
++        -e 's/g++/CC/g' -e 's/icpc/CC/g' -e 's/pgc++/CC/g' -e 's/pgcpp/CC/g' \\
++ 	< Makefile.tmp_\$\$ > Makefile_\$\$
++    /bin/rm Makefile.tmp_\$\$
++endif
++
+ #
+ # In case pref.dat is old
+ set ppvmset = 0
+EOF
+
+cp install.com install.com.orig
+patch -p0 < install.com.patch
+
+./install.com gnu craympi | tee install.com.out
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+#-- Copy charmm executable to $SW_BLDDIR/bin
+
+#-- Remove dot at the end of the string
+CHARMM_EXEC=$(grep "The CHARMM executable is" install.com.out \
+              | awk '{print $5}' | rev | cut -c 2- | rev ) 
+mkdir ${SW_BLDDIR}/bin
+cp $CHARMM_EXEC ${SW_BLDDIR}/bin
+
+cd ../
+
+#-- Check that executable exists
+ls ${SW_BLDDIR}/bin/charmm
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE build failed"
+  exit 1
+fi
+
+
+############################### if this far, return 0
+exit 0

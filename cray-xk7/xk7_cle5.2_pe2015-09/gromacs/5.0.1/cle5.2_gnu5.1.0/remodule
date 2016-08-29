@@ -1,0 +1,18 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PrgEnv-pgi
+  module unload PrgEnv-cray
+  module unload PrgEnv-gnu
+  module load PrgEnv-gnu
+  module swap gcc gcc/5.1.0
+  ### End Environment (do not remove this line only change what is in between)
+
+
+module load fftw
+module load cmake
+
+export CRAY_ADD_RPATH=yes
+
+PACKAGE=gromacs
+VERSION=5.0.1
+SRCDIR=$PACKAGE-$VERSION

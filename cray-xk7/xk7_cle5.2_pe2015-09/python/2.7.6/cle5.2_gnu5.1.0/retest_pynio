@@ -1,0 +1,12 @@
+echo "Testing $PYNIO_SRC install"
+
+cd $PYNIO_SRC/test
+./test2.7.sh 
+if [ $? -ne 0 ] ; then
+  echo "$PYNIO_SRC test failed "
+  echo pynio:unverified >> $SW_BLDDIR/status
+else
+  echo pynio:verified >> $SW_BLDDIR/status
+fi
+
+cd $SW_BLDDIR

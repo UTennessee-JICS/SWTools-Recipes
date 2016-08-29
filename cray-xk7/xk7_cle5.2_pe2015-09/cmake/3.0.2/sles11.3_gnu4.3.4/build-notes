@@ -1,0 +1,119 @@
+RDB: 09/30/14
+Cmake with Intel compiler is still an issue with version 3.0.2. Keeping the
+patch.
+
+
+DL: 2/25/14
+Looking at the installation on EOS (ORNL), I noticed that thet fixed the problem by patching the source code in file:
+
+Modules/Platform/Linux-Intel.cmake
+
+Replacing
+set(CMAKE_SHARED_LIBRARY_LINK_${lang}_FLAGS "-rdynamic")
+
+For:
+set(CMAKE_SHARED_LIBRARY_LINK_${lang}_FLAGS "")
+
+This patch is done automatically by the rebuild script:
+#Patch code to make it work with Intel compiler on DARTER
+if [[ $HOSTNAME =~ darter ]]; then
+echo 'Patching source code for XC30 and Intel compiler!!!'
+perl -i -pe 's/set\(CMAKE_SHARED_LIBRARY_LINK_\$\{lang\}_FLAGS \"-rdynamic\"\)/set\(CMAKE_SHARED_LIBRARY_LINK_\$\{lang\}_FLAGS
+ \"\"\)/' ./Modules/Platform/Linux-Intel.cmake
+fi
+
+DL: 2/5/14 
+
+From: Parete-Koon, Suzanne T.
+To: Daniel Lucio
+February 5, 2014 9:54 AM
+Re: CAMEK bug on the XC30
+
+Users were send thing tickets like:
+he installed cmake on EOS doesn't work with the intel compiler:
+
+For the most basic cmake project (empty project file it already fails):
+$mkdir test; cd test; module load cmake
+$cmake . #output at end of email
+
+The problem seems to be that cmake automatically adds rdynamic to the
+linker flags which doesn't work. I tried to add:
+-DCMAKE_SHARED_LIBRARY_LINK_C_FLAGS="" -DCMAKE_C_LINK_EXECUTABLE=""''
+
+
+The quick fix was this:
+
+explicitly specify the compiler and then force cmake not to check if that compiler works. This is done with the -D options
+try the build with this:
+
+cmake -D CMAKE_CXX_COMPILER=icc -D CMAKE_C_COMPILER_WORKS=TRUE  .
+
+You may need to specify  more compilers  with -D CMAKE_*_COMPILER=*
+
+Also Cmake works fine without this "fix" with  the Cray, PGI and GNU PrgEnv.
+
+
+Here is the test that we did with a simple program to trouble shoot this:
+
+
+1. I made a directory cmake_test.
+
+
+2. I put CMakeLists.txt in cmake_test.
+
+
+
+cat CMakeLists.txt :
+cmake_minimum_required (VERSION 2.8)
+
+SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
+
+SET(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
+
+project (Tutorial)
+
+add_executable(Tutorial tutorial.cxx)
+
+
+
+3. Here is the simple program tutorial.cxx also in cmake_test.
+
+cat tutorial.cxx
+// A simple program that computes the square root of a number
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+int main (int argc, char *argv[])
+{
+ if (argc < 2)
+   {
+   fprintf(stdout,"Usage: %s number\n",argv[0]);
+   return 1;
+   }
+ double inputValue = atof(argv[1]);
+ double outputValue = sqrt(inputValue);
+ fprintf(stdout,"The square root of %g is %g\n",
+         inputValue, outputValue);
+ return 0;
+}
+
+cd cmake_test
+module load cmake
+
+4. cmake -D CMAKE_CXX_COMPILER=icc -D CMAKE_C_COMPILER_WORKS=TRUE  .
+
+-- The CXX compiler identification is Intel 13.1.0.20130514
+-- Check for working CXX compiler: /opt/intel/composer_xe_2013.4.183/bin/intel64/icc
+-- Check for working CXX compiler: /opt/intel/composer_xe_2013.4.183/bin/intel64/icc -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /nics/d/home/suzanne1/cmake_test
+Make works after this.
+
+
+I will have to look and see if we ever made a more permanent solution. I'll get back to you.
+
+Suzanne Parete-Koon
+

@@ -1,0 +1,10 @@
+cd $PYWAVELETS_SRC
+
+python setup.py test
+if [ $? -ne 0 ] ; then
+  echo "$PYWAVELETS_SRC setup.py test failed."
+  echo pywavelets:unverified >> $SW_BLDDIR/status
+  exit 1
+else
+  echo pywavelets:verified >> $SW_BLDDIR/status
+fi

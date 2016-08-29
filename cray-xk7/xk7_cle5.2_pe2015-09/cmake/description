@@ -1,0 +1,25 @@
+<h1>CMake</h1>
+
+<p> Category: Program Dev-Tools
+
+<h2>Description</h2>
+<p>
+<a href="http://www.cmake.org/">CMake</a> is a cross-platform, open-source
+build system. CMake is a family of tools designed to build, test and package
+software. CMake is used to control the software compilation process using
+simple platform and compiler independent configuration files. CMake
+generates native makefiles and workspaces that can be used in the compiler
+environment of your choice. 
+
+<p> Further information on CMake can be found on
+<a href="http://www.cmake.org/">CMake website.</a>
+
+<h2>Use</h2>
+<p>
+CMake is available as a <a href="/computing-resources/modules">module</a>.
+The modulefile for CMake sets up the necessary environmental variables
+for CMake and updates PATH to include CMake executables.
+
+<pre>
+module load cmake
+</pre>

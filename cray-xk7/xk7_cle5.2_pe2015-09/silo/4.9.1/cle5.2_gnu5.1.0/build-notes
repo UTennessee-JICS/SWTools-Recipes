@@ -1,0 +1,13 @@
+For some reason using Cray's compiler wrapper (e.g. ftn, cc, CC) results in
+an error such as:
+-------
+CC -fPIC -o browser array.o bif.o browser.o cons.o file.o func.o lex.o num.o obj.o output.o parse.o prim.o ptr.o range.o sdo.o stc.o str.o switch.o sym.o  -L/opt/cray/hdf5/1.8.11/GNU/48/lib ../../src/.libs/libsiloh5.a /opt/gcc/4.8.0/snos/lib/../lib64/libgfortran.so /opt/gcc/4.8.0/snos/lib/../lib64/libquadmath.so /opt/gcc/4.8.0/snos/lib/../lib64/libgomp.so -lrt /opt/gcc/4.8.0/snos/lib/../lib64/libstdc++.so -lreadline -lncurses -lhdf5 -lz -lm   -Wl,--rpath -Wl,/opt/gcc/4.8.0/snos/lib/../lib64 -Wl,--rpath -Wl,/opt/gcc/4.8.0/snos/lib/../lib64
+/usr/bin/ld: attempted static link of dynamic object `/opt/gcc/4.8.0/snos/lib/../lib64/libgfortran.so'
+collect2: error: ld returned 1 exit status
+--------
+
+Setting the CC,CXX,FC,etc to the compiler directly (gcc,g++,gfortran) seems
+to workaround this issue.
+
+The same thing is true for the intel build (only set to icc,icpc,ifort
+instead).

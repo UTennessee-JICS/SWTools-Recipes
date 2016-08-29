@@ -1,0 +1,39 @@
+#%Module
+
+set desc        "This modulefile sets up environment to use CHARMM."
+set whatis      "CHARMM -- Chemistry at HARvard Macromolecular Mechanics --\
+                is a molecular simulation program with broad application\
+                to many-particle systems with a comprehensive set of energy\
+                functions, a variety of enhanced sampling methods, and\
+                support for multi-scale techniques including QM/MM, MM/CG,\
+                and a range of implicit solvent models."
+set onload      ""
+
+set arch        xk7_cle5.2_pe2015-09
+set app         charmm
+set ver         40
+set build       cle5.2_gnu4.9.3
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set app_dir     /sw/swtools/swtree/$arch/$app/$ver/$build
+
+prepend-path    PATH            $app_dir/bin
+
+set APP         [string toupper $app]
+
+setenv          ${APP}_DIR                      $app_dir

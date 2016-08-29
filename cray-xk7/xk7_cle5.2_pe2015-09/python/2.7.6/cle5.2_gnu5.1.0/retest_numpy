@@ -1,0 +1,9 @@
+echo "Testing $NUMPY_SRC install"
+
+python -c 'import numpy; numpy.test()'
+if [ $? -ne 0 ] ; then
+  echo "$NUMPY_SRC test failed "
+  echo numpy:unverified >> $SW_BLDDIR/status
+else
+  echo numpy:verified >> $SW_BLDDIR/status
+fi

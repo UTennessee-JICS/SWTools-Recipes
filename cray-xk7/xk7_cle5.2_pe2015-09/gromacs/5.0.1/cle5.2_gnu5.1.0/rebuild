@@ -1,0 +1,216 @@
+#!/bin/ksh
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   unique work dir that local script can use
+# Output
+#   Return code of 0=success or 1=failure 
+##############################
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include doc share man etc libexec info
+
+#clear out status file since re-making
+rm -rf status $SRCDIR 
+
+tar -zxf /sw/sources/$PACKAGE/$VERSION/$PACKAGE-$VERSION.tar.gz
+cd $SRCDIR
+which cmake
+#
+# Build Parallel version-Single precision
+#
+mkdir buildParS
+cd buildParS
+cmake ../ \
+      -DGMX_MPI=ON \
+      -DCMAKE_INSTALL_PREFIX=$SW_BLDDIR \
+      -DFFTWF_INCLUDE_DIR=$FFTW_INC \
+      -DFFTWF_LIBRARY=$FFTW_DIR/libfftw3f.a \
+      -DGMX_PREFER_STATIC_LIBS=yes\
+      -DGMX_EXTERNAL_BLAS=no \
+      -DGMX_EXTERNAL_LAPACK=no \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DGMX_GPU=OFF \
+      -DGMX_OPENMP=OFF \
+      -DGMX_X11=OFF \
+      -DGMX_DEFAULT_SUFFIX=OFF \
+      -DBUILD_SHARED_LIBS=OFF \
+      -DCMAKE_C_COMPILER=cc \
+      -DCMAKE_CXX_COMPILER=CC \
+      -DGMX_DEFAULT_SUFFIX=ON \
+      -DCMAKE_SKIP_RPATH=ON
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+### Patch link files ####
+find . -name link.txt -print | xargs sed -i 's/-Wl,-Bdynamic//g'
+
+make
+  if [ $? -ne 0 ] ; then
+    echo "$PACKAGE make failed"
+    exit 1
+  fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+
+#
+# Build Parallel version-DOUBLE precision
+#
+cd ..
+mkdir buildParD
+cd buildParD
+cmake ../ \
+      -DGMX_MPI=ON \
+      -DCMAKE_INSTALL_PREFIX=$SW_BLDDIR \
+      -DFFTW_INCLUDE_DIR=$FFTW_INC \
+      -DFFTW_LIBRARY=$FFTW_DIR/libfftw3.a \
+      -DGMX_PREFER_STATIC_LIBS=yes\
+      -DGMX_EXTERNAL_BLAS=no \
+      -DGMX_EXTERNAL_LAPACK=no \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DGMX_GPU=OFF \
+      -DGMX_OPENMP=OFF \
+      -DGMX_X11=OFF \
+      -DGMX_DEFAULT_SUFFIX=OFF \
+      -DBUILD_SHARED_LIBS=OFF \
+      -DCMAKE_C_COMPILER=cc \
+      -DCMAKE_CXX_COMPILER=CC \
+      -DGMX_DOUBLE=on \
+      -DGMX_DEFAULT_SUFFIX=ON \
+      -DCMAKE_SKIP_RPATH=ON
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+### Patch link files ####
+find . -name link.txt -print | xargs sed -i 's/-Wl,-Bdynamic//g'
+
+make 
+  if [ $? -ne 0 ] ; then
+    echo "$PACKAGE make failed"
+    exit 1
+  fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+#mv $SW_BLDDIR/bin/mdrun $SW_BLDDIR/bin/mdrun_double
+
+#
+# Build Serial tools in Single precision
+#
+cd ..
+mkdir buildSerS
+cd buildSerS
+cmake ../ \
+      -DGMX_MPI=OFF \
+      -DCMAKE_INSTALL_PREFIX=$SW_BLDDIR \
+      -DFFTWF_INCLUDE_DIR=$FFTW_INC \
+      -DFFTWF_LIBRARY=$FFTW_DIR/libfftw3f.a \
+      -DGMX_EXTERNAL_BLAS=no \
+      -DGMX_EXTERNAL_LAPACK=no \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DGMX_GPU=OFF \
+      -DGMX_OPENMP=OFF \
+      -DGMX_X11=OFF \
+      -DGMX_DEFAULT_SUFFIX=OFF \
+      -DCMAKE_C_COMPILER=gcc \
+      -DCMAKE_CXX_COMPILER=g++
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+make
+  if [ $? -ne 0 ] ; then
+    echo "$PACKAGE make failed"
+    exit 1
+  fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+#
+# Build Serial tools in DOUBLE precision
+#
+cd ..
+mkdir buildSerD
+cd buildSerD
+cmake ../ \
+      -DGMX_MPI=OFF \
+      -DCMAKE_INSTALL_PREFIX=$SW_BLDDIR \
+      -DFFTW_INCLUDE_DIR=$FFTW_INC \
+      -DFFTW_LIBRARY=$FFTW_DIR/libfftw3.a \
+      -DGMX_EXTERNAL_BLAS=no \
+      -DGMX_EXTERNAL_LAPACK=no \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DGMX_GPU=OFF \
+      -DGMX_OPENMP=OFF \
+      -DGMX_X11=OFF \
+      -DCMAKE_C_COMPILER=gcc \
+      -DCMAKE_CXX_COMPILER=g++ \
+      -DGMX_DOUBLE=on \
+      -DGMX_DEFAULT_SUFFIX=ON
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+make
+  if [ $? -ne 0 ] ; then
+    echo "$PACKAGE make failed"
+    exit 1
+  fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+#
+# Rename parallel programs to final name
+#
+
+cd ../
+
+################################ if this far, return 0
+exit 0

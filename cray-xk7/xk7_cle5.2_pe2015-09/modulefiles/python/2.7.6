@@ -1,0 +1,56 @@
+#%Module
+#@APPLICATION@ apps
+
+set desc	"This modulefile sets up environment to use Python."
+set whatis	"Python is a general-purpose, object-oriented, extensible\
+                 high-level programming language.\n\nThe following python\
+                 packages are also included with this module: nose, numpy,\
+                 scipy, lxml, scientificpython, matplotlib, cython, mpi4py,\
+                 numexpr, pytables, pyfits, PyNIO, h5py, Pillow,\
+                 scikit-image, PyWavelets.\n\nNote that the use of\
+                 mpi4py requires job submission to compute node via 'aprun'."
+set onload	""
+
+#-- Replace string in @--@ as appropriate. This will be used to construct 
+#   the path to the installation dir
+
+set arch	xk7_cle5.2_pe2015-09
+set app 	python
+set ver 	2.7.6
+set build	cle5.2_gnu5.1.0
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set app_dir 	/sw/swtools/swtree/$arch/$app/$ver/$build
+set app_inc	"-I$app_dir/include"
+set app_lib 	"-L$app_dir/lib"
+
+prepend-path    PATH            $app_dir/bin
+prepend-path	LD_LIBRARY_PATH $app_dir/lib
+prepend-path	MANPATH		$app_dir/share/man
+
+#-- Unfortunately this has to be hard-coded for now
+#-- Temporarily set to version exists on both aprun and login nodes
+prepend-path	LD_LIBRARY_PATH /opt/intel/composer_xe_2013_sp1.1.106/mkl/lib/intel64
+prepend-path	LD_LIBRARY_PATH /opt/intel/composer_xe_2013_sp1.1.106/mpirt/lib/intel64
+prepend-path	LD_LIBRARY_PATH /opt/intel/composer_xe_2013_sp1.1.106/compiler/lib/intel64
+
+
+#-- @APPLICATION@ should be replaced with the software name all in CAPS
+setenv          PYTHON_DIR	$app_dir
+setenv          PYTHON_INC	$app_inc
+setenv          PYTHON_LIB	$app_lib
