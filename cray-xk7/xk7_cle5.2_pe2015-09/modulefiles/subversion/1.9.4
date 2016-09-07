@@ -1,0 +1,39 @@
+#%Module
+#Adios library and apps
+
+set desc	"This modulefile sets up environment to use Subversion."
+set whatis	"Apache Subversion is a software versioning and revision\
+                 control system." 
+set onload	""
+
+set arch	xk7_cle5.2_pe2015-09
+set app 	subversion
+set ver 	1.9.4
+set build	sles11.3_gnu4.3.4
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+    puts stderr "$onload"
+  }
+}
+
+set app_dir 	/sw/swtools/swtree/$arch/$app/$ver/$build
+set app_inc	$app_dir/include
+set app_lib 	$app_dir/lib
+
+prepend-path    PATH            $app_dir/bin
+prepend-path	MANPATH		$app_dir/man
+
+set APP         [string toupper $app]
+
+setenv          ${APP}_DIR      $app_dir

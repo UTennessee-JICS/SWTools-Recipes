@@ -1,0 +1,20 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PrgEnv-intel
+  module unload PrgEnv-cray
+  module unload PrgEnv-gnu
+  module unload PrgEnv-pgi
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+
+# env vars here
+
+PACKAGE=subversion
+VERSION=1.9.4
+SRCDIR=${PACKAGE}-${VERSION}
+
+PREREQ_1=apr-1.5.2
+PREREQ_2=apr-util-1.5.4
+PREREQ_3=sqlite-amalgamation-3071501
+
