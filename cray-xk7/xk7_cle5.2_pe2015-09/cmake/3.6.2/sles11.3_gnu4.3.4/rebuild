@@ -41,13 +41,6 @@ rm -rf $SRCDIR
 tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/${SRCDIR}.tar.gz
 cd $SRCDIR
 
-
-#Patch code to make it work with Intel compiler on DARTER
-if [[ $HOSTNAME =~ darter ]]; then
-echo 'Patching source code for XC30 and Intel compiler!!!'
-perl -i -pe 's/set\(CMAKE_SHARED_LIBRARY_LINK_\$\{lang\}_FLAGS \"-rdynamic\"\)/set\(CMAKE_SHARED_LIBRARY_LINK_\$\{lang\}_FLAGS \"\"\)/' ./Modules/Platform/Linux-Intel.cmake
-fi
-
 ./bootstrap --prefix=$SW_BLDDIR 
 if [ $? -ne 0 ] ; then
   echo "$PACKAGE configure failed"
