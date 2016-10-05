@@ -1,9 +1,0 @@
-With H5PY, for some reason there is an extraneous option "-R" that gets passed 
-by the build process. This causes GCC to choke with "unrecognized command line
-option" error. The "R" flag is actually a linker flag set by Distutils, and
-is used to pass the runtime library dirs to the linker. It's unsure why it's
-passed here, however, the workaround is to edit the file setup.py in H5PY
-and remove (comment out) line 169. This is done in rebuild_h5py.
-
-During runtime, we'll depend on LD_LIBRARY_PATH and the system ld-config to
-find the correct shared library for HDF5

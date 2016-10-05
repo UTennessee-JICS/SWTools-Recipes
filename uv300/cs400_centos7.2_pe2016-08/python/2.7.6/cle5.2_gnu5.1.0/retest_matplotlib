@@ -1,9 +1,0 @@
-echo "Testing $MATPLOTLIB_SRC install"
-
-python -c 'import matplotlib; matplotlib.test()'
-if [ $? -ne 0 ] ; then
-  echo "$MATPLOTLIB_SRC test failed "
-  echo matplotlib:unverified >> $SW_BLDDIR/status
-else
-  echo matplotlib:verified >> $SW_BLDDIR/status
-fi

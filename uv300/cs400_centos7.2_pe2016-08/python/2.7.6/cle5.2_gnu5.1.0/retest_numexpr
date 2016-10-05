@@ -1,9 +1,0 @@
-echo "Testing $NUMEXPR_SRC install"
-
-python -c 'import numexpr; numexpr.test()'
-if [ $? -ne 0 ] ; then
-  echo "$NUMEXPR_SRC test failed "
-  echo numexpr:unverified >> $SW_BLDDIR/status
-else
-  echo numexpr:verified >> $SW_BLDDIR/status
-fi

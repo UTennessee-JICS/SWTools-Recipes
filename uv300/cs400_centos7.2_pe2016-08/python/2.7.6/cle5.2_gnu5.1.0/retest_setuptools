@@ -1,1 +1,0 @@
-echo setuptools:verified >> $SW_BLDDIR/status
