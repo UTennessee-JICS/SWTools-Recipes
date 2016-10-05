@@ -1,0 +1,16 @@
+echo "Testing $SCIENTIFICPYTHON_SRC install"
+
+cd $SCIENTIFICPYTHON_SRC/Tests
+
+for tests in *.py
+do 
+  python ${tests}
+  if [ $? -ne 0 ] ; then
+    echo "Scienfitic Python $tests test failed "
+    echo scienfiticpython:unverified >> $SW_BLDDIR/status
+  fi
+done 
+
+echo scientificpython:verified >> $SW_BLDDIR/status
+
+cd $SW_BLDDIR

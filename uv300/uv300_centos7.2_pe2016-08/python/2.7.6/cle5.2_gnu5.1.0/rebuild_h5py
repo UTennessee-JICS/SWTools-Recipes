@@ -1,0 +1,23 @@
+echo "------ Building and Installing $H5PY_SRC ----------"
+
+rm -rf $H5PY_SRC
+tar -zxf /sw/sources/python/$PYTHON_VER/$H5PY_SRC.tar.gz
+
+cd $H5PY_SRC
+
+#-- Comment out line 169 as it caused linking error (see build-note)
+sed -i '169 s/^/#/' setup.py
+
+python setup.py build --hdf5=$HDF5_DIR
+if [ $? -ne 0 ] ; then
+  echo "$H5PY_SRC setup.py build failed."
+  exit 1
+fi
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$H5PY_SRC setup.py install --$SW_BLDDIR failed."
+  exit 1  
+fi
+
+cd ../
