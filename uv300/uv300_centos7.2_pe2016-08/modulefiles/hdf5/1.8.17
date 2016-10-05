@@ -8,7 +8,7 @@ set whatis	"HDF5 is a data model, library, and file format for\
                  efficient I/O and for high volume and complex data."
 set builderr	"This library has not been built for this programming environment"
 
-set arch	cs400_centos7.2_pe2016-08
+set arch	uv300_centos7.2_pe2016-08
 set app 	hdf5
 set ver 	1.8.17
 set swhome	/software/dev_tools/swtree

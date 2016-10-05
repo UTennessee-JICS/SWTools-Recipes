@@ -6,7 +6,7 @@ set whatis	"PE-pgi defines the environment needed to build \n
                  applications using PGI compiler suites on this system."
 set onload	""
 
-set arch	cs400_centos7.2_pe2016-08
+set arch	uv300_centos7.2_pe2016-08
 set app 	PE
 set ver 	1.0
 set swhome	/software/dev_tools/swtree

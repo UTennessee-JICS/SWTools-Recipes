@@ -7,7 +7,7 @@ set whatis	"OpenMPI is an open source Message Passing Interface\
                  consortium of academic, research, and industry partners."
 set builderr	"This library has not been built for this programming environment"
 
-set arch	cs400_centos7.2_pe2016-08
+set arch	uv300_centos7.2_pe2016-08
 set app 	openmpi
 set ver 	2.0.0
 set swhome	/software/dev_tools/swtree
