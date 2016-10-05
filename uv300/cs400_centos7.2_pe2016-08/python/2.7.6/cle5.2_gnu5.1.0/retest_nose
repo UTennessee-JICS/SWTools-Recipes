@@ -1,0 +1,1 @@
+echo nose:verified >> $SW_BLDDIR/status

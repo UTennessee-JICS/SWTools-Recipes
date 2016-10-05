@@ -1,0 +1,21 @@
+echo "------ Building and Installing $MPI4PY_SRC ----------"
+which gcc
+which python
+
+rm -rf $MPI4PY_SRC
+tar -zxf /sw/sources/python/$PYTHON_VER/$MPI4PY_SRC.tar.gz
+
+cd $MPI4PY_SRC
+
+python setup.py build --mpicc=cc
+if [ $? -ne 0 ] ; then
+  echo "$MPI4PY_SRC setup.py build failed."
+  exit 1
+fi
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$MPI4PY_SRC setup.py install --$SW_BLDDIR failed."
+  exit 1  
+fi
+cd ../

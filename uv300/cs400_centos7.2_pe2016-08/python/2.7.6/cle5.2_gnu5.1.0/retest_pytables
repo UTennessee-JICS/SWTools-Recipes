@@ -1,0 +1,9 @@
+echo "Testing $PYTABLES_SRC install"
+
+python -c 'import tables; tables.test()'
+if [ $? -ne 0 ] ; then
+  echo "$PYTABLES_SRC test failed "
+  echo tables:unverified >> $SW_BLDDIR/status
+else
+  echo tables:verified >> $SW_BLDDIR/status
+fi

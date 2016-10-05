@@ -1,0 +1,37 @@
+#%Module
+#@APPLICATION@ apps
+
+set desc	"This modulefile sets up environment to use NWCHEM."
+set whatis	"NWCHEM is a computational chemistry package that is\ 
+		 designed to run on high-performance parallel supercomputers\ 
+		 as well as conventional workstation clusters."
+set onload	""
+
+set arch	xk7_cle5.2_pe2015-09
+set app 	nwchem 
+set ver 	6.6
+set build	cle5.2_gnu5.1.0
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set app_dir 	/sw/swtools/swtree/$arch/$app/$ver/$build
+
+prepend-path    PATH            $app_dir/bin
+
+setenv		NWCHEM_DIR		$app_dir
+setenv		NWCHEM_NWPW_LIBRARY	$app_dir/data/libraryps/	
+setenv		NWCHEM_BASIS_LIBRARY	$app_dir/data/libraries/
+setenv		HOME_NWCHEMRC		$app_dir/etc	

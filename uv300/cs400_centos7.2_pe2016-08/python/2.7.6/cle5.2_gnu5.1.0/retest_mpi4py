@@ -1,0 +1,54 @@
+
+cd $SW_WORKDIR
+
+cp -a $SW_BLDDIR/$MPI4PY_SRC/test/* .
+
+#-- Remove two tests that's giving issue due to MPICH
+rm -f test_pack.py test_spawn.py
+
+cat > mpi4py.pbs << EOF
+#!/bin/bash
+#PBS -N mpi4py
+#PBS -j oe
+#PBS -l size=32,walltime=01:00:00
+#PBS -A UT-SUPPORT
+#PBS -W group_list=install
+#PBS -W umask=002
+
+module sw PrgEnv-gnu
+module load cray-netcdf
+
+set -o verbose
+export PATH=${SW_BLDDIR}/bin:${PATH}
+
+cd \$PBS_O_WORKDIR
+which python
+aprun -n 4 python runtests.py -v &> mpi4py.test.log
+
+tail -n 100 mpi4py.test.log | grep OK
+if [ \$? -ne 0 ] ; then
+  echo "$MPI4PY_SRC test failed "
+  echo mpi4py:unverified >> $SW_BLDDIR/status
+else 
+  echo mpi4py:verified >> $SW_BLDDIR/status
+fi
+
+JOBID=\`echo \$PBS_JOBID | cut -d "." -f1 \`
+chmod 775 ${SW_BLDDIR}/status
+rm ${SW_BLDDIR}/.running
+cat mpi4py.test.log >> ${SW_BLDDIR}/test.log 
+cat mpi4py.o\$JOBID ${SW_BLDDIR}/test.log
+chmod 664 ${SW_BLDDIR}/test.log
+EOF
+
+qsub mpi4py.pbs
+touch ${SW_BLDDIR}/.running
+
+cd $SW_BLDDIR
+if [ $? -ne 0 ]; then
+  rm -f ${SW_BLDDIR}/.running
+  exit 1
+else
+  exit 2
+fi
+ 
