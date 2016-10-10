@@ -56,17 +56,20 @@ if { ( [module-info mode switch] == 1 ) || ( [module-info mode load] == 1 ) || (
     break
   }
 
-  foreach dep [ list $dependency ] {
-    if [ is-loaded "$dep" ] {
-      continue
+  if { ( [module-info mode switch] == 1 ) || ( [module-info mode load] == 1 ) } {
+    set deplist [ split $dependency " " ]
+    foreach dep $deplist {
+      if [ is-loaded "$dep" ] {
+        continue
+      }
+      module load "$dep"
+      if { [ info exists dep_path ] } {
+        set dep_path "$dep_path:$env(PKG_CONFIG_PATH)"
+      } else {
+        set dep_path "$env(PKG_CONFIG_PATH)"
+      }
+      module unload "$dep"
     }
-    module load "$dep"
-    if { [ info exists dep_path ] } {
-      set dep_path "$dep_path:$env(PKG_CONFIG_PATH)"
-    } else {
-      set dep_path "$env(PKG_CONFIG_PATH)"
-    }
-    module unload "$dep"
   }
 
 }
