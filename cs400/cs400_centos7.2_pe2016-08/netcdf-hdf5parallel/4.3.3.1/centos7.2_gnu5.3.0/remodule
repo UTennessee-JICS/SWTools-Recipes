@@ -7,7 +7,7 @@
   ### End Environment (do not remove this line only change what is in between)
   
 # load any other dependent modules here
-module load hdf5
+module load hdf5-parallel
 
 # env vars here
 

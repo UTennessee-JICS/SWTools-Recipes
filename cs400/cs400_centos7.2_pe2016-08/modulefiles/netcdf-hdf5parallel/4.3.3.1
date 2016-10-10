@@ -1,7 +1,8 @@
 #%Module
 #library and apps
 
-set desc        "This modulefile sets up environment to use NetCDF"
+set desc        "This modulefile sets up environment to use NetCDF with \
+                 parallel I/O support."
 set whatis      "NetCDF is a data model, library, and file format for storing and managing data."
 set builderr    "This library has not been built for this programming environment"
 
@@ -9,7 +10,7 @@ set arch	cs400_centos7.2_pe2016-08
 set app 	netcdf
 set ver 	4.3.3.1
 set swhome	/software/dev_tools/swtree
-set dependency	"hdf5"
+set dependency	"hdf5-parallel"
 
 set gnu_build	centos7.2_gnu5.3.0
 set intel_build	centos7.2_intel16.0.1
@@ -71,7 +72,7 @@ if { ( [module-info mode switch] == 1 ) || ( [module-info mode load] == 1 ) || (
 
 }
                               
-set app_dir 	$swhome/$arch/${app}/$ver/$build
+set app_dir 	$swhome/$arch/${app}-hdf5parallel/$ver/$build
 set app_inc	"-I$app_dir/include"
 set app_lib 	"-L$app_dir/lib"
 

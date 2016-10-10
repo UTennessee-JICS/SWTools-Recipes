@@ -7,8 +7,6 @@
   ### End Environment (do not remove this line only change what is in between)
   
 # load any other dependent modules here
-module load zlib
-module load szip
 module load hdf5
 
 # env vars here
@@ -16,6 +14,8 @@ module load hdf5
 PACKAGE=netcdf
 VERSION=4.3.3.1
 SRCDIR=${PACKAGE}-${VERSION}
+NETCDF3_CXX=${PACKAGE}-cxx-4.2
+NETCDF4_CXX=${PACKAGE}-cxx4-4.2
 NETCDF_FORTRAN=${PACKAGE}-fortran-4.4.2
 
 # these may need to go up in the special section between ###

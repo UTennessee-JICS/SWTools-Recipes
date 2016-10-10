@@ -44,17 +44,12 @@ rm -rf $SRCDIR
 
 tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$SRCDIR.tar.gz
 
-rm -rf ${NETCDF_FORTRAN}
-tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/${NETCDF_FORTRAN}.tar.gz
-
 cd $SRCDIR
 
-make distclean
-
 ./configure --prefix=$SW_BLDDIR \
- --enable-netcdf-4 \
- --enable-shared \
- --enable-static
+--enable-netcdf-4 \
+--enable-shared \
+--enable-static
 #--disable-fortran-compiler-check
 #--host=x86_64-unknown-linux-gnu
 if [ $? -ne 0 ] ; then
@@ -76,16 +71,86 @@ fi
 
 cd ${SW_BLDDIR}
 
-#-- Build netcdf-fortran
-cd $NETCDF_FORTRAN
+#-- Write pkg-config file for netcdf first so it can be used by 
+#   subsequent builds of interfaces (cxx, cxx4, fortran)
+mkdir -p $SW_BLDDIR/lib/pkgconfig
+cat > $SW_BLDDIR/lib/pkgconfig/${PACKAGE}.pc << EOF
+prefix=$SW_BLDDIR
+includedir=\${prefix}/include
+libdir=\${prefix}/lib
+
+Name: ${PACKAGE}
+Description: ${PACKAGE} Library
+URL: http://www.unidata.ucar.edu/software/netcdf/
+Version: $VERSION
+Cflags: -I\${includedir}  
+Libs: -L\${libdir} -lnetcdf
+Requires.private: hdf5
+EOF
 
 export NCDIR=$SW_BLDDIR
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${SW_BLDDIR}/lib/pkgconfig
+export PKG_CONFIG_PATH=${SW_BLDDIR}/lib/pkgconfig:${PKG_CONFIG_PATH}
+export PE_PKGCONFIG_LIBS=netcdf:${PE_PKGCONFIG_LIBS}
 
-export CPPFLAGS="$ZLIB_INC $SZIP_INC $HDF5_INC -I${SW_BLDDIR}/include"
-export LDFLAGS="$ZLIB_LIB $SZIP_LIB $HDF5_LIB -L${SW_BLDDIR}/lib"
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${SW_BLDDIR}/lib
+#-- Build netcdf3-cxx
+cd $SW_BLDDIR
 
+rm -rf $NETCDF3_CXX
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$NETCDF3_CXX.tar.gz
+
+cd $NETCDF3_CXX
+
+./configure --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+  
+make all
+  if [ $? -ne 0 ] ; then
+    echo "$PACKAGE make failed"
+    exit 1
+  fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+#-- Build netcdf4-cxx
+cd $SW_BLDDIR
+
+rm -rf $NETCDF4_CXX
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$NETCDF4_CXX.tar.gz
+
+cd $NETCDF4_CXX
+
+./configure --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+  
+make all
+  if [ $? -ne 0 ] ; then
+    echo "$PACKAGE make failed"
+    exit 1
+  fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+#-- Build netcdf-fortran
+cd $SW_BLDDIR
+
+rm -rf $NETCDF_FORTRAN
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/${NETCDF_FORTRAN}.tar.gz
+
+cd $NETCDF_FORTRAN
 
 ./configure --prefix=$SW_BLDDIR
 if [ $? -ne 0 ] ; then
@@ -105,10 +170,10 @@ if [ $? -ne 0 ] ; then
   exit 1
 fi
 
-
 cd $SW_BLDDIR
 
 #-- Write pkg-config file
+
 mkdir -p $SW_BLDDIR/lib/pkgconfig
 cat > $SW_BLDDIR/lib/pkgconfig/${PACKAGE}.pc << EOF
 prefix=$SW_BLDDIR
@@ -120,7 +185,7 @@ Description: ${PACKAGE} Library
 URL: http://www.unidata.ucar.edu/software/netcdf/
 Version: $VERSION
 Cflags: -I\${includedir}  
-Libs: -L\${libdir} -lnetcdf -lnetcdff
+Libs: -L\${libdir} -lnetcdff -lnetcdf_c++4 -lnetcdf_c++ -lnetcdf 
 Requires: hdf5
 EOF
 
