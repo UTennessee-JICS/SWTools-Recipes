@@ -1,0 +1,82 @@
+#%Module
+#@APPLICATION@ apps
+
+set desc        "This modulefile sets up environment to use the Intel compilers ."
+set whatis      "The Intel compiler provides compiler for C, C++, Fortran."
+set onload      ""
+
+set arch	cs400_centos7.2_pe2016-08
+set app 	intel
+set ver 	17.0.0
+set swhome	/software/dev_tools/swtree
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set APP         [string toupper $app]
+
+set intel_dir 	/software/tools/compilers/intel/2017.1
+set compiler  	compilers_and_libraries_2017.0.098
+set debugger  	debugger_2017
+
+#setenv		I_MPI_ROOT 	$intel_dir/$compiler/linux/mpi
+setenv		GDB_CROSS 	$intel_dir/$debugger/gdb/intel64_mic/bin/gdb-mic
+setenv 		INTEL_PYTHONHOME $intel_dir/$debugger/python/intel64/
+setenv 		IPPROOT 	$intel_dir/$compiler/linux/ipp
+setenv 		MIC_LD_LIBRARY_PATH $intel_dir/$compiler/linux/mpi/mic/lib:$intel_dir/$compiler/linux/compiler/lib/mic:$intel_dir/$compiler/linux/ipp/lib/mic:$intel_dir/$compiler/linux/compiler/lib/mic:$intel_dir/$compiler/linux/mkl/lib/mic:$intel_dir/$compiler/linux/tbb/lib/mic
+setenv 		DAALROOT 	$intel_dir/$compiler/linux/daal
+
+#prepend-path 	PATH 		$intel_dir/$debugger/gdb/intel64_mic/bin
+#prepend-path 	PATH 		$intel_dir/$compiler/linux/mpi/intel64/bin
+prepend-path 	PATH 		$intel_dir/$compiler/linux/bin/intel64
+
+setenv 		INTEL_LICENSE_FILE $intel_dir/$compiler/linux/licenses:/opt/intel/licenses:/root/intel/licenses
+
+prepend-path 	CPATH 		$intel_dir/$compiler/linux/daal/include
+prepend-path 	CPATH 		$intel_dir/$compiler/linux/tbb/include
+prepend-path 	CPATH 		$intel_dir/$compiler/linux/mkl/include
+prepend-path 	CPATH 		$intel_dir/$compiler/linux/ipp/include
+
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/daal/../tbb/lib/intel64_lin/gcc4.4
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/daal/lib/intel64_lin
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$debugger/libipt/intel64/lib
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$debugger/iga/lib
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/tbb/lib/intel64/gcc4.7
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/mkl/lib/intel64
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/compiler/lib/intel64
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/ipp/lib/intel64
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/mpi/mic/lib
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/mpi/intel64/lib
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/compiler/lib/intel64_lin
+prepend-path 	LD_LIBRARY_PATH $intel_dir/$compiler/linux/compiler/lib/intel64
+
+
+setenv 		MPM_LAUNCHER 	$intel_dir/$debugger/mpm/mic/bin/start_mpm.sh
+prepend-path 	MANPATH 	$intel_dir/documentation_2017/en/debugger//gdb-igfx/man/
+prepend-path 	MANPATH 	$intel_dir/documentation_2017/en/debugger//gdb-mic/man/
+prepend-path 	MANPATH 	$intel_dir/documentation_2017/en/debugger//gdb-ia/man/
+prepend-path 	MANPATH 	$intel_dir/$compiler/linux/mpi/man
+prepend-path 	MANPATH 	$intel_dir/man/common
+
+prepend-path	LIBRARY_PATH 	$intel_dir/$compiler/linux/ipp/lib/intel64:$intel_dir/$compiler/linux/compiler/lib/intel64:$intel_dir/$compiler/linux/mkl/lib/intel64:$intel_dir/$compiler/linux/tbb/lib/intel64/gcc4.7:$intel_dir/$compiler/linux/daal/lib/intel64_lin:$intel_dir/$compiler/linux/daal/../tbb/lib/intel64_lin/gcc4.4
+setenv 		TBBROOT 	$intel_dir/$compiler/linux/tbb
+setenv 		INFOPATH 	$intel_dir/documentation_2017/en/debugger//gdb-ia/info/:$intel_dir/documentation_2017/en/debugger//gdb-mic/info/:$intel_dir/documentation_2017/en/debugger//gdb-igfx/info/
+setenv 		MIC_LIBRARY_PATH $intel_dir/$compiler/linux/mpi/mic/lib:$intel_dir/$compiler/linux/compiler/lib/mic:$intel_dir/$compiler/linux/compiler/lib/mic:$intel_dir/$compiler/linux/mkl/lib/mic:$intel_dir/$compiler/linux/tbb/lib/mic
+setenv 		GDBSERVER_MIC 	$intel_dir/$debugger/gdb/targets/mic/bin/gdbserver
+setenv 		MKLROOT 	$intel_dir/$compiler/linux/mkl
+setenv 		NLSPATH 	$intel_dir/$compiler/linux/compiler/lib/intel64/locale/%l_%t/%N:$intel_dir/$compiler/linux/mkl/lib/intel64/locale/%l_%t/%N:$intel_dir/$debugger/gdb/intel64_mic/share/locale/%l_%t/%N:$intel_dir/$debugger/gdb/intel64/share/locale/%l_%t/%N
+setenv 		CLASSPATH 	$intel_dir/$compiler/linux/mpi/intel64/lib/mpi.jar:$intel_dir/$compiler/linux/daal/lib/daal.jar
+
+setenv		INTEL_VERSION	17.0.0

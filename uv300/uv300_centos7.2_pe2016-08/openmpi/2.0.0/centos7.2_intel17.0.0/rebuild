@@ -46,8 +46,8 @@ tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$SRCDIR.tar.bz2
 cd $SRCDIR
 
 ./configure --prefix=$SW_BLDDIR \
---enable-mpi-cxx --with-verbs --with-hwloc \
---with-tm=/software/tools/torque  --without-memory-manager
+--enable-mpi-cxx --with-hwloc \
+--with-tm=${TORQUE_DIR}
 if [ $? -ne 0 ] ; then
   echo "$PACKAGE configure failed"
   exit 1

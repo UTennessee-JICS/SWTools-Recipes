@@ -12,15 +12,13 @@ set ver 	1.0
 set swhome	/software/dev_tools/swtree
 set build	noarch
 
-set this_mpi	mpi/openmpi/gcc/5.3.0
-set this_comp	linux-x86_64/gcc@5.3.0%gcc@4.8.5+gold-5hy3c4b
+set this_mpi	openmpi/1.10.3
+set this_comp	gcc/5.3.0
 
-set other_mpi	"mpi/openmpi/gcc/5.3.0 \
-                 mpi/openmpi/intel/1.10.2 \
-                 openmpi/1.10.3"
-set other_comp	"linux-x86_64/gcc@5.3.0%gcc@4.8.5+gold-5hy3c4b \
-                 compilers/intel/2016.1 \
-                 compilers/pgi/15.7"
+set other_mpi	"mpt/2.14 \
+                 openmpi/2.0.0"
+set other_comp	"gcc/6.2.0 \
+                 intel/17.0.0"
 
 #------------------------------------------------
 
@@ -72,5 +70,4 @@ setenv		PE_NAME		"GNU"
 setenv		PE_CC		"mpicc"
 setenv		PE_CXX		"mpic++"
 setenv		PE_FORTRAN	"mpif90"
-
 prepend-path	PATH		$swhome/$arch/$app/$ver/$build/bin
