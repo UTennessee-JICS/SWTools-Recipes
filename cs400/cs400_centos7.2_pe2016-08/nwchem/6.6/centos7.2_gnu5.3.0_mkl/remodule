@@ -1,0 +1,52 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PE-gnu
+  module unload PE-intel
+  module unload PE-pgi
+  module load PE-gnu
+  ### End Environment (do not remove this line only change what is in between)
+
+PACKAGE=nwchem
+VERSION=6.6
+SRCDIR=${PACKAGE}-${VERSION}
+DISTNAME=Nwchem-6.6.revision27746-src.2015-10-20
+
+export NWCHEM_TOP=${SW_BLDDIR}/${SRCDIR}
+
+export NWCHEM_MODULES=all
+export NWCHEM_TARGET=LINUX64
+#export ARMCI_NETWORK=MPI-PR
+export ARMCI_NETWORK=MPI-TS
+export USE_MPI=y
+export USE_MPIF=y
+export USE_MPIF4=y
+export LARGE_FILES=TRUE
+export USE_NOFSCHECK=TRUE
+#export LIBMPI="-L/software/tools/apps/openmpi/gcc/1.10.2/5.3.0/lib \
+#-lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi -lrt"
+
+export  NWCHEM_LONG_PATHS=Y      #-- allow longer than 64 characters limit to N
+
+
+export MKLROOT=/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/mkl
+export HAS_BLAS=yes
+export BLASOPT="${MKLROOT}/lib/intel64/libmkl_blas95_lp64.a -Wl,--no-as-needed -L${MKLROOT}/lib/intel64 -lmkl_gf_lp64 -lmkl_core -lmkl_sequential -lpthread -lm -ldl"
+#export BLAS_LIB="-lsci_gnu"
+#export LAPACK_LIB="-lsci_gnu"
+
+#export USE_SCALAPACK=y
+#export SCALAPACK_LIB="-lsci_gnu" #-- Required otherwise nwchem config fail
+#export SCALAPACK="-lsci_gnu"
+
+export USE_64TO32=y
+
+export CC=pecc
+export CXX=pec++
+export F77=pefortran
+export F90=pefortran
+export F9C=pefortran
+export F9X=pefortran
+export F03=pefortran
+export FC=pefortran
+
+export PE_POST_FLAGS="-lrt"
