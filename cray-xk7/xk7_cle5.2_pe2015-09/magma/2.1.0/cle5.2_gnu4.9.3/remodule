@@ -1,0 +1,27 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PrgEnv-pgi
+  module unload PrgEnv-cray
+  module unload PrgEnv-gnu
+  module unload PrgEnv-intel
+  module load PrgEnv-gnu  
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+module load cudatoolkit
+# env vars here
+
+export CRAYPE_LINK_TYPE=dynamic
+export XTPE_LINK_TYPE=dynamic
+
+PACKAGE=magma
+VERSION=2.1.0
+SRCDIR=$PACKAGE-$VERSION
+
+# these may need to go up in the special section between ###
+export CC=cc
+export CXX=CC
+export FC=ftn
+export F9X=ftn
+export F90=ftn
+export F77=ftn
