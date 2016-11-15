@@ -68,7 +68,7 @@ set -o verbose
 cd \$PBS_O_WORKDIR
 
 NAMD_BIN=${SW_BLDDIR}/bin/namd2
-aprun -n 4 \$NAMD_BIN apoa1.namd | tee -a ${SW_BLDDIR}/.running > apoa1.namd.out
+aprun -n 4 \$NAMD_BIN apoa1.namd 2>&1 | tee -a ${SW_BLDDIR}/.running > apoa1.namd.out
 total=\`grep "ENERGY:     500" apoa1.namd.out | cut -d" " -f73| cut -d. -f1\`
 echo \$total
 
@@ -81,7 +81,7 @@ grep WallClock apoa1.namd.out | awk '{print "YVALUE=",\$2}' \
   | sed 's/ //g' > ${SW_BLDDIR}/wallclock
 grep CPUTime   apoa1.namd.out | awk '{print "YVALUE=",\$4}' \
   | sed 's/ //g' > ${SW_BLDDIR}/cputime
-grep Memory    apoa1.namd.out | awk '{print "YVALUE=",\$4}' \
+grep Memory    apoa1.namd.out | awk '{print "YVALUE=",\$6}' \
   | sed 's/ //g' > ${SW_BLDDIR}/memory
 
 JOBID=\`echo \$PBS_JOBID | cut -d "." -f1 \`
