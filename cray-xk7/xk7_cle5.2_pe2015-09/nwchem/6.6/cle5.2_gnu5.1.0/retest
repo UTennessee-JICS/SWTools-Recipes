@@ -48,6 +48,7 @@ cp -a $SW_BLDDIR/data $SW_WORKDIR/
 cp -a $SW_BLDDIR/etc $SW_WORKDIR/
 
 cd $SW_WORKDIR
+echo "SW_WORKDIR: $SW_WORKDIR"
 
 cat > ${PACKAGE}.pbs << EOF
 #!/bin/bash
@@ -90,7 +91,7 @@ chmod 664 ${SW_BLDDIR}/test.log
 rm -f ${SW_BLDDIR}/.running
 EOF
 
-qsub ${PACKAGE}.pbs > ${SW_BLDDIR}/.running
+stdbuf -oL qsub ${PACKAGE}.pbs > ${SW_BLDDIR}/.running
 if [ $? -ne 0 ] ; then
   echo "Error submitting job"
   rm -f .running
