@@ -1,0 +1,97 @@
+#%Module
+#library and apps
+
+set desc        "This modulefile sets up environment to use Intel MKL."
+set whatis      "Intel Math Kernel Library (Intel MKL) is a library of optimized math routines for science, engineering, and financial applications."
+set builderr    "This library has not been built for this programming environment"
+
+
+set arch	cs400_centos7.2_pe2016-08
+set app 	mkl
+set ver 	2017
+set swhome	/software/dev_tools/swtree
+set dependency	{intel/17.0.0}
+
+set gnu_build	centos7.2_gnu5.3.0
+set intel_build	centos7.2_intel16.0.1
+set pgi_build	centos7.2_pgi15.7.0
+
+#------------------------------------------------
+
+set loaded_PrgEnv 0
+set build 0
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { ![ info exists env(PE_NAME) ] } {
+  puts stderr "Please load a programming environments (PE):"
+  puts stderr "PE-gnu, PE-intel, or PE-pgi\n"
+}
+
+if { ( [module-info mode switch] == 1 ) || ( [module-info mode load] == 1 ) || ( [module-info mode display] == 1 ) } {
+  if [ is-loaded PE-gnu ] {
+    set build $gnu_build
+    set loaded_PrgEnv PE-gnu
+  } elseif [ is-loaded PE-intel ] {
+    set build $intel_build
+    set loaded_PrgEnv PE-intel
+  } elseif [ is-loaded PE-pgi ] {
+    set build $pgi_build
+    set loaded_PrgEnv PE-pgi
+  } else {
+    puts stderr $builderr
+    break
+  }
+
+  if { $build == 0 } {
+    puts stderr "$app: $builderr ($loaded_PrgEnv)."
+    break
+  }
+
+
+  foreach dep $dependency {
+    if [ is-loaded "$dep" ] {
+      continue
+    }
+    module load "$dep"
+   # if { [ info exists dep_path ] } {
+   #   set dep_path "$dep_path:$env(PKG_CONFIG_PATH)"
+   # } else {
+   #   set dep_path "$env(PKG_CONFIG_PATH)"
+   # }
+    module unload "$dep"
+  }
+
+}
+
+#fix me                              
+set app_dir 	/software/tools/compilers/intel_2017/mkl
+set pkgc_dir 	$swhome/$arch/$app/$ver/$build
+set app_inc	"-I$app_dir/include"
+set app_lib 	"-L$app_dir/lib/intel64"
+
+set APP		[string toupper $app]
+set product	"NICS_${APP}"
+
+prepend-path	LD_LIBRARY_PATH $app_dir/lib/intel64
+
+setenv		MKLROOT		$app_dir
+setenv          ${APP}_DIR	$app_dir
+setenv          ${APP}_INC	$app_inc
+setenv          ${APP}_LIB	$app_lib
+setenv		OMP_NUM_THREADS 1
+
+prepend-path    PE_PRODUCT_LIST			$product
+setenv          ${product}_INCLUDE_OPTS		$app_inc
+setenv          ${product}_POST_LINK_OPTS	$app_lib
+
+prepend-path    PKG_CONFIG_PATH                 $pkgc_dir/lib/pkgconfig   
+prepend-path    PE_PKGCONFIG_PRODUCTS           $product
+prepend-path    PE_PKGCONFIG_LIBS               $app
+setenv          ${product}_REQUIRED_PRODUCTS    ""
