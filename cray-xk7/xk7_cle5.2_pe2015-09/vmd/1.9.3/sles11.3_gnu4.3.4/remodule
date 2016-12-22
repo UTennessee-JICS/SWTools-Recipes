@@ -1,0 +1,17 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PrgEnv-intel
+  module unload PrgEnv-cray
+  module unload PrgEnv-gnu
+  module unload PrgEnv-pgi
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+
+# env vars here
+
+PACKAGE=vmd
+VERSION=1.9.3
+SRCDIR=${PACKAGE}-${VERSION}
+TCL_VER=8.5.9
+

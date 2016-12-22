@@ -1,0 +1,28 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PrgEnv-intel
+  module unload PrgEnv-cray
+  module unload PrgEnv-gnu
+  module unload PrgEnv-pgi
+  module load PrgEnv-gnu
+  module swap gcc gcc/4.9.1
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+
+# env vars here
+
+PACKAGE=vmd
+VERSION=1.9.3
+SRCDIR=${PACKAGE}-${VERSION}
+TCL_VER=8.5.9
+
+# these may need to go up in the special section between ###
+export CC=cc
+export CXX=CC
+export F77=ftn
+export F90=ftn
+export F9C=ftn
+export F9X=ftn
+export F03=ftn
+export FC=ftn
