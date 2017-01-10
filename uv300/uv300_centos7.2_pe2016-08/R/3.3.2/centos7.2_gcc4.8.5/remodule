@@ -1,0 +1,23 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/bash
+  module unload PE-gnu
+  module unload PE-intel
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+
+# env vars here
+
+PACKAGE=R
+VERSION=3.3.2
+SRCDIR=${PACKAGE}-${VERSION}
+
+# these may need to go up in the special section between ###
+export CC=gcc
+export CXX=gc++
+export F77=gfortran
+export F90=gfortran
+export F9C=gfortran
+export F9X=gfortran
+export F03=gfortran
+export FC=gfortran
