@@ -23,3 +23,5 @@ export F9C=pefortran
 export F9X=pefortran
 export F03=pefortran
 export FC=pefortran
+
+export PE_ADD_RPATH=1

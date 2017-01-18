@@ -11,8 +11,8 @@ set ver 	4.3.3.1
 set swhome	/software/dev_tools/swtree
 set dependency	"hdf5"
 
-set gnu_build	centos7.2_gnu5.3.0
-set intel_build	centos7.2_intel16.0.1
+set gnu_build	centos7.2_gnu
+set intel_build	centos7.2_intel
 set pgi_build	0
 
 #------------------------------------------------
@@ -35,10 +35,10 @@ if { ![ info exists env(PE_NAME) ] } {
 
 if { ( [module-info mode switch] == 1 ) || ( [module-info mode load] == 1 ) || ( [module-info mode display] == 1 ) } {
   if [ is-loaded PE-gnu ] {
-    set build $gnu_build
+    set build $gnu_build${env(GCC_VERSION)}
     set loaded_PrgEnv PE-gnu
   } elseif [ is-loaded PE-intel ] {
-    set build $intel_build
+    set build $intel_build${env(INTEL_VERSION)}
     set loaded_PrgEnv PE-intel
   } elseif [ is-loaded PE-pgi ] {
     set build $pgi_build

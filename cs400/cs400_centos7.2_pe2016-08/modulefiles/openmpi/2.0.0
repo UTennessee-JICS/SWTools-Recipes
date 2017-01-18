@@ -13,9 +13,9 @@ set ver 	2.0.0
 set swhome	/software/dev_tools/swtree
 set dependency	""
 
-set gnu_build	centos7.2_gnu5.3.0
-set intel_build	0
-set pgi_build	0
+set gnu_build	centos7.2_gnu
+set intel_build	centos7.2_intel
+set pgi_build	centos7.2_pgi15.7.0
 
 #------------------------------------------------
 
@@ -30,19 +30,14 @@ proc ModulesHelp { } {
 
 module-whatis $whatis
 
-if { ![ info exists env(PE_NAME) ] } {
-  puts stderr "Please load a programming environments (PE):"
-  puts stderr "PE-gnu, PE-intel, or PE-pgi\n"
-}
-
 if { ( [module-info mode switch] == 1 ) || ( [module-info mode load] == 1 ) || ( [module-info mode display] == 1 ) } {
-  if [ is-loaded PE-gnu ] {
-    set build $gnu_build
+  if [ is-loaded gcc ] {
+    set build $gnu_build${env(GCC_VERSION)}
     set loaded_PrgEnv PE-gnu
-  } elseif [ is-loaded PE-intel ] {
-    set build $intel_build
+  } elseif [ is-loaded intel ] {
+    set build $intel_build${env(INTEL_VERSION)}
     set loaded_PrgEnv PE-intel
-  } elseif [ is-loaded PE-pgi ] {
+  } elseif [ is-loaded pgi ] {
     set build $pgi_build
     set loaded_PrgEnv PE-pgi
   } else {
@@ -70,6 +65,7 @@ prepend-path	MANPATH		$app_dir/share/man
 setenv          ${APP}_DIR	$app_dir
 setenv          ${APP}_INC	$app_inc
 setenv          ${APP}_LIB	$app_lib
+setenv          ${APP}_VERSION  $ver
 
 setenv		OMPI_MCA_btl_openib_if_exclude mlx4_0:2
 setenv		OMPI_MCA_btl_openib_warn_nonexistent_if 0

@@ -13,14 +13,14 @@ set swhome	/software/dev_tools/swtree
 set build	noarch
 
 set this_mpi	openmpi/1.10.3
-set this_comp	compilers/pgi/15.7
+set this_comp	pgi/15.7.0
 
 set other_mpi	"mpi/openmpi/gcc/5.3.0 \
                  mpi/openmpi/intel/1.10.2 \
                  openmpi/1.10.3"
 set other_comp	"linux-x86_64/gcc@5.3.0%gcc@4.8.5+gold-5hy3c4b \
                  compilers/intel/2016.1 \
-                 compilers/pgi/15.7"
+                 pgi/15.7.0"
 
 #------------------------------------------------
 
@@ -74,3 +74,5 @@ setenv		PE_CXX		"mpic++"
 setenv		PE_FORTRAN	"mpif90"
 
 prepend-path	PATH		$swhome/$arch/$app/$ver/$build/bin
+
+module load xalt

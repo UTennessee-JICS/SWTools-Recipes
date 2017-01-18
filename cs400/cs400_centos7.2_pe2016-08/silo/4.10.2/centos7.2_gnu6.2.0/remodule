@@ -8,7 +8,7 @@
   ### End Environment (do not remove this line only change what is in between)
   
 # load any other dependent modules here
-#module load hdf5/1.8.17
+module load hdf5
 # env vars here
 
 PACKAGE=silo

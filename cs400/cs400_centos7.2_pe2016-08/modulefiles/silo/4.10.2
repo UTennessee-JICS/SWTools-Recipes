@@ -12,8 +12,9 @@ set ver 	4.10.2
 set swhome	/software/dev_tools/swtree
 set dependency	"hdf5"
 
-set gnu_build	centos7.2_gnu${env(GCC_VERSION)}
+set gnu_build	centos7.2_gnu
 set intel_build	0
+set nag_build	centos7.2_nag
 set pgi_build	0
 
 #------------------------------------------------
@@ -36,7 +37,7 @@ if { ![ info exists env(PE_NAME) ] } {
 
 if { ( [module-info mode switch] == 1 ) || ( [module-info mode load] == 1 ) || ( [module-info mode display] == 1 ) } {
   if [ is-loaded PE-gnu ] {
-    set build $gnu_build
+    set build $gnu_build${env(GCC_VERSION)}
     set loaded_PrgEnv PE-gnu
   } elseif [ is-loaded PE-intel ] {
     set build $intel_build
@@ -44,6 +45,9 @@ if { ( [module-info mode switch] == 1 ) || ( [module-info mode load] == 1 ) || (
   } elseif [ is-loaded PE-pgi ] {
     set build $pgi_build
     set loaded_PrgEnv PE-pgi
+  } elseif [ is-loaded PE-nag ] {
+    set build $nag_build${env(NAG_VERSION)}
+    set loaded_PrgEnv PE-nag
   } else {
     puts stderr $builderr
     break
