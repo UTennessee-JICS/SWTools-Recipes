@@ -1,0 +1,52 @@
+#%Module
+#@APPLICATION@ apps
+
+set desc	"This modulefile sets up environment to use R."
+set whatis	"R is a programming language and software environment\
+                 for statistical computing and graphics.\
+                 Rcpp and the following pbdR packages are also included with this module: \
+                 pbdSLAP, cubfits, pbdBASE, pbdDEMO, pbdDMAT, pbdMPI, pbdNCDF4, \
+                 pbdPROF, pbdRPC, pbdZMQ, pmclust, remoter, rlecuyer, pbdML, pbdIO
+                 "
+set onload	""
+
+set arch	cs400_centos7.2_pe2016-08
+set app 	R
+set ver 	3.3.2
+set swhome	/software/dev_tools/swtree
+set build	centos7.2_gnu5.3.0
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+#set app_dir 	$swhome/$arch/$app/$ver/$build
+set app_build_dir $swhome/$arch/$app/$ver/$build
+set app_dir 	$swhome/$arch/$app/$ver/$build/lib64/R
+set app_inc	"-I $app_dir/include"
+set app_lib 	"-L $app_dir/lib"
+
+#prepend-path    PATH            $app_dir/bin
+prepend-path    PATH            $app_build_dir/bin
+#prepend-path	LD_LIBRARY_PATH $app_dir/lib64
+#prepend-path	LD_LIBRARY_PATH $app_dir/lib
+prepend-path	LD_LIBRARY_PATH $app_build_dir/lib64
+prepend-path	MANPATH		$app_build_dir/share/man
+
+set APP		[string toupper $app]
+
+setenv          ${APP}_DIR	$app_dir
+setenv          ${APP}_INC	$app_inc
+setenv          ${APP}_LIB	$app_lib
