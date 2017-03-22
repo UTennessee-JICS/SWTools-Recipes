@@ -1,0 +1,44 @@
+#%Module
+
+set desc        "This modulefile sets up environment to use XALT."
+set whatis      "XALT is a system-level library and job-tracking tool."
+set onload      ""
+
+set arch        cs400_centos7.2_pe2016-08
+set app         xalt
+set ver         0.7.5
+set swhome	/software/dev_tools/swtree
+set build       centos7.3
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set app_dir     $swhome/$arch/$app/$ver/$build
+
+prepend-path    PATH            $app_dir/bin
+prepend-path    PATH            $app_dir/libexec
+
+prepend-path    PYTHONPATH      $app_dir/libexec
+
+set APP         [string toupper $app]
+
+setenv          ${APP}_DIR                      $app_dir
+setenv          XALT_ETC_DIR                    $app_dir/etc
+setenv          XALT_TRANSMISSION_STYLE         file
+
+setenv          ALT_LINKER                      $app_dir/bin/ld
+
+setenv          LMOD_DIR                        $app_dir
