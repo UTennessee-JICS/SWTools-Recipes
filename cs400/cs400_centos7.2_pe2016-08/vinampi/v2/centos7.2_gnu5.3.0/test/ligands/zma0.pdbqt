@@ -1,0 +1,56 @@
+REMARK  6 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+REMARK    1  A    between atoms: O4_4  and  C3_3 
+REMARK    2  A    between atoms: C7_8  and  C8_9 
+REMARK    3  A    between atoms: C9_10  and  C8_9 
+REMARK    4  A    between atoms: C9_10  and  N10_11 
+REMARK    5  A    between atoms: N10_11  and  C11_13 
+REMARK    6  A    between atoms: C20_28  and  C21_29 
+ROOT
+ATOM      1  C11 ZMA d 401       2.833   0.249 -14.233  0.00  0.00     0.707 A 
+ATOM      2  N12 ZMA d 401       2.243   0.052 -13.043  0.00  0.00    -0.019 N 
+ATOM      3  H12 ZMA d 401       1.831  -0.854 -12.822  1.00  0.00     0.203 HD
+ATOM      4  N13 ZMA d 401       3.366   1.438 -14.556  0.00  0.00    -0.020 N 
+ATOM      5  H13 ZMA d 401       3.790   1.562 -15.475  1.00  0.00     0.203 HD
+ATOM      6  C14 ZMA d 401       3.352   2.463 -13.697  0.00  0.00     0.727 A 
+ATOM      7  N15 ZMA d 401       3.897   3.629 -14.036  0.00  0.00    -0.232 N 
+ATOM      8 1H15 ZMA d 401       3.886   4.411 -13.381  1.00  0.00     0.174 HD
+ATOM      9 2H15 ZMA d 401       4.335   3.757 -14.948  1.00  0.00     0.174 HD
+ATOM     10  N16 ZMA d 401       2.754   2.288 -12.451  0.00  0.00     0.092 N 
+ATOM     11  N17 ZMA d 401       2.598   3.041 -11.489  0.00  0.00    -0.246 N 
+ATOM     12  H17 ZMA d 401       2.914   4.010 -11.443  1.00  0.00     0.190 HD
+ATOM     13  C18 ZMA d 401       2.196   1.048 -12.144  0.00  0.00     0.735 A 
+ATOM     14  N19 ZMA d 401       1.701   1.149 -10.916  0.00  0.00    -0.170 N 
+ATOM     15  H19 ZMA d 401       1.224   0.419 -10.386  1.00  0.00     0.186 HD
+ATOM     16  C20 ZMA d 401       1.952   2.396 -10.515  0.00  0.00     0.171 A 
+ENDROOT
+BRANCH   1  17
+ATOM     17  N10 ZMA d 401       2.885  -0.710 -15.151  0.00  0.00    -0.225 N 
+ATOM     18  H10 ZMA d 401       2.504  -1.643 -14.991  1.00  0.00     0.177 HD
+BRANCH  17  19
+ATOM     19  C9  ZMA d 401       3.531  -0.329 -16.413  0.00  0.00     0.142 C 
+BRANCH  19  20
+ATOM     20  C8  ZMA d 401       5.023  -0.651 -16.375  0.00  0.00     0.058 C 
+BRANCH  20  21
+ATOM     21  C7  ZMA d 401       5.684  -0.156 -17.661  0.00  0.00    -0.057 A 
+ATOM     22  C1  ZMA d 401       5.062  -0.361 -18.886  0.00  0.00     0.010 A 
+ATOM     23  C2  ZMA d 401       5.659   0.098 -20.054  0.00  0.00     0.037 A 
+ATOM     24  C3  ZMA d 401       6.874   0.770 -19.994  0.00  0.00     0.065 A 
+ATOM     25  C5  ZMA d 401       7.490   0.982 -18.767  0.00  0.00     0.037 A 
+ATOM     26  C6  ZMA d 401       6.896   0.520 -17.601  0.00  0.00     0.010 A 
+BRANCH  24  27
+ATOM     27  O4  ZMA d 401       7.463   1.224 -21.131  0.00  0.00    -0.361 OA
+ATOM     28  H4  ZMA d 401       8.294   1.683 -21.090  1.00  0.00     0.217 HD
+ENDBRANCH  24  27
+ENDBRANCH  20  21
+ENDBRANCH  19  20
+ENDBRANCH  17  19
+ENDBRANCH   1  17
+BRANCH  16  29
+ATOM     29  C21 ZMA d 401       1.616   2.947  -9.285  0.00  0.00     0.120 A 
+ATOM     30  O25 ZMA d 401       1.940   4.225  -8.950  0.00  0.00    -0.319 OA
+ATOM     31  C24 ZMA d 401       1.461   4.421  -7.685  0.00  0.00     0.142 A 
+ATOM     32  C23 ZMA d 401       0.873   3.291  -7.294  0.00  0.00     0.027 A 
+ATOM     33  C22 ZMA d 401       0.966   2.388  -8.270  0.00  0.00     0.043 A 
+ENDBRANCH  16  29
+TORSDOF 6

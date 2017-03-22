@@ -1,0 +1,33 @@
+set -o verbose
+
+echo "------ Building and Installing VinaMPI ----------"
+
+rm -rf $VINAMPI_SCR_new2
+#tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$SRCDIR.tar.gz
+tar -xzvf $SW_SOURCES/vinampi/$VINAMPI_VER/$VINAMPI_SCR.tgz
+
+#cd $VINAMPI_SCR_new2
+cd VinaMPIv2_new2
+# Change COMP to mpicc
+sed -i '9 s/cc/mpicc/' Makefile
+# Chnage vinampi.work.c 
+sed -i '279 s/^/\/\//' vinampi.work.c
+sed -i "278i  char *vina_string = \"/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/vinampi/v2/centos7.2_gnu5.3.0/autodock_vina_1_1_2_linux_x86/bin/vina \"; " vinampi.work.c
+# vinampi.main.h
+
+sed -i '5 s/^/\/\//' vinampi.main.h
+sed -i "6i  #include \"/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/openmpi/1.10.3/centos7.2_gnu5.3.0_romio/include/mpi.h\"" vinampi.main.h
+
+make
+
+if [ $? -ne 0 ] ; then
+  echo "Vinampi make failed."
+  exit 1
+fi
+
+
+
+cd ../
+
+set +o verbose
+
