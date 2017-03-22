@@ -1,0 +1,35 @@
+set -o verbose
+
+echo "------ Building and Installing pbdIO ----------"
+which gcc
+
+
+cd $SW_BLDDIR
+
+#rm -rf $pbdIO
+rm -rf pbdIO
+
+#-- Unzip pbdIO
+#unzip /software/dev_tools/swsources/R/3.3.2/pbdIO.zip
+unzip ${SW_SOURCES}/$PACKAGE/$VERSION/pbdIO.zip
+mv pbdIO-master pbdIO
+
+
+#rm -rf $DataTable_SRC
+rm -rf data.table
+#-- Untar data.table
+#tar -zxf /software/dev_tools/swsources/R/3.3.2/data.table_1.10.4.tar.gz
+tar -zxf ${SW_SOURCES}/$PACKAGE/$VERSION/data.table_1.10.4.tar.gz
+
+#-- Install data.table and pbdIO
+R CMD INSTALL --no-test-load data.table
+R CMD INSTALL --no-test-load pbdIO
+
+
+if [ $? -ne 0 ] ; then
+    echo "pbdML install failed"
+    exit 1
+fi
+
+
+set +o verbose

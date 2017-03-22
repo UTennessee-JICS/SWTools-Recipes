@@ -1,0 +1,34 @@
+set -o verbose
+
+echo "------ Building and Installing $rJava ----------"
+which gcc
+
+cd $SW_BLDDIR
+
+rm -rf rJava
+
+# untar rJava
+tar -zxf /software/dev_tools/swsources/R/3.3.2/rJava_0.9-8.tar.gz
+
+# set up java config
+#R CMD javareconf -e
+#R CMD javareconf  JAR=/usr/bin/jar JAVAH=/usr/bin/javah JDK=/usr/lib/jvm/jre-1.8.0-openjdk
+R CMD javareconf  JAR=/usr/bin/jar JAVAH=/usr/bin/javah
+
+R CMD INSTALL --no-test-load rJava
+
+#cat > packages.R << EOF
+#install.packages("rJava", repos="https://mirrors.nics.utk.edu/cran")
+#library(rJava)
+#EOF
+#bin/Rscript packages.R
+#rm -f packages.R
+
+
+if [ $? -ne 0 ] ; then
+    echo "rJava install failed"
+    exit 1
+fi
+
+
+set +o verbose

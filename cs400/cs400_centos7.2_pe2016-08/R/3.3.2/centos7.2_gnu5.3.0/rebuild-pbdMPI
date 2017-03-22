@@ -1,0 +1,25 @@
+set -o verbose
+
+echo "------ Building and Installing $pbdMPI ----------"
+which gcc
+
+rm -rf $pbdMPI
+
+cd $SW_BLDDIR
+#-- Install pbdMPI
+
+cat > packages.R << EOF
+install.packages("pbdMPI", repos="https://mirrors.nics.utk.edu/cran")
+library(pbdMPI)
+EOF
+bin/Rscript packages.R
+rm -f packages.R
+
+
+if [ $? -ne 0 ] ; then
+    echo "pbdMPI install failed"
+    exit 1
+fi
+
+
+set +o verbose

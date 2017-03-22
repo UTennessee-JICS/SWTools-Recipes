@@ -1,0 +1,25 @@
+set -o verbose
+
+echo "------ Building and Installing $pbdNCDF4 ----------"
+which gcc
+
+#rm -rf $pbdNCDF4
+
+cd $SW_BLDDIR
+#-- Install pbdNCDF4
+
+cat > packages.R << EOF
+install.packages("pbdNCDF4", repos="https://mirrors.nics.utk.edu/cran")
+library(pbdNCDF4)
+EOF
+bin/Rscript packages.R
+rm -f packages.R
+
+
+if [ $? -ne 0 ] ; then
+    echo "pbdNCDF4 install failed"
+    exit 1
+fi
+
+
+set +o verbose

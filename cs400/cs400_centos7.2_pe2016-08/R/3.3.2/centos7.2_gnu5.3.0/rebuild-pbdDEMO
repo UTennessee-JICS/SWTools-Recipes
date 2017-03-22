@@ -1,0 +1,24 @@
+set -o verbose
+
+echo "------ Building and Installing $pbdDEMO ----------"
+which gcc
+
+
+cd $SW_BLDDIR
+#-- Install  pbdDEMO
+
+cat > packages.R << EOF
+install.packages("pbdDEMO", repos="https://mirrors.nics.utk.edu/cran")
+library(pbdDEMO)
+EOF
+bin/Rscript packages.R
+rm -f packages.R
+
+
+if [ $? -ne 0 ] ; then
+    echo " pbdDEMO install failed"
+    exit 1
+fi
+
+
+set +o verbose

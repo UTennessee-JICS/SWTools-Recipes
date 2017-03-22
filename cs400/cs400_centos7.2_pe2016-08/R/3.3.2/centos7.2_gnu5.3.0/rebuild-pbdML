@@ -1,0 +1,27 @@
+set -o verbose
+
+echo "------ Building and Installing pbdML ----------"
+which gcc
+
+
+cd $SW_BLDDIR
+
+#rm -rf $pbdML
+rm -rf pbdML
+
+#-- Unzip pbdML
+unzip /software/dev_tools/swsources/R/3.3.2/pbdML.zip
+#unzip ${SW_SOURCES}/$PACKAGE/$VERSION/$pbdML.zip
+mv pbdML-master pbdML
+
+#-- Install pbdML
+R CMD INSTALL --no-test-load pbdML
+
+
+if [ $? -ne 0 ] ; then
+    echo "pbdML install failed"
+    exit 1
+fi
+
+
+set +o verbose

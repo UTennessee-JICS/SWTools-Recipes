@@ -1,0 +1,25 @@
+set -o verbose
+
+echo "------ Building and Installing $pbdBASE ----------"
+which gcc
+
+#rm -rf $pbdBASE
+
+cd $SW_BLDDIR
+#-- Install pbdBASE
+
+cat > packages.R << EOF
+install.packages("pbdBASE", repos="https://mirrors.nics.utk.edu/cran")
+library(pbdBASE)
+EOF
+bin/Rscript packages.R
+rm -f packages.R
+
+
+if [ $? -ne 0 ] ; then
+    echo "pbdBASE install failed"
+    exit 1
+fi
+
+
+set +o verbose

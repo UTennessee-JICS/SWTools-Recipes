@@ -1,0 +1,24 @@
+set -o verbose
+
+echo "------ Building and Installing $cubfits ----------"
+which gcc
+
+
+cd $SW_BLDDIR
+#-- Install cubfits
+
+cat > packages.R << EOF
+install.packages("cubfits", repos="https://mirrors.nics.utk.edu/cran")
+library(cubfits)
+EOF
+bin/Rscript packages.R
+rm -f packages.R
+
+
+if [ $? -ne 0 ] ; then
+    echo "cubfits install failed"
+    exit 1
+fi
+
+
+set +o verbose

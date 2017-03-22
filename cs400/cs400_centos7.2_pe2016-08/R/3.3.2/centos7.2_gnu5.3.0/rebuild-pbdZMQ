@@ -1,0 +1,24 @@
+set -o verbose
+
+echo "------ Building and Installing $pbdZMQ ----------"
+which gcc
+
+
+cd $SW_BLDDIR
+#-- Install pbdZMQ
+
+cat > packages.R << EOF
+install.packages("pbdZMQ", repos="https://mirrors.nics.utk.edu/cran")
+library(pbdZMQ)
+EOF
+bin/Rscript packages.R
+rm -f packages.R
+
+
+if [ $? -ne 0 ] ; then
+    echo "pbdZMQ install failed"
+    exit 1
+fi
+
+
+set +o verbose

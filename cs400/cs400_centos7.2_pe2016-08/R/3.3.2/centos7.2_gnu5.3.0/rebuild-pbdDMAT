@@ -1,0 +1,24 @@
+set -o verbose
+
+echo "------ Building and Installing $pbdDMAT ----------"
+which gcc
+
+
+cd $SW_BLDDIR
+#-- Install pbdDMAT
+
+cat > packages.R << EOF
+install.packages("pbdDMAT", repos="https://mirrors.nics.utk.edu/cran")
+library(pbdDMAT)
+EOF
+bin/Rscript packages.R
+rm -f packages.R
+
+
+if [ $? -ne 0 ] ; then
+    echo "pbdDMAT install failed"
+    exit 1
+fi
+
+
+set +o verbose

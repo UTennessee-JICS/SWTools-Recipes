@@ -1,0 +1,23 @@
+set -o verbose
+
+echo "------ Building and Installing $pbdSLAP ----------"
+which gcc
+
+
+cd $SW_BLDDIR
+
+cat > packages.R << EOF
+install.packages("pbdSLAP", repos="https://mirrors.nics.utk.edu/cran")
+library(pbdSLAP)
+EOF
+bin/Rscript packages.R
+rm -f packages.R
+
+
+if [ $? -ne 0 ] ; then
+    echo "pbdSLAP install failed"
+    exit 1
+fi
+
+
+set +o verbose
