@@ -1,0 +1,11 @@
+--- ld.orig	2016-09-26 15:39:29.765007605 -0400
++++ ld	2016-09-26 15:39:52.476909142 -0400
+@@ -147,7 +147,7 @@
+ ARGOBJ=$WRKDIR/xalt.o
+ FUNCRAW=$WRKDIR/funcraw.txt
+ FUNCLIST=$WRKDIR/funclist.txt
+-RESULT=$HOME/.xalt.d/link.${SYSHOST}.${DATESTR}.$UUID.json
++RESULT=$XALT_DIR/data/link.${SYSHOST}.${DATESTR}.$UUID.json
+ 
+ if [ ! -d $WRKDIR ]; then
+   $MKDIR -p $WRKDIR

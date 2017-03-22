@@ -1,0 +1,48 @@
+--- xalt_syshost_default.py.orig	2016-09-26 14:19:54.492681746 -0400
++++ xalt_syshost_default.py	2016-09-26 14:31:11.136701362 -0400
+@@ -32,43 +32,14 @@
+ # must set this to True or False depending on your naming scheme
+ # unless you plan to do a manual mapping of all your machine names
+ # see below for description of level1 and level2
+-level1format = False
++level1format = True
+ 
+ def map_syshost(nameA):
+   """
+   Use the nameA array to report a system name
+   """
+ 
+-  nicsT = {
+-    "kraken"        : "kraken",
+-    "aprun1-darter" : "darter",
+-    "aprun2-darter" : "darter",
+-    "aprun3-darter" : "darter",
+-    "aprun4-darter" : "darter",
+-    "aprun5-darter" : "darter",
+-    "aprun6-darter" : "darter",
+-    "aprun7-darter" : "darter",
+-    "aprun8-darter" : "darter",
+-    "kfs"           : "keeneland",
+-    "titan"         : "titan",
+-    "nid00026"      : "mars",
+-    "nid00027"      : "mars",
+-    "nid00043"      : "mars",
+-    "nid00053"      : "mars",
+-    "verne"         : "verne",
+-    "nautilus"      : "nautilus",
+-    "conseil"       : "nautilus",
+-    "arronax"       : "nautilus",
+-    "nedland"       : "nautilus",
+-    "harpoon"       : "nautilus",
+-  }
+-  result = None
+-
+-  for name in nameA:
+-    for k in nicsT:
+-      if (name.find(k,0) != -1):
+-        result = nicsT[k]
+-        return result
++  result = 'orcondo'
+   return result
+   
+ def level1_syshost(nameA):

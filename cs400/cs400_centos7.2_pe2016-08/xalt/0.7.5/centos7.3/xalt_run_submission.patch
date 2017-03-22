@@ -1,0 +1,13 @@
+--- xalt_run_submission.py.orig	2016-09-26 15:40:47.813669242 -0400
++++ xalt_run_submission.py	2016-09-26 15:41:05.474592677 -0400
+@@ -390,8 +390,8 @@
+ 
+     for run in runA:
+       fnA     = []
+-      fnA.append(os.environ.get("HOME","/"))
+-      fnA.append("/.xalt.d/run")
++      fnA.append(os.environ.get("XALT_DIR","/"))
++      fnA.append("/data/run")
+       fnA.append(".")
+       fnA.append(args.syshost)
+       fnA.append(".")

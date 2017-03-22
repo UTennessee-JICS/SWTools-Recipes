@@ -1,0 +1,1268 @@
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include doc share man etc libexec info
+
+#clear out status and old SRCDIR file since re-making
+rm -f status
+rm -rf $SRCDIR lua-5.1.4.8 Lmod-5.9.3 lmod
+
+#-- 1. Install Lua, downloaded from Lmod's sourceforge page to
+tar -xf $SW_SOURCES/$PACKAGE/$VERSION/lua-5.1.4.8.tar.gz
+cd lua-5.1.4.8
+./configure --prefix=$SW_BLDDIR
+STATIC=NO
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+configure: creating ./config.status
+config.status: creating makefile
+=== configuring in lua/src (/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src)
+configure: running /bin/sh ./configure --disable-option-checking '--prefix=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3'  --cache-file=/dev/null --srcdir=.
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking readline/readline.h usability... yes
+checking readline/readline.h presence... yes
+checking for readline/readline.h... yes
+checking for cbreak in -lncurses... yes
+checking for tputs in -ltinfo... yes
+checking for rl_insert in -lreadline... yes
+checking for history_get in -lhistory... yes
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating config.h
+config.status: executing default commands
+make && make install
+make -C lua linux USE_STATIC=NO MYCFLAGS='-DLUA_ROOT=\\\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\\\" -DLUA_RELEASE="\"\\\""Lua 5.1.4.7-rtm"\\\"\""'
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua'
+cd src && make linux
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make all MYCFLAGS="-DLUA_ROOT=\\\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\\\" -DLUA_RELEASE="\"\\\""Lua 5.1.4.7-rtm"\\\"\"" -DLUA_USE_LINUX" MYLIBS="-Wl,-E -ldl -lhistory -lreadline -ltinfo -lncurses "
+make[3]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lapi.o lapi.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lcode.o lcode.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o ldebug.o ldebug.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o ldo.o ldo.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o ldump.o ldump.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lfunc.o lfunc.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lgc.o lgc.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o llex.o llex.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lmem.o lmem.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lobject.o lobject.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lopcodes.o lopcodes.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lparser.o lparser.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lstate.o lstate.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lstring.o lstring.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o ltable.o ltable.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o ltm.o ltm.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lundump.o lundump.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lvm.o lvm.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lzio.o lzio.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lauxlib.o lauxlib.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lbaselib.o lbaselib.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o ldblib.o ldblib.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o liolib.o liolib.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lmathlib.o lmathlib.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o loslib.o loslib.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o ltablib.o ltablib.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lstrlib.o lstrlib.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o loadlib.o loadlib.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o linit.o linit.c
+ar rcu liblua.a lapi.o lcode.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o lmem.o lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o ltm.o lundump.o lvm.o lzio.o lauxlib.o lbaselib.o ldblib.o liolib.o lmathlib.o loslib.o ltablib.o lstrlib.o loadlib.o linit.o
+ranlib liblua.a
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o lua.o lua.c
+gcc -o lua  lua.o liblua.a -lm -Wl,-E -ldl -lhistory -lreadline -ltinfo -lncurses 
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o luac.o luac.c
+gcc -O2 -Wall -DLUA_ROOT=\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\" -DLUA_RELEASE="\"Lua 5.1.4.7-rtm\"" -DLUA_USE_LINUX   -c -o print.o print.c
+gcc -o luac  luac.o print.o liblua.a -lm -Wl,-E -ldl -lhistory -lreadline -ltinfo -lncurses 
+make[3]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua'
+cd luaposix;      make LUAINC=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src   posix.so                 CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaposix-5.1.7'
+gcc -fPIC -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src -pedantic -Wall -DVERSION=\"5.1.7\"   -c -o lposix.o lposix.c
+In file included from lposix.c:52:0:
+modemuncher.c: In function ‘mode_munch’:
+modemuncher.c:238:10: warning: operation on ‘*mode’ may be undefined [-Wsequence-point]
+    *mode = *mode |= ch_mode & affected_bits;
+          ^
+modemuncher.c:242:10: warning: operation on ‘*mode’ may be undefined [-Wsequence-point]
+    *mode = *mode &= ~(ch_mode & affected_bits);
+          ^
+lposix.c: In function ‘Psetrlimit’:
+lposix.c:1095:14: warning: variable ‘rid_str’ set but not used [-Wunused-but-set-variable]
+  const char *rid_str;
+              ^
+gcc  -o posix.so -shared lposix.o -lcrypt -lrt
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaposix-5.1.7'
+cd loadsys;       make LUAINC=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src             OS=linux CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/loadsys'
+gcc -fPIC -I /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src   -c -o unx_sys.o unx_sys.c
+unx_sys.c: In function ‘unx_dir’:
+unx_sys.c:33:48: warning: implicit declaration of function ‘strerror’ [-Wimplicit-function-declaration]
+     luaL_error(L, "Can not open %s: %s", path, strerror(errno));
+                                                ^
+gcc -fPIC -I /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src -shared -Wl,-soname,sys.so.1  -o sys.so.1.0.1  unx_sys.o -lc
+ln -s sys.so.1.0.1 sys.so.1
+ln -s sys.so.1 sys.so
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/loadsys'
+cd luafilesystem; make LUA_INC=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src            OS=linux CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luafilesystem'
+gcc -O2 -Wall -fPIC -W -Waggregate-return -Wcast-align -Wmissing-prototypes -Wnested-externs -Wshadow -Wwrite-strings -pedantic -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src   -c -o src/lfs.o src/lfs.c
+export MACOSX_DEPLOYMENT_TARGET="10.5"; gcc -O2 -Wall -fPIC -W -Waggregate-return -Wcast-align -Wmissing-prototypes -Wnested-externs -Wshadow -Wwrite-strings -pedantic -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src -shared  -o src/lfs.so src/lfs.o
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luafilesystem'
+cd luaprofiler;   make LUA_INC=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src            OS=linux CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaprofiler'
+gcc -O2 -DTESTS -W -Wall -fPIC -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src -I./src   -c -o src/clocks.o src/clocks.c
+src/clocks.c:66:16: warning: ‘get_clocks’ defined but not used [-Wunused-function]
+ static clock_t get_clocks(double time_marker) {
+                ^
+gcc -O2 -DTESTS -W -Wall -fPIC -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src -I./src   -c -o src/core_profiler.o src/core_profiler.c
+gcc -O2 -DTESTS -W -Wall -fPIC -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src -I./src   -c -o src/function_meter.o src/function_meter.c
+gcc -O2 -DTESTS -W -Wall -fPIC -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src -I./src   -c -o src/stack.o src/stack.c
+gcc -O2 -DTESTS -W -Wall -fPIC -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src -I./src   -c -o src/lua50_profiler.o src/lua50_profiler.c
+In file included from src/lua50_profiler.c:21:0:
+src/lua50_profiler.c: In function ‘calcCallTime’:
+/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src/lauxlib.h:115:25: warning: value computed is not used [-Wunused-value]
+  (luaL_loadstring(L, s) || lua_pcall(L, 0, LUA_MULTRET, 0))
+                         ^
+src/lua50_profiler.c:203:3: note: in expansion of macro ‘luaL_dostring’
+   luaL_dostring(L, lua_code);
+   ^
+mkdir -p bin 
+export MACOSX_DEPLOYMENT_TARGET="10.5"; gcc -O2 -DTESTS -W -Wall -fPIC -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src -I./src -shared -o bin/profiler.so src/clocks.o src/core_profiler.o src/function_meter.o src/stack.o src/lua50_profiler.o
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaprofiler'
+cd lpeg;          make LUADIR=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src                            CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lpeg-0.10.1'
+gcc -fpic -Wall -Wextra -pedantic -Waggregate-return -Wbad-function-cast -Wcast-align -Wcast-qual -Wdeclaration-after-statement -Wdisabled-optimization -Wmissing-prototypes -Wnested-externs -Wpointer-arith -Wshadow -Wsign-compare -Wstrict-prototypes -Wundef -Wwrite-strings  -O2 -DNDEBUG -ansi -I/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src   -c -o lpeg.o lpeg.c
+lpeg.c:361:13: warning: ‘printcaplist’ defined but not used [-Wunused-function]
+ static void printcaplist (Capture *cap) {
+             ^
+gcc -shared -fpic lpeg.o -o lpeg.so
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lpeg-0.10.1'
+make -C lua linux USE_STATIC=NO MYCFLAGS='-DLUA_ROOT=\\\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\\\" -DLUA_RELEASE="\"\\\""Lua 5.1.4.7-rtm"\\\"\""'
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua'
+cd src && make linux
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make all MYCFLAGS="-DLUA_ROOT=\\\"/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/\\\" -DLUA_RELEASE="\"\\\""Lua 5.1.4.7-rtm"\\\"\"" -DLUA_USE_LINUX" MYLIBS="-Wl,-E -ldl -lhistory -lreadline -ltinfo -lncurses "
+make[3]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua'
+cd luaposix;      make LUAINC=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src   posix.so                 CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaposix-5.1.7'
+make[1]: `posix.so' is up to date.
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaposix-5.1.7'
+cd loadsys;       make LUAINC=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src             OS=linux CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/loadsys'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/loadsys'
+cd luafilesystem; make LUA_INC=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src            OS=linux CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luafilesystem'
+make[1]: Nothing to be done for `lib'.
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luafilesystem'
+cd luaprofiler;   make LUA_INC=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src            OS=linux CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaprofiler'
+make[1]: `bin/profiler.so' is up to date.
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaprofiler'
+cd lpeg;          make LUADIR=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src                            CC=gcc
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lpeg-0.10.1'
+make[1]: `lpeg.so' is up to date.
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lpeg-0.10.1'
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lib/lua/5.1
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/share/lua/5.1
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/man/man1
+make -C lua linux INSTALL_TOP=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/ install
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua'
+cd src && make linux
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make all MYCFLAGS=" -DLUA_USE_LINUX" MYLIBS="-Wl,-E -ldl -Wl,-Bstatic -lhistory -lreadline -ltinfo -lncurses  -Wl,-Bdynamic"
+make[3]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua/src'
+cd src && mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//bin /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//include /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//lib /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//man/man1 /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//share/lua/5.1 /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//lib/lua/5.1
+cd src && install -p -m 0755 lua luac /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//bin
+cd src && install -p -m 0644 lua.h luaconf.h lualib.h lauxlib.h ../etc/lua.hpp config.h /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//include
+cd src && install -p -m 0644 liblua.a /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//lib
+cd doc && install -p -m 0644 lua.1 luac.1 /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3//man/man1
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/lua'
+cd luaposix; cp posix.so /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lib/lua/5.1
+cd loadsys; rsync -l *.so* /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lib/lua/5.1
+cd luafilesystem; make LUA_ROOT=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/ LUA_LIB=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lib/lua/5.1 install
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luafilesystem'
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lib/lua/5.1
+cp src/lfs.so /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lib/lua/5.1
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luafilesystem'
+cd luaprofiler;   make LUA_ROOT=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/ LUA_LIB=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lib/lua/5.1 LUA_BIN=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin OS=linux CC=gcc install
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaprofiler'
+install -m 0755 bin/profiler.so /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lib/lua/5.1
+install -m 0755 src/analyzer/summary.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/lua-5.1.4.8/luaprofiler'
+cd lpeg;          cp lpeg.so /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lib/lua/5.1; cp re.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/share/lua/5.1
+cd lua_modules; cp *.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/share/lua/5.1
+cd ..
+export PATH=$SW_BLDDIR/bin:$PATH
+
+#-- 2. Install Lmod
+tar -xf $SW_SOURCES/$PACKAGE/$VERSION/Lmod-5.9.3.tar.bz2
+cd Lmod-5.9.3
+./configure --prefix=$SW_BLDDIR
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+DUPLICATE_PATHS=NO
+CASE_INDEPENDENT_SORTING=NO
+COLORIZE=YES
+AUTO_SWAP=YES
+EXPORT_MODULE=YES
+REDIRECT=NO
+MODULEPATH_ROOT=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles
+ANCIENT=86400
+SHORT_TIME=2
+USE_DOT_FILES=yes
+SPIDER_CACHE_DIRS=
+SPIDER_CACHE_DESCRIPT_FN=
+UPDATE_SYSTEM_FN=
+PREPEND_BLOCK=NORMAL
+ALLOW_TCL_MFILES=yes
+DISABLE_NAME_AUTOSWAP=no
+MPATH_AVAIL=no
+SETTARG=NO
+IGNORE_DIRS=.svn,.git,.hg,.bzr
+PIN_VERSIONS=NO
+checking for git... /usr/bin/git
+checking for tclsh... /usr/bin/tclsh
+checking for sha1sum... /usr/bin/sha1sum
+checking for more... /usr/bin/more
+checking for luac... /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac
+checking for lua... /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/lua
+checking for valid Lua version... 5.1
+checking for lua modules: posix lfs... yes
+checking for lua modules: term... no
+checking for lua modules: json... no
+checking for zsh... no
+configure: creating ./config.status
+config.status: creating makefile
+
+----------------------------------- SUMMARY ----------------------------------
+
+Package version............................. : Lmod-5.9.3
+Package version (git) ...................... :
+
+LUA_INCLUDE................................. : /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/include
+Lua executable.............................. : /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/lua
+Luac executable............................. : /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac
+Prefix...................................... : /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3
+Actual Install dir.......................... : /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3
+
+MODULEPATH_ROOT............................. : /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles
+Wait (s) before rebuilting cache............ : 86400
+Allow Duplicate Paths....................... : NO
+Do not save Cache if build time < .......... : 2
+SPIDER_CACHE_DIRS........................... :
+Prepending multiple dirs (NORMAL / REVERSED) : NORMAL
+Colorized output supported.................. : YES
+File that is touched when system is updated. :
+Allow duplicate entry in PATHs.............. : NO
+Allow tcl modulefiles....................... : yes
+ZSH Tab Completion Functions Site Directory. :
+Use Dot files in ~/.lmod.d.................. : yes
+Full Settarg support........................ : NO
+Have lua-term............................... :
+Have lua-json............................... :
+Support Auto Swap when using families....... : YES
+Export the module shell function in Bash.... : YES
+Disable same name autoswapping.............. : no
+
+------------------------------------------------------------------------------
+
+******************************************************************************
+
+Lmod overwrites the env var BASH_ENV to make the module command available in
+bash scripts. If your site does not set BASH_ENV then you can ignore the
+comments below.
+
+If your site already uses BASH_ENV to point to a site specific script, please
+consider sourcing Lmod's init/bash from your site's file.
+
+BASH_ENV is defined both in:
+   /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/profile
+   /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/cshrc
+
+******************************************************************************
+
+
+******************************************************************************
+
+Lmod is exporting the module command for Bash users. Some sites may have some
+problems. First:
+
+   0.  Make sure that all your machines have shellshock bash patch.
+
+If that does not fix things then you have two choices:
+
+   1.  You configure Lmod not to export the module command.
+   2.  You can filter out the exported functions in the users environment
+       during job submission
+
+If there is a way to do step 2, please try to do so. Otherwise do step 1.
+The advantage of exporting the module command is that it is defined in
+/bin/sh scripts. Because Lmod defines BASH_ENV to point to init/bash,
+it will be defined for /bin/bash scripts.  The trouble is that users
+have to remember to put #!/bin/bash at the first line of their shell
+script to make that work. We used to see tickets where users would
+submit jobs as /bin/sh scripts and wonder why the module command did
+not work.
+
+******************************************************************************
+
+
+Configure complete, Now do:
+
+    $ make install       # -> A complete install
+or
+    $ make pre-install   # -> Install everything but the symbolic link
+
+if [ $? -ne 0 ] ; then
+  echo "Lmod configure failed"
+  exit 1
+fi
+  
+make install
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/tools
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/settarg
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/shells
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/modulefiles/Core
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/share/man/cat1
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/lmodrc.lua" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init    __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/lmodrc.lua; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/bash.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/csh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/ksh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/tcsh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/zsh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/sh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/perl.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/env_modules_python.py.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/lmod_bash_completions" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init    __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/bash.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/csh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/ksh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/tcsh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/zsh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/sh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/perl.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/env_modules_python.py.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/lmod_bash_completions; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/profile.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/cshrc.in" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init    __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/profile.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/cshrc.in; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Timer.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Var.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Configuration.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MasterControl.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/loadModuleFile.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/modfuncs.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Version.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/cmdfuncs.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/StandardPackage.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Cache.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MN_Between.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/PkgBase.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/sandbox.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/myGlobals.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Exec.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Hook.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/PkgTACC.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/colorize.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Spider.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/parseVersion.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Master.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_MgrLoad.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Pkg.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Refresh.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Access.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/CTimer.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Show.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MN_Latest.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Spider.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Load.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/pager.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/SitePackage.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MT.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MN_Match.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/utils.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Options.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MName.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/ModuleStack.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Unload.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_ComputeHash.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/RC2lua.tcl /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/ModulesVersion.tcl /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/tcl2lua.tcl" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Timer.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Var.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Configuration.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MasterControl.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/loadModuleFile.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/modfuncs.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Version.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/cmdfuncs.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/StandardPackage.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Cache.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MN_Between.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/PkgBase.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/sandbox.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/myGlobals.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Exec.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Hook.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/PkgTACC.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/colorize.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Spider.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/parseVersion.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Master.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_MgrLoad.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Pkg.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Refresh.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Access.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/CTimer.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Show.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MN_Latest.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Spider.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Load.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/pager.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/SitePackage.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MT.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MN_Match.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/utils.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/Options.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MName.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/ModuleStack.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_Unload.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/MC_ComputeHash.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/RC2lua.tcl /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/ModulesVersion.tcl /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/tcl2lua.tcl; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/spiderCacheSupport.in.lua --cacheDirs ""          \
+                         --updateFn  ""           \
+                                 --descriptFn ""  \
+                                 >> /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/lmodrc.lua;
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/ProgressBar.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/MF_Lua.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/MF_Base.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/Optiks.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/serializeTbl.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/Dbg.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/ColumnTable.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/json.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/BeautifulTbl.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/pairsByKeys.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/inherits.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/strict.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/Optiks_Option.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/deepcopy.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/TermWidth.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/Banner.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/MF_TCL.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/fileOps.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/base64.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/declare.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/string_utils.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/capture.lua" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/tools __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/ProgressBar.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/MF_Lua.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/MF_Base.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/Optiks.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/serializeTbl.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/Dbg.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/ColumnTable.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/json.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/BeautifulTbl.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/pairsByKeys.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/inherits.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/strict.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/Optiks_Option.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/deepcopy.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/TermWidth.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/Banner.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/MF_TCL.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/fileOps.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/base64.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/declare.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/string_utils.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/tools/capture.lua; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/tools/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/tools/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/tools/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/tools/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/tools/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/tools/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/tools/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Csh.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/BaseShell.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Python.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Bash.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Perl.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Bare.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Fish.lua" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/shells __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Csh.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/BaseShell.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Python.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Bash.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Perl.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Bare.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/shells/Fish.lua; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/shells/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/shells/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/shells/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/shells/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/shells/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/shells/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/shells/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/utils.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/getUname.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/settarg_cmd.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/BuildTarget.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Csh.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/BaseShell.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Bash.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Output.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/STT.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/settarg_rc.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Version.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/ModifyPath.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/CmdLineOptions.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Bare.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/ProcessModuleTable.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/targ.in" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/settarg __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/utils.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/getUname.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/settarg_cmd.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/BuildTarget.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Csh.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/BaseShell.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Bash.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Output.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/STT.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/settarg_rc.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Version.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/ModifyPath.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/CmdLineOptions.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/Bare.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/ProcessModuleTable.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/settarg/targ.in; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/settarg/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/settarg/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/settarg/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/settarg/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/settarg/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/settarg/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/settarg/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/MF/lmod.version.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/MF/settarg.version.lua" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/modulefiles/Core __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/MF/lmod.version.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/MF/settarg.version.lua; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/modulefiles/Core/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/modulefiles/Core/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/modulefiles/Core/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/modulefiles/Core/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/modulefiles/Core/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/modulefiles/Core/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/modulefiles/Core/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+cd /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/pkgs; \
+        make LUA_INC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/include  LIB=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/lib \
+                SHARE=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec CC=gcc install
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3/pkgs'
+cd term; make install
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3/pkgs/term'
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/term
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/lib/term
+gcc  -fPIC -I/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/include   -c -o core.o core.c
+gcc  -fPIC -I/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/include -shared -Wl,-soname,core.so.1  -o core.so.1.0.1  core.o -lc
+ln -s core.so.1.0.1 core.so.1
+ln -s core.so.1 core.so
+rsync -l *.so* /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/lib/term
+cp term/*.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/term
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3/pkgs/term'
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3/pkgs'
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/computeHashSum.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/lmod.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/addto.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/getmt.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/processMT.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/spider.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/processModuleUsage.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/reportUsers.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/clearMT_cmd.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/ml_cmd.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/spiderCacheSupport.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/sh_to_modulefile.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/update_lmod_system_cache_files.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/ignore_dirs_converter" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/computeHashSum.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/lmod.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/addto.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/getmt.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/processMT.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/spider.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/processModuleUsage.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/reportUsers.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/clearMT_cmd.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/ml_cmd.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/spiderCacheSupport.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/sh_to_modulefile.in.lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/update_lmod_system_cache_files.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/ignore_dirs_converter; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/lua /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/src/lmod.in.lua bash --help >/dev/null 2> /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/share/man/cat1/module.1
+if [ -n "" ]; then               \
+          for i in ${ZSH_SITE_FUNCTIONS_DIRS//:/ }; do             \
+            cp /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/zsh/_ml /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/zsh/_module $i  2> /dev/null;                      \
+  done;                                                     \
+  true;                                                     \
+        fi
+make PKGV=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod shell_init
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+make FILELIST="/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/bash.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/csh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/ksh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/tcsh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/zsh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/sh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/perl.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/env_modules_python.py.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/lmod_bash_completions" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init    __installMe
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+for i in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/bash.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/csh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/ksh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/tcsh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/zsh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/sh.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/perl.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/env_modules_python.py.in /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/Lmod-5.9.3/init/lmod_bash_completions; do                                     	   	  \
+           bareN=${i##*/};                                           	   	  \
+           fn=${bareN%%.in*};                                        	   	  \
+           ext=${bareN#*.};                                          	   	  \
+   : echo "DIRLOC/fn: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn";                             	  \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   	  \
+        -e 's|@path_to_lua@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin|g'                 	   	  \
+        -e 's|@path_to_hashsum@|/usr/bin/sha1sum|g'         	   	  \
+        -e 's|@path_to_pager@|/usr/bin/more|g'             	   	  \
+        -e 's|@case_independent_sorting@|NO|g'   \
+                -e 's|@lmod_full_settarg_support@|no|g' \
+                -e 's|@use_dot_files@|yes|g'             	   	  \
+                -e 's|@git@|@git@|g'                              	  \
+                -e 's|--@ignore_dirs@--|[\".svn\"] = true, [\".git\"] = true, [\".hg\"] = true, [\".bzr\"] = true, |g'                         \
+                -e 's|@path_to_luac@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/luac|g'                  	  \
+                -e 's|@have_lua_term@||g'                  	  \
+                -e 's|@have_lua_json@||g'                  	  \
+                -e 's|@disable_name_autoswap@|no|g'     	  \
+        -e 's|@redirect@|NO|g'                       	   	  \
+        -e 's|@libexec@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/libexec|g'                       	   	  \
+        -e 's|@pin_versions@|NO|g'                	   	  \
+        -e 's|@auto_swap@|YES|g'                      	   	  \
+        -e 's|@export_module@|YES|g'             	   	  \
+                -e 's|@lmod_version@|5.9.3|g'               	   	  \
+        -e 's|@ancient@|86400|g'                         	   	  \
+        -e 's|@prepend_block@|normal|g'             	   	  \
+        -e 's|@colorize@|yes|g'                       	   	  \
+        -e 's|@duplicate_paths@|NO|g'      	   	  \
+        -e 's|@allow_tcl_mfiles@|yes|g'      	   	  \
+        -e 's|@mpath_avail@|no|g'            	   	  \
+        -e 's|@short_time@|2|g'                   	   	  \
+        -e 's|@cacheDirs@||g'             	   	  \
+        -e 's|@updateSystemFn@||g'         	   	  \
+        -e 's|@modulepath_root@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/modulefiles|g'         	   	  \
+                -e 's|@PKGV@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'                                    	  \
+                -e 's|@PKG@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod|g'         < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn; 	   	  \
+            [ "$ext" = "in.lua" -o "$ext" = "tcl" -o "$ext" = "in" ] && 	  \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn;                                    	  \
+            if [ "$ext" = "version.lua" ]; then                           	  \
+               mname=${bareN%%.*};                                        	  \
+       : echo "DIRLOC: /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname";                         	  \
+       mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname;                                 	  \
+               mv /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$fn /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/5.9.3/init/$mname/5.9.3.lua;         	  \
+            fi;                                                            	  \
+        done
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/Lmod-5.9.3'
+rm -f /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod
+ln -s 5.9.3 /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/lmod/lmod
+if [ $? -ne 0 ] ; then
+  echo "Lmod make failed"
+  exit 1
+fi
+  
+cd ..
+export LMOD_DIR=$SW_BLDDIR
+
+#--3. Install XALT
+export XALT_ETC_DIR=${SW_BLDDIR}/etc
+
+#tar -xf $SW_SOURCES/$PACKAGE/$VERSION/$SRCDIR.tar.gz
+git clone https://github.com/Fahey-McLay/xalt.git $SRCDIR
+Cloning into 'xalt-0.7.6'...
+cd $SRCDIR
+./configure --prefix=$SW_BLDDIR --with-etcDir=$XALT_ETC_DIR
+TRANSMISSION=file
+SITE=default
+ETC_DIR=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/etc
+checking for as... /usr/bin/as
+checking for basename... /usr/bin/basename
+checking for cat... /usr/bin/cat
+checking for date... /usr/bin/date
+checking for dirname... /usr/bin/dirname
+checking for file... /usr/bin/file
+checking for git... /usr/bin/git
+checking for grep... /usr/bin/grep
+checking for head... /usr/bin/head
+checking for ldd... /usr/bin/ldd
+checking for logger... /usr/bin/logger
+checking for mkdir... /usr/bin/mkdir
+checking for objdump... /usr/bin/objdump
+checking for otool... no
+checking for python... /usr/bin/python
+checking for readlink... /usr/bin/readlink
+checking for rm... /usr/bin/rm
+checking for sha1sum... /usr/bin/sha1sum
+checking for uuidgen... /usr/bin/uuidgen
+checking python module: psutil... no
+checking for pstree... /usr/bin/pstree
+Use contrib pstree... no
+Use contrib argparse... no
+configure: creating ./config.status
+config.status: creating makefile
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+make
+done
+make install
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/site
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/sbin
+mkdir -p /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/etc
+make  -f makefile FILELIST="/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_hydra.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_openmpi.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_which_mpi.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_syshost_default.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_site_pkg.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_ncar.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_ibrun.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_aprun.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_sgimpt.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_srun.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_parse_mpirun_args.py" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/site    __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6'
+for i in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_hydra.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_openmpi.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_which_mpi.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_syshost_default.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_site_pkg.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_ncar.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_ibrun.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_aprun.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_sgimpt.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_find_exec_srun.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/xalt_parse_mpirun_args.py; do                                     	   \
+           bareN=${i##*/};                                           	   \
+           fn=${bareN%%.in*};                                        	   \
+   ext=${bareN#$fn.}                                             \
+           oext=;                                                          \
+   : echo "bareN: $bareN, ext: $ext";                            \
+           [ "$ext" = "in.py" ] && oext=".py";                            \
+           [ "$ext" = "in.c" ]  && oext=".c";                             \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   \
+        -e 's|@date@|/usr/bin/date|g'                            \
+        -e 's|@etc_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/etc|g'                              \
+        -e 's|@file@|/usr/bin/file|g'                            \
+        -e 's|@git@|0.7.6|g'                              \
+        -e 's|@grep@|/usr/bin/grep|g'                            \
+        -e 's|@head@|/usr/bin/head|g'                            \
+        -e 's|@ldd@|/usr/bin/ldd|g'                              \
+        -e 's|@logger@|/usr/bin/logger|g'                        \
+        -e 's|@objdump@|/usr/bin/objdump|g'                      \
+        -e 's|@otool@||g'                          \
+        -e 's|@path_to_as@|/usr/bin/as|g'                        \
+        -e 's|@path_to_basename@|/usr/bin/basename|g'            \
+        -e 's|@path_to_cat@|/usr/bin/cat|g'                      \
+        -e 's|@path_to_dirname@|/usr/bin/dirname|g'              \
+        -e 's|@path_to_mkdir@|/usr/bin/mkdir|g'                  \
+        -e 's|@path_to_pstree@|/usr/bin/pstree|g'                \
+        -e 's|@path_to_readlink@|/usr/bin/readlink|g'            \
+        -e 's|@path_to_rm@|/usr/bin/rm|g'                        \
+        -e 's|@python@|/usr/bin/python|g'                        \
+        -e 's|@sha1sum@|/usr/bin/sha1sum|g'                      \
+        -e 's|@site_name@|default|g'                          \
+        -e 's|@sys_ld_lib_path@|/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/openmpi/1.10.3/centos7.2_gnu5.3.0/lib:/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/gcc/5.3.0/centos7.2_gcc4.8.5/lib64|g'              \
+        -e 's|@transmission@|file|g'                    \
+        -e 's|@uuidgen@|/usr/bin/uuidgen|g'                      \
+        -e 's|@version@|0.7.6|g'                              \
+        -e 's|@xalt_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                 	   \
+        -e 's|@xalt_libexec_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec|g'                     \
+        -e 's|@xalt_site_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/site|g'                           \
+                -e 's|@have_pymod_psutil@|no|g'          \
+                           < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/site/$fn$oext;                   \
+           [ "$ext" = "in" -o "$ext" = "in.py" ] &&                      \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/site/$fn$oext;                              \
+    true;                                                          \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6'
+make -f makefile  FILELIST="/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/conf_create.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/createDB.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_db.conf /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_file_to_db.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_syslog_to_db.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_rmap_lmap.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_file_to_db_dir.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_usage_report.py" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/sbin    __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6'
+for i in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/conf_create.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/createDB.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_db.conf /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_file_to_db.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_syslog_to_db.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_rmap_lmap.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_file_to_db_dir.in.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_usage_report.py; do                                     	   \
+           bareN=${i##*/};                                           	   \
+           fn=${bareN%%.in*};                                        	   \
+   ext=${bareN#$fn.}                                             \
+           oext=;                                                          \
+   : echo "bareN: $bareN, ext: $ext";                            \
+           [ "$ext" = "in.py" ] && oext=".py";                            \
+           [ "$ext" = "in.c" ]  && oext=".c";                             \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   \
+        -e 's|@date@|/usr/bin/date|g'                            \
+        -e 's|@etc_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/etc|g'                              \
+        -e 's|@file@|/usr/bin/file|g'                            \
+        -e 's|@git@|0.7.6|g'                              \
+        -e 's|@grep@|/usr/bin/grep|g'                            \
+        -e 's|@head@|/usr/bin/head|g'                            \
+        -e 's|@ldd@|/usr/bin/ldd|g'                              \
+        -e 's|@logger@|/usr/bin/logger|g'                        \
+        -e 's|@objdump@|/usr/bin/objdump|g'                      \
+        -e 's|@otool@||g'                          \
+        -e 's|@path_to_as@|/usr/bin/as|g'                        \
+        -e 's|@path_to_basename@|/usr/bin/basename|g'            \
+        -e 's|@path_to_cat@|/usr/bin/cat|g'                      \
+        -e 's|@path_to_dirname@|/usr/bin/dirname|g'              \
+        -e 's|@path_to_mkdir@|/usr/bin/mkdir|g'                  \
+        -e 's|@path_to_pstree@|/usr/bin/pstree|g'                \
+        -e 's|@path_to_readlink@|/usr/bin/readlink|g'            \
+        -e 's|@path_to_rm@|/usr/bin/rm|g'                        \
+        -e 's|@python@|/usr/bin/python|g'                        \
+        -e 's|@sha1sum@|/usr/bin/sha1sum|g'                      \
+        -e 's|@site_name@|default|g'                          \
+        -e 's|@sys_ld_lib_path@|/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/openmpi/1.10.3/centos7.2_gnu5.3.0/lib:/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/gcc/5.3.0/centos7.2_gcc4.8.5/lib64|g'              \
+        -e 's|@transmission@|file|g'                    \
+        -e 's|@uuidgen@|/usr/bin/uuidgen|g'                      \
+        -e 's|@version@|0.7.6|g'                              \
+        -e 's|@xalt_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                 	   \
+        -e 's|@xalt_libexec_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec|g'                     \
+        -e 's|@xalt_site_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/site|g'                           \
+                -e 's|@have_pymod_psutil@|no|g'          \
+                           < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/sbin/$fn$oext;                   \
+           [ "$ext" = "in" -o "$ext" = "in.py" ] &&                      \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/sbin/$fn$oext;                              \
+    true;                                                          \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6'
+make -f makefile  FILELIST="/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/mpirun.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/mpiexec.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/ibrun.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/ibrun.symm.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/aprun.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/srun.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/mpirun.lsf.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/ld.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/ld.gold.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_helper_functions.sh" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin     __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6'
+for i in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/mpirun.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/mpiexec.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/ibrun.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/ibrun.symm.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/aprun.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/srun.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/job_launcher/mpirun.lsf.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/ld.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/ld.gold.in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_helper_functions.sh; do                                     	   \
+           bareN=${i##*/};                                           	   \
+           fn=${bareN%%.in*};                                        	   \
+   ext=${bareN#$fn.}                                             \
+           oext=;                                                          \
+   : echo "bareN: $bareN, ext: $ext";                            \
+           [ "$ext" = "in.py" ] && oext=".py";                            \
+           [ "$ext" = "in.c" ]  && oext=".c";                             \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   \
+        -e 's|@date@|/usr/bin/date|g'                            \
+        -e 's|@etc_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/etc|g'                              \
+        -e 's|@file@|/usr/bin/file|g'                            \
+        -e 's|@git@|0.7.6|g'                              \
+        -e 's|@grep@|/usr/bin/grep|g'                            \
+        -e 's|@head@|/usr/bin/head|g'                            \
+        -e 's|@ldd@|/usr/bin/ldd|g'                              \
+        -e 's|@logger@|/usr/bin/logger|g'                        \
+        -e 's|@objdump@|/usr/bin/objdump|g'                      \
+        -e 's|@otool@||g'                          \
+        -e 's|@path_to_as@|/usr/bin/as|g'                        \
+        -e 's|@path_to_basename@|/usr/bin/basename|g'            \
+        -e 's|@path_to_cat@|/usr/bin/cat|g'                      \
+        -e 's|@path_to_dirname@|/usr/bin/dirname|g'              \
+        -e 's|@path_to_mkdir@|/usr/bin/mkdir|g'                  \
+        -e 's|@path_to_pstree@|/usr/bin/pstree|g'                \
+        -e 's|@path_to_readlink@|/usr/bin/readlink|g'            \
+        -e 's|@path_to_rm@|/usr/bin/rm|g'                        \
+        -e 's|@python@|/usr/bin/python|g'                        \
+        -e 's|@sha1sum@|/usr/bin/sha1sum|g'                      \
+        -e 's|@site_name@|default|g'                          \
+        -e 's|@sys_ld_lib_path@|/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/openmpi/1.10.3/centos7.2_gnu5.3.0/lib:/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/gcc/5.3.0/centos7.2_gcc4.8.5/lib64|g'              \
+        -e 's|@transmission@|file|g'                    \
+        -e 's|@uuidgen@|/usr/bin/uuidgen|g'                      \
+        -e 's|@version@|0.7.6|g'                              \
+        -e 's|@xalt_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                 	   \
+        -e 's|@xalt_libexec_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec|g'                     \
+        -e 's|@xalt_site_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/site|g'                           \
+                -e 's|@have_pymod_psutil@|no|g'          \
+                           < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/$fn$oext;                   \
+           [ "$ext" = "in" -o "$ext" = "in.py" ] &&                      \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/bin/$fn$oext;                              \
+    true;                                                          \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6'
+make -f makefile  FILELIST="/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_generate_assembly.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_generate_linkdata.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_run_submission.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_util.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/XALTdb.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_strip_linklib.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/progressBar.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_epoch.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_working_python.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_transmission_factory.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_stack.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/Rmap_XALT.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_global.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/BeautifulTbl.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_extract_linker.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_name_mapping.py" DIRLOC=/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec __installMe
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6'
+for i in /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_generate_assembly.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_generate_linkdata.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_run_submission.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_util.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/XALTdb.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_strip_linklib.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/progressBar.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_epoch.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_working_python.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_transmission_factory.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_stack.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/Rmap_XALT.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_global.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/BeautifulTbl.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_extract_linker.py /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/src/xalt_name_mapping.py; do                                     	   \
+           bareN=${i##*/};                                           	   \
+           fn=${bareN%%.in*};                                        	   \
+   ext=${bareN#$fn.}                                             \
+           oext=;                                                          \
+   : echo "bareN: $bareN, ext: $ext";                            \
+           [ "$ext" = "in.py" ] && oext=".py";                            \
+           [ "$ext" = "in.c" ]  && oext=".c";                             \
+           sed  -e 's|@PREFIX@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                            	   \
+        -e 's|@date@|/usr/bin/date|g'                            \
+        -e 's|@etc_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/etc|g'                              \
+        -e 's|@file@|/usr/bin/file|g'                            \
+        -e 's|@git@|0.7.6|g'                              \
+        -e 's|@grep@|/usr/bin/grep|g'                            \
+        -e 's|@head@|/usr/bin/head|g'                            \
+        -e 's|@ldd@|/usr/bin/ldd|g'                              \
+        -e 's|@logger@|/usr/bin/logger|g'                        \
+        -e 's|@objdump@|/usr/bin/objdump|g'                      \
+        -e 's|@otool@||g'                          \
+        -e 's|@path_to_as@|/usr/bin/as|g'                        \
+        -e 's|@path_to_basename@|/usr/bin/basename|g'            \
+        -e 's|@path_to_cat@|/usr/bin/cat|g'                      \
+        -e 's|@path_to_dirname@|/usr/bin/dirname|g'              \
+        -e 's|@path_to_mkdir@|/usr/bin/mkdir|g'                  \
+        -e 's|@path_to_pstree@|/usr/bin/pstree|g'                \
+        -e 's|@path_to_readlink@|/usr/bin/readlink|g'            \
+        -e 's|@path_to_rm@|/usr/bin/rm|g'                        \
+        -e 's|@python@|/usr/bin/python|g'                        \
+        -e 's|@sha1sum@|/usr/bin/sha1sum|g'                      \
+        -e 's|@site_name@|default|g'                          \
+        -e 's|@sys_ld_lib_path@|/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/openmpi/1.10.3/centos7.2_gnu5.3.0/lib:/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/gcc/5.3.0/centos7.2_gcc4.8.5/lib64|g'              \
+        -e 's|@transmission@|file|g'                    \
+        -e 's|@uuidgen@|/usr/bin/uuidgen|g'                      \
+        -e 's|@version@|0.7.6|g'                              \
+        -e 's|@xalt_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3|g'                 	   \
+        -e 's|@xalt_libexec_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec|g'                     \
+        -e 's|@xalt_site_dir@|/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/site|g'                           \
+                -e 's|@have_pymod_psutil@|no|g'          \
+                           < $i > /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec/$fn$oext;                   \
+           [ "$ext" = "in" -o "$ext" = "in.py" ] &&                      \
+               chmod +x /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec/$fn$oext;                              \
+    true;                                                          \
+        done
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6'
+cd /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/xalt/0.7.6/centos7.3/xalt-0.7.6/contrib;                                        \
+        mkdir -p  /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec/getent;                     \
+        cp getent/*.py /software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/libexec/getent
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+  
+cd $SW_BLDDIR
+
+#-- remove non-supported job launchers
+cd bin
+rm -f aprun ibrun* srun*
+cd ..
+
+#-- Manual configuration for syshost & database access
+cd site
+cat > xalt_syshost_default.py.patch << EOF
+--- xalt_syshost_default.py.orig	2016-09-26 14:19:54.492681746 -0400
++++ xalt_syshost_default.py	2016-09-26 14:31:11.136701362 -0400
+@@ -32,43 +32,14 @@
+ # must set this to True or False depending on your naming scheme
+ # unless you plan to do a manual mapping of all your machine names
+ # see below for description of level1 and level2
+-level1format = False
++level1format = True
+ 
+ def map_syshost(nameA):
+   """
+   Use the nameA array to report a system name
+   """
+ 
+-  nicsT = {
+-    "kraken"        : "kraken",
+-    "aprun1-darter" : "darter",
+-    "aprun2-darter" : "darter",
+-    "aprun3-darter" : "darter",
+-    "aprun4-darter" : "darter",
+-    "aprun5-darter" : "darter",
+-    "aprun6-darter" : "darter",
+-    "aprun7-darter" : "darter",
+-    "aprun8-darter" : "darter",
+-    "kfs"           : "keeneland",
+-    "titan"         : "titan",
+-    "nid00026"      : "mars",
+-    "nid00027"      : "mars",
+-    "nid00043"      : "mars",
+-    "nid00053"      : "mars",
+-    "verne"         : "verne",
+-    "nautilus"      : "nautilus",
+-    "conseil"       : "nautilus",
+-    "arronax"       : "nautilus",
+-    "nedland"       : "nautilus",
+-    "harpoon"       : "nautilus",
+-  }
+-  result = None
+-
+-  for name in nameA:
+-    for k in nicsT:
+-      if (name.find(k,0) != -1):
+-        result = nicsT[k]
+-        return result
++  result = 'orcondo'
+   return result
+   
+ def level1_syshost(nameA):
+EOF
+
+patch -p0 < xalt_syshost_default.py.patch
+patching file xalt_syshost_default.py
+rm xalt_syshost_default.py.patch
+cd ..
+
+cd etc
+cat > dbconf.tmp << EOF
+cadesgold
+xaltinsert
+AuvzqchzpThoc.18idql
+xalt
+EOF
+python ../sbin/conf_create.py < dbconf.tmp 
+/usr/lib64/python2.7/getpass.py:83: GetPassWarning: Can not control echo on the terminal.
+  passwd = fallback_getpass(prompt, stream)
+Database host: Database user: Database name: rm dbconf.tmp
+
+cd $SW_BLDDIR
+
+#-- Patching so that 'file' transmission goes to $XALT_DIR/data
+mkdir $SW_BLDDIR/data
+chmod 1777 $SW_BLDDIR/data
+
+cd $SW_BLDDIR/bin
+cat > ld.patch << EOF
+--- ld.orig	2016-09-26 15:39:29.765007605 -0400
++++ ld	2016-09-26 15:39:52.476909142 -0400
+@@ -147,7 +147,7 @@
+ ARGOBJ=\$WRKDIR/xalt.o
+ FUNCRAW=\$WRKDIR/funcraw.txt
+ FUNCLIST=\$WRKDIR/funclist.txt
+-RESULT=\$HOME/.xalt.d/link.\${SYSHOST}.\${DATESTR}.\$UUID.json
++RESULT=\$XALT_DIR/data/link.\${SYSHOST}.\${DATESTR}.\$UUID.json
+ 
+ if [ ! -d \$WRKDIR ]; then
+   \$MKDIR -p \$WRKDIR
+EOF
+patch -p0 < ld.patch
+patching file ld
+Hunk #1 succeeded at 161 (offset 14 lines).
+rm ld.patch
+
+cd $SW_BLDDIR/libexec
+cat > xalt_run_submission.patch << EOF
+--- xalt_run_submission.py.orig	2016-09-26 15:40:47.813669242 -0400
++++ xalt_run_submission.py	2016-09-26 15:41:05.474592677 -0400
+@@ -390,8 +390,8 @@
+ 
+     for run in runA:
+       fnA     = []
+-      fnA.append(os.environ.get("HOME","/"))
+-      fnA.append("/.xalt.d/run")
++      fnA.append(os.environ.get("XALT_DIR","/"))
++      fnA.append("/data/run")
+       fnA.append(".")
+       fnA.append(args.syshost)
+       fnA.append(".")
+EOF
+patch -p0 < xalt_run_submission.patch
+patching file xalt_run_submission.py
+Hunk #1 succeeded at 392 (offset 2 lines).
+rm xalt_run_submission.patch
+
+#-- Create ReverseMap
+mkdir -p $SW_BLDDIR/etc/reverseMapD
+export PATH=${LMOD_DIR}/lmod/lmod/libexec:$PATH
+spider -o jsonReverseMapT $MODULEPATH > \
+  $SW_BLDDIR/etc/reverseMapD/jsonReverseMapT.json
+
+export PYTHONPATH=${SW_BLDDIR}/libexec:${PYTHONPATH}
+
+cd $SW_BLDDIR
+sbin/xalt_rmap_lmap.py
+
+############################### if this far, return 0
+exit 0
+/software/dev_tools/swtree/cs400/xalt/0.7.6/centos7.3/rebuild : passed (0)

@@ -1,0 +1,216 @@
+#!/bin/bash
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   unique work dir that local script can use
+# Output
+#   Return code of 0=success or 1=failure 
+##############################
+
+# exit 3 is a signal to the sw infrastructure that this template has not 
+# been updated; please delete it when ready
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+set -o verbose
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include doc share man etc libexec info
+
+#clear out status and old SRCDIR file since re-making
+rm -f status
+rm -rf $SRCDIR lua-5.1.4.8 Lmod-5.9.3 lmod
+
+#-- 1. Install Lua, downloaded from Lmod's sourceforge page to
+tar -xf $SW_SOURCES/$PACKAGE/$VERSION/lua-5.1.4.8.tar.gz
+cd lua-5.1.4.8
+./configure --prefix=$SW_BLDDIR
+make && make install
+cd ..
+export PATH=$SW_BLDDIR/bin:$PATH
+
+#-- 2. Install Lmod
+tar -xf $SW_SOURCES/$PACKAGE/$VERSION/Lmod-5.9.3.tar.bz2
+cd Lmod-5.9.3
+./configure --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "Lmod configure failed"
+  exit 1
+fi
+  
+make install
+if [ $? -ne 0 ] ; then
+  echo "Lmod make failed"
+  exit 1
+fi
+  
+cd ..
+export LMOD_DIR=$SW_BLDDIR
+
+#--3. Install XALT
+export XALT_ETC_DIR=${SW_BLDDIR}/etc
+
+#tar -xf $SW_SOURCES/$PACKAGE/$VERSION/$SRCDIR.tar.gz
+git clone https://github.com/Fahey-McLay/xalt.git $SRCDIR
+cd $SRCDIR
+./configure --prefix=$SW_BLDDIR --with-etcDir=$XALT_ETC_DIR
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+make
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+  
+cd $SW_BLDDIR
+
+#-- remove non-supported job launchers
+cd bin
+rm -f aprun ibrun* srun*
+cd ..
+
+#-- Manual configuration for syshost & database access
+cd site
+cat > xalt_syshost_default.py.patch << EOF
+--- xalt_syshost_default.py.orig	2016-09-26 14:19:54.492681746 -0400
++++ xalt_syshost_default.py	2016-09-26 14:31:11.136701362 -0400
+@@ -32,43 +32,14 @@
+ # must set this to True or False depending on your naming scheme
+ # unless you plan to do a manual mapping of all your machine names
+ # see below for description of level1 and level2
+-level1format = False
++level1format = True
+ 
+ def map_syshost(nameA):
+   """
+   Use the nameA array to report a system name
+   """
+ 
+-  nicsT = {
+-    "kraken"        : "kraken",
+-    "aprun1-darter" : "darter",
+-    "aprun2-darter" : "darter",
+-    "aprun3-darter" : "darter",
+-    "aprun4-darter" : "darter",
+-    "aprun5-darter" : "darter",
+-    "aprun6-darter" : "darter",
+-    "aprun7-darter" : "darter",
+-    "aprun8-darter" : "darter",
+-    "kfs"           : "keeneland",
+-    "titan"         : "titan",
+-    "nid00026"      : "mars",
+-    "nid00027"      : "mars",
+-    "nid00043"      : "mars",
+-    "nid00053"      : "mars",
+-    "verne"         : "verne",
+-    "nautilus"      : "nautilus",
+-    "conseil"       : "nautilus",
+-    "arronax"       : "nautilus",
+-    "nedland"       : "nautilus",
+-    "harpoon"       : "nautilus",
+-  }
+-  result = None
+-
+-  for name in nameA:
+-    for k in nicsT:
+-      if (name.find(k,0) != -1):
+-        result = nicsT[k]
+-        return result
++  result = 'orcondo'
+   return result
+   
+ def level1_syshost(nameA):
+EOF
+
+patch -p0 < xalt_syshost_default.py.patch
+rm xalt_syshost_default.py.patch
+cd ..
+
+cd etc
+cat > dbconf.tmp << EOF
+cadesgold
+xaltinsert
+AuvzqchzpThoc.18idql
+xalt
+EOF
+python ../sbin/conf_create.py < dbconf.tmp 
+rm dbconf.tmp
+
+cd $SW_BLDDIR
+
+#-- Patching so that 'file' transmission goes to $XALT_DIR/data
+mkdir $SW_BLDDIR/data
+chmod 1777 $SW_BLDDIR/data
+
+cd $SW_BLDDIR/bin
+cat > ld.patch << EOF
+--- ld.orig	2016-09-26 15:39:29.765007605 -0400
++++ ld	2016-09-26 15:39:52.476909142 -0400
+@@ -147,7 +147,7 @@
+ ARGOBJ=\$WRKDIR/xalt.o
+ FUNCRAW=\$WRKDIR/funcraw.txt
+ FUNCLIST=\$WRKDIR/funclist.txt
+-RESULT=\$HOME/.xalt.d/link.\${SYSHOST}.\${DATESTR}.\$UUID.json
++RESULT=\$XALT_DIR/data/link.\${SYSHOST}.\${DATESTR}.\$UUID.json
+ 
+ if [ ! -d \$WRKDIR ]; then
+   \$MKDIR -p \$WRKDIR
+EOF
+patch -p0 < ld.patch
+rm ld.patch
+
+cd $SW_BLDDIR/libexec
+cat > xalt_run_submission.patch << EOF
+--- xalt_run_submission.py.orig	2016-09-26 15:40:47.813669242 -0400
++++ xalt_run_submission.py	2016-09-26 15:41:05.474592677 -0400
+@@ -390,8 +390,8 @@
+ 
+     for run in runA:
+       fnA     = []
+-      fnA.append(os.environ.get("HOME","/"))
+-      fnA.append("/.xalt.d/run")
++      fnA.append(os.environ.get("XALT_DIR","/"))
++      fnA.append("/data/run")
+       fnA.append(".")
+       fnA.append(args.syshost)
+       fnA.append(".")
+EOF
+patch -p0 < xalt_run_submission.patch
+rm xalt_run_submission.patch
+
+#-- Create ReverseMap
+mkdir -p $SW_BLDDIR/etc/reverseMapD
+export PATH=${LMOD_DIR}/lmod/lmod/libexec:$PATH
+spider -o jsonReverseMapT $MODULEPATH > \
+  $SW_BLDDIR/etc/reverseMapD/jsonReverseMapT.json
+
+export PYTHONPATH=${SW_BLDDIR}/libexec:${PYTHONPATH}
+
+cd $SW_BLDDIR
+sbin/xalt_rmap_lmap.py
+
+############################### if this far, return 0
+exit 0
