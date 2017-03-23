@@ -1,0 +1,59 @@
+set -o verbose
+
+echo "------ Building Third Party dependency for VisIt ----------"
+which gcc
+
+rm -rf $THIRD_PARTY_DIR 
+mkdir $THIRD_PARTY_DIR
+cd $THIRD_PARTY_DIR
+
+
+tar -xf  $SW_SOURCES/${PACKAGE}/${VERSION}/$MAKEDEP_SRC.tar.gz
+cd $MAKEDEP_SRC
+./configure --prefix=$SW_BLDDIR/$THIRD_PARTY_DIR
+if [ $? -ne 0 ] ; then
+  echo "makedepend config failed."
+  exit 1
+fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "makedepend install failed."
+  exit 1
+fi
+cd ../
+
+export PATH=$SW_BLDDIR/$THIRD_PARTY_DIR/bin:$PATH
+
+
+cp $SW_SOURCES/${PACKAGE}/${VERSION}/$BLD_SCRIPT .
+
+cat > build_answers.txt << EOF
+yes
+EOF
+
+./$BLD_SCRIPT --console --no-visit --hdf5 --silo --h5part \
+--boxlib --netcdf --mesa < build_answers.txt 
+
+if [ $? -ne 0 ] ; then
+  echo "$BLD_SCRIPT 3rd Party install failed."
+  exit 1
+fi
+
+CMAKE_CONF=$(tail ${BLD_SCRIPT}_log | grep 'Done creating' | cut -d' ' -f3)
+echo "SET(VISIT_VERBOSE_MAKEFILE TRUE)" >> $CMAKE_CONF
+echo "VISIT_OPTION_DEFAULT(VISIT_PARALLEL ON)" >> $CMAKE_CONF
+echo "VISIT_OPTION_DEFAULT(VISIT_MPI_COMPILER /software/tools/apps/openmpi/gcc/1.10.2/5.3.0/bin/mpic++)" >> $CMAKE_CONF
+echo "VISIT_OPTION_DEFAULT(VISIT_MPI_C_FLAGS "-DOMPI_SKIP_MPICXX")" >> $CMAKE_CONF
+echo "VISIT_OPTION_DEFAULT(VISIT_MPI_CXX_FLAGS "-DOMPI_SKIP_MPICXX")" >> $CMAKE_CONF
+
+cp $CMAKE_CONF $SW_BLDDIR/$SRCDIR/src/config-site
+
+CMAKE_VER=$(grep -m 1 'Checking for cmake' ${BLD_SCRIPT}_log | cut -d' ' -f3 | cut -d'-' -f2)
+export PATH=$SW_BLDDIR/$THIRD_PARTY_DIR/visit/cmake/$CMAKE_VER/linux-x86_64_gcc-5.3/bin:$PATH
+
+
+cd ../
+
+set +o verbose
+

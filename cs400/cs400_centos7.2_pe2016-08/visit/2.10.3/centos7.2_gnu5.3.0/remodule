@@ -1,0 +1,30 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PE-gnu
+  module unload PE-intel
+  module unload PE-pgi
+  module load PE-gnu
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+MAKEDEP_SRC=makedepend-1.0.5
+# env vars here
+
+PACKAGE=visit
+VERSION=2.10.3
+
+SRCDIR=${PACKAGE}${VERSION}
+THIRD_PARTY_DIR=third-party${VERSION}
+
+BLD_SCRIPT=build_visit2_10_3
+# these may need to go up in the special section between ###
+export CC=pecc
+export CXX=pec++
+export F77=pefortran
+export F90=pefortran
+export F9C=pefortran
+export F9X=pefortran
+export F03=pefortran
+export FC=pefortran
+
+export PE_ADD_RPATH=1

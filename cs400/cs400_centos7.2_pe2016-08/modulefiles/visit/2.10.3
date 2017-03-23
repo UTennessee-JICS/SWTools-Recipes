@@ -1,0 +1,44 @@
+#%Module
+#@APPLICATION@ apps
+
+set desc        "This modulefile sets up environment to use VisIt."
+set whatis      "VisIt is an interactive parallel visualization \
+		 and graphical analysis tool for viewing scientific data."
+set onload      ""
+
+
+set arch	cs400_centos7.2_pe2016-08
+set app 	visit
+set ver 	2.10.3
+set swhome	/software/dev_tools/swtree
+set build	centos7.2_gnu5.3.0
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+module load PE-gnu
+set app_dir 	${swhome}/$arch/$app/$ver/$build
+
+
+prepend-path    PATH            $app_dir/bin
+prepend-path	LD_LIBRARY_PATH	$app_dir/lib
+#prepend-path	LD_LIBRARY_PATH	/software/tools/spack/opt/spack/linux-x86_64/gcc-4.8.5/gcc-5.3.0-5hy3c4b3xqemygnfwyl5dsc753gbvzrc/lib64
+
+set APP         [string toupper $app]
+
+setenv          ${APP}_DIR      $app_dir
+setenv          ${APP}_LIB      $app_dir/lib
+
+
