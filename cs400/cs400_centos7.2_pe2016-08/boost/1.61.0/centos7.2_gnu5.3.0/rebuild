@@ -1,0 +1,85 @@
+#!/bin/bash
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   unique work dir that local script can use
+# Output
+#   Return code of 0=success or 1=failure 
+##############################
+
+# exit 3 is a signal to the sw infrastructure that this template has not 
+# been updated; please delete it when ready
+#exit 3
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+set -o verbose
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include doc share man etc libexec info
+
+#clear out status and old SRCDIR file since re-making
+rm -f status
+rm -rf $SRCDIR
+
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$SRCDIR.tar.gz
+
+cd $SRCDIR
+
+which python
+
+./bootstrap.sh --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE bootstrap failed"
+  exit 1
+fi
+
+sed -i 's|# List|using mpi : mpic++ ;\n # List|' project-config.jam
+
+./b2 -j4 install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+cd $SW_BLDDIR
+
+#-- Write pkg-config file
+mkdir -p $SW_BLDDIR/lib/pkgconfig
+cat > $SW_BLDDIR/lib/pkgconfig/${PACKAGE}.pc << EOF
+prefix=$SW_BLDDIR
+includedir=\${prefix}/include
+libdir=\${prefix}/lib
+
+Name: ${PACKAGE}
+Description: ${PACKAGE} Library
+URL: http://www.boost.org
+Version: $VERSION
+Cflags: -I\${includedir}  
+Libs: -L\${libdir} -Wl,--start-group -lboost_atomic -lboost_system -lboost_chrono -lboost_container -lboost_thread -lboost_context -lboost_coroutine -lboost_date_time -lboost_filesystem -lboost_regex -lboost_graph -lboost_iostreams -lboost_locale -lboost_log -lboost_log_setup -lboost_math_tr1 -lboost_math_tr1f -lboost_math_tr1l -lboost_math_c99 -lboost_math_c99f -lboost_math_c99l -lboost_program_options -lboost_python -lboost_random -lboost_serialization -lboost_wserialization -lboost_signals -lboost_timer -lboost_prg_exec_monitor -lboost_unit_test_framework -lboost_wave -Wl,--end-group
+Requires: bzip2
+EOF
+
+
+############################### if this far, return 0
+exit 0

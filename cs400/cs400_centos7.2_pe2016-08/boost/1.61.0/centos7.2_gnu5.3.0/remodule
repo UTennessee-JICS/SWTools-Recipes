@@ -1,0 +1,29 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PE-gnu
+  module unload PE-intel
+  module unload PE-pgi
+  module load PE-gnu
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+module load bzip2
+# env vars here
+
+PACKAGE=boost
+VERSION=1_61_0
+SRCDIR=${PACKAGE}_${VERSION}
+
+# these may need to go up in the special section between ###
+export CC=pecc
+export CXX=pec++
+export F77=pefortran
+export F90=pefortran
+export F9C=pefortran
+export F9X=pefortran
+export F03=pefortran
+export FC=pefortran
+export CPATH=$BZIP2_DIR/include:$CPATH
+export LIBRARY_PATH=$BZIP2_DIR/lib:$LIBRARY_PATH
+
+export PE_ADD_RPATH=1
