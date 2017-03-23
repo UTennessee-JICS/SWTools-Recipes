@@ -1,0 +1,33 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PE-gnu
+  module unload PE-intel
+  module unload PE-pgi
+  module load PE-pgi
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+module load cuda
+module load intel
+MKL=$MKLROOT
+INTEL=$INTEL_PATH
+module unload intel
+# env vars here
+
+PACKAGE=magma
+VERSION=1.7.0
+SRCDIR=${PACKAGE}-${VERSION}
+export CUDADIR=$CUDA_DIR
+
+export MKLROOT=$MKL
+export INTELROOT=$INTEL/linux/compiler
+
+# these may need to go up in the special section between ###
+export CC=pecc
+export CXX=pec++
+export F77=pefortran
+export F90=pefortran
+export F9C=pefortran
+export F9X=pefortran
+export F03=pefortran
+export FC=pefortran
