@@ -1,0 +1,78 @@
+#!/bin/bash
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   unique work dir that local script can use
+# Output
+#   Return code of 0=success or 1=failure 
+##############################
+
+# exit 3 is a signal to the sw infrastructure that this template has not 
+# been updated; please delete it when ready
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+set -o verbose
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include doc share man etc libexec info
+
+#clear out status and old SRCDIR file since re-making
+rm -f status
+rm -rf $SRCDIR
+
+#tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/npl6a60na_amd64.tgz
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/npl6a60na_amd64_1071.tgz
+
+cd $SRCDIR
+
+cat > answer.txt << EOF
+y
+${SW_BLDDIR}/bin
+${SW_BLDDIR}/lib
+${SW_BLDDIR}/share/man/man1 
+1
+${SW_BLDDIR}/share/man/man3
+3
+EOF
+
+#-- Comment out NAG install script that deals with license and stuff
+sed -i '28,31 s/^/#/' INSTALL.sh
+sed -i '93,99 s/^/#/' INSTALL.sh
+
+sh ./INSTALL.sh < answer.txt
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+cd $SW_BLDDIR
+
+cat > share/LICENSE.txt << EOF
+! NAG Fortran Compiler key
+NPL6A60NA TRIAL 2017/02/01 "+CalzmuaeqSh7FnF6hb9kksgJG"
+! END NAG Fortran Compiler key
+EOF
+
+############################### if this far, return 0
+exit 0

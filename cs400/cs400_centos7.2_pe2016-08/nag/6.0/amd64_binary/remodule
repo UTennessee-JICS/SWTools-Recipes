@@ -1,0 +1,12 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module purge
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+
+# env vars here
+
+PACKAGE=nag
+VERSION=6.0
+SRCDIR=NAG_Fortran-amd64

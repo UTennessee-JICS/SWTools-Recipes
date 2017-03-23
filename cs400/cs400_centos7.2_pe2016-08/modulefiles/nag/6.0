@@ -1,0 +1,45 @@
+#%Module
+#@APPLICATION@ apps
+
+set desc        "This modulefile sets up environment to use NAG Fortran\
+                 Compiler."
+set whatis      "The NAG Fortran Compiler provides support for Fortran 2008\
+                 (partial), Fortran 2003 (almost complete),\
+                 Fortran 95 and OpenMP 3.1."
+set onload      ""
+
+set arch	cs400_centos7.2_pe2016-08
+set app 	nag
+set ver 	6.0
+set swhome	/software/dev_tools/swtree
+set build	amd64_binary
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set app_dir 	${swhome}/$arch/$app/$ver/$build
+
+prepend-path    PATH            	$app_dir/bin
+prepend-path	MANPATH			$app_dir/share/man
+prepend-path	DYLD_LIBRARY_PATH	$app_dir/lib
+
+set APP         [string toupper $app]
+
+setenv          ${APP}_VERSION  $ver
+setenv          ${APP}_DIR      $app_dir
+setenv          ${APP}_LIB      $app_dir/lib
+
+#setenv		NAG_KUSARI_FILE	$app_dir/share/LICENSE.txt
+setenv		NAG_KUSARI_FILE	or-cades-flex01.ornl.gov:
