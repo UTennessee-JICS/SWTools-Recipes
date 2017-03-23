@@ -1,0 +1,37 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PE-gnu
+  module unload PE-intel
+  module unload PE-pgi
+  module load PE-gnu
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+
+# env vars here
+
+PACKAGE=gtk
+VERSION=2.24.31
+SRCDIR=${PACKAGE}+-${VERSION}
+
+
+FFI_SRC=libffi-3.2
+UTILLINUX_SRC=util-linux-2.26
+GLIB_SRC=glib-2.36.4
+ATK_SRC=atk-2.4.0
+PIXMAN_SRC=pixman-0.28.2
+CAIRO_SRC=cairo-1.12.18
+PANGO_SRC=pango-1.28.4
+GDK_SRC=gdk-pixbuf-2.28.2
+
+# these may need to go up in the special section between ###
+export CC=pecc
+export CXX=pec++
+export F77=pefortran
+export F90=pefortran
+export F9C=pefortran
+export F9X=pefortran
+export F03=pefortran
+export FC=pefortran
+
+export PE_ADD_RPATH=1

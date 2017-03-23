@@ -1,0 +1,277 @@
+#!/bin/bash
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   unique work dir that local script can use
+# Output
+#   Return code of 0=success or 1=failure 
+##############################
+
+# exit 3 is a signal to the sw infrastructure that this template has not 
+# been updated; please delete it when ready
+#exit 3
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+set -o verbose
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin sbin lib lib64 include doc share man etc libexec info
+
+#clear out status and old SRCDIR file since re-making
+rm -f status
+rm -rf $SRCDIR $GLIB_SRC $ATK_SRC $PIXMAN_SRC $CAIRO_SRC $PANGO_SRC
+rm -rf $FFI_SRC $UTILLINUX_SRC
+
+export PATH=$SW_BLDDIR/bin:${PATH}
+export LD_LIBRARY_PATH=$SW_BLDDIR/lib:${LD_LIBRARY_PATH}
+export LIBRARY_PATH=$SW_BLDDIR/lib:${LIBRARY_PATH}
+export CPATH=$SW_BLDDIR/include:${CPATH}
+export PKG_CONFIG_PATH=$SW_BLDDIR/lib/pkgconfig:$PKG_CONFIG_PATH
+
+echo "Building glib"
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$FFI_SRC.tar.gz
+cd $FFI_SRC
+./configure --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+
+  echo "$FFI_SRC configure failed"
+  exit 1
+fi
+make
+if [ $? -ne 0 ] ; then
+  echo "$FFI_SRC configure failed"
+  exit 1
+fi
+make install
+if [ $? -ne 0 ] ; then
+  echo "$FFI_SRC configure failed"
+  exit 1
+fi
+cd ..
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$UTILLINUX_SRC.tar.gz
+cd $UTILLINUX_SRC
+./configure --prefix=$SW_BLDDIR \
+--disable-makeinstall-chown \
+--disable-makeinstall-setuid \
+--disable-all-programs \
+--enable-libmount --enable-libblkid
+if [ $? -ne 0 ] ; then
+
+  echo "$UTILLINUX_SRC configure failed"
+  exit 1
+fi
+make
+if [ $? -ne 0 ] ; then
+  echo "$UTILINUX_SRC configure failed"
+  exit 1
+fi
+make install libmount 
+if [ $? -ne 0 ] ; then
+  echo "$UTILLINUX_SRC configure failed"
+  exit 1
+fi
+cd ..
+
+
+#export LIBFFI_CFLAGS=-I$SW_BLDDIR/lib/libffi-3.0.10/include/
+#export LIBFFI_LIBS='-lffi -L$SW_BLDDIR/lib'
+
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$GLIB_SRC.tar.xz
+cd $GLIB_SRC
+./configure --prefix=$SW_BLDDIR #LIBS=-lffi LDFLAGS=-L$SW_BLDDIR/lib
+if [ $? -ne 0 ] ; then
+  echo "$GLIB_SRC configure failed"
+  exit 1
+fi
+make 
+  if [ $? -ne 0 ] ; then
+    echo "$GLIB_SRC make failed"
+    exit 1
+  fi
+make install
+if [ $? -ne 0 ] ; then
+  echo "$GLIB_SRC install failed"
+  exit 1
+fi
+
+cd ../
+
+
+echo "Building atk"
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$ATK_SRC.tar.gz
+cd $ATK_SRC
+./configure --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$ATK_SRC configure failed"
+  exit 1
+fi
+make
+  if [ $? -ne 0 ] ; then
+    echo "$ATK_SRC make failed"
+    exit 1
+  fi
+make install
+if [ $? -ne 0 ] ; then
+  echo "$ATK_SRC install failed"
+  exit 1
+fi
+cd ../
+
+echo "Building pixman"
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$PIXMAN_SRC.tar.gz
+cd $PIXMAN_SRC
+./autogen.sh
+./configure --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$PIXMAN_SRC configure failed"
+  exit 1
+fi
+make
+  if [ $? -ne 0 ] ; then
+    echo "$PIXMAN_SRC make failed"
+    exit 1
+  fi
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PIXMAN_SRC install failed"
+  exit 1
+fi
+cd ../
+
+
+echo "Building cairo"
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$CAIRO_SRC.tar.xz
+cd $CAIRO_SRC
+./configure --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$CAIRO_SRC configure failed"
+  exit 1
+fi
+make
+  if [ $? -ne 0 ] ; then
+    echo "$CAIRO_SRC make failed"
+    exit 1
+  fi
+make install
+if [ $? -ne 0 ] ; then
+  echo "$CAIRO_SRC install failed"
+  exit 1
+fi
+cd ../
+
+
+echo "Building pango"
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$PANGO_SRC.tar.gz
+cd $PANGO_SRC
+./configure --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$PANGO_SRC configure failed"
+  exit 1
+fi
+make
+  if [ $? -ne 0 ] ; then
+    echo "$PANGO_SRC make failed"
+    exit 1
+  fi
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PANGO_SRC install failed"
+  exit 1
+fi
+cd ../
+
+
+
+echo "Building gdk-pixbuf"
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$GDK_SRC.tar.xz
+cd $GDK_SRC
+./configure --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$GDK_SRC configure failed"
+  exit 1
+fi
+make
+  if [ $? -ne 0 ] ; then
+    echo "$GDK_SRC make failed"
+    exit 1
+  fi
+make install
+if [ $? -ne 0 ] ; then
+  echo "$GDK_SRC install failed"
+  exit 1
+fi
+cd ../
+
+
+
+echo "Finally, building gtk+"
+export CFLAGS="-std=gnu11 -I$SW_BLDDIR/include -I$SW_BLDDIR/include"
+export CXXFLAGS="-I$SW_BLDDIR/include"
+export LDFLAGS="-L$SW_BLDDIR/lib -lgio-2.0 -lglib-2.0"
+
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$SRCDIR.tar.xz
+
+cd $SRCDIR
+
+./configure --prefix=$SW_BLDDIR --disable-cups
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+make
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE make failed"
+  exit 1
+fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+cd $SW_BLDDIR
+
+#-- Write pkg-config file
+#mkdir -p $SW_BLDDIR/lib/pkgconfig
+#cat > $SW_BLDDIR/lib/pkgconfig/${PACKAGE}.pc << EOF
+#prefix=$SW_BLDDIR
+#includedir=\${prefix}/include
+#libdir=\${prefix}/lib
+
+#Name: ${PACKAGE}
+#Description: ${PACKAGE} Library
+#URL: @-- Insert URL --@
+#Version: $VERSION
+#Cflags: -I\${includedir}  
+#Libs: -L\${libdir} @-- Add library --@
+#Libs.private: -L\${libdir} @-- Add library --@
+#Requires: @-- Add all required package --@
+#Requires.private: @-- Add all required package --@
+#EOF
+
+
+############################### if this far, return 0
+exit 0
