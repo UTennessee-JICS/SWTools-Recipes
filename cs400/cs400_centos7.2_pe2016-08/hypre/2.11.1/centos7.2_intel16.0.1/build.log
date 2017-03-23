@@ -1,0 +1,2880 @@
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include doc share man etc libexec info
+
+#clear out status and old SRCDIR file since re-making
+rm -f status
+rm -rf $SRCDIR
+
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$SRCDIR.tar.gz
+
+cd $SRCDIR/src
+
+make distclean 
+Makefile:15: config/Makefile.config: No such file or directory
+make: *** No rule to make target `config/Makefile.config'.  Stop.
+
+./configure --prefix=$SW_BLDDIR --without-fei\
+ --with-blas-libs="mkl_intel_lp64 mkl_core mkl_intel_thread pthread m dl" \
+ --with-blas-lib-dirs="$MKL_ROOT/lib/intel64/" \
+ --with-lapack-libs="mkl_intel_lp64 mkl_core mkl_intel_thread pthread m dl" \
+ --with-lapack-lib-dirs="$MKL_ROOT/lib/intel64/" \
+ --with-openmp \
+ --with-MPI \
+ --enable-shared
+checking build system type... x86_64-unknown-linux-gnu
+checking host system type... x86_64-unknown-linux-gnu
+checking whether make sets $(MAKE)... yes
+checking for ranlib... ranlib
+checking for gcc... pecc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether pecc accepts -g... yes
+checking for pecc option to accept ISO C89... none needed
+checking whether we are using the GNU C++ compiler... yes
+checking whether pec++ accepts -g... yes
+checking whether we are using the GNU Fortran compiler... no
+checking whether pefortran accepts -g... yes
+checking how to get verbose linking output from pefortran... -v
+checking for Fortran libraries of pefortran...  -L/software/dev_tools/swtree/cs400/openmpi/1.10.3/centos7.2_intel16.0.1/lib -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/ipp/lib/intel64 -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64 -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/mkl/lib/intel64 -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/tbb/lib/intel64/gcc4.4 -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/daal/lib/intel64_lin -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/daal/../tbb/lib/intel64_lin/gcc4.4 -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/daal/../compiler/lib/intel64_lin -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64_lin -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/ -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/ipp/lib/intel64/ -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/compiler/lib/intel64/ -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/mkl/lib/intel64/ -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/tbb/lib/intel64/gcc4.4/ -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/daal/lib/intel64_lin/ -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/daal/../tbb/lib/intel64_lin/gcc4.4/ -L/software/tools/compilers/intel/compilers_and_libraries_2016.1.150/linux/daal/../compiler/lib/intel64_lin/ -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib -lmpi_usempif08 -lmpi_usempi_ignore_tkr -lmpi_mpifh -lmpi -lifport -lifcoremt -limf -lsvml -lm -lipgo -liomp5 -lirc -lpthread -lirc_s -ldl
+checking for dummy main to link with Fortran libraries... none
+checking for Fortran name-mangling scheme... lower case, underscore, no extra underscore
+checking for MPI_Init... yes
+checking for mpi.h... yes
+checking for MPI_Comm_f2c... yes
+checking how to run the C preprocessor... pecc -E
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking whether MPI_Comm_f2c is a macro... no
+checking for cabs in -lm... yes
+checking the hostname... or-condo-login01.ornl.gov
+checking the architecture... LINUX
+configure: creating ./config.status
+config.status: creating config/Makefile.config
+config.status: creating HYPRE_config.h
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+make all
+Making utilities ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/utilities'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c amg_linklist.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c binsearch.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c exchange_data.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c fortran_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_ap.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_complex.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_memory.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_printf.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_qsort.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c memory_dmalloc.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c mpistubs.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c qsplit.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c random.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c threading.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c timer.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c timing.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c umalloc_local.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_mpi_comm_f2c.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_error.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c F90_HYPRE_error.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_prefix_sum.c 
+hypre_prefix_sum.c(12): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+hypre_prefix_sum.c(13): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp master
+          ^
+
+hypre_prefix_sum.c(23): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+hypre_prefix_sum.c(45): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+hypre_prefix_sum.c(46): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp master
+          ^
+
+hypre_prefix_sum.c(60): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+hypre_prefix_sum.c(88): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+hypre_prefix_sum.c(89): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp master
+          ^
+
+hypre_prefix_sum.c(106): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+hypre_prefix_sum.c(141): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+hypre_prefix_sum.c(142): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp master
+          ^
+
+hypre_prefix_sum.c(164): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_merge_sort.c 
+hypre_merge_sort.c(231): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel
+          ^
+
+hypre_merge_sort.c(251): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I.    -c hypre_hopscotch_hash.c 
+Building libHYPRE_utilities.so ... 
+pecc -shared -o libHYPRE_utilities-2.11.1.so amg_linklist.o binsearch.o exchange_data.o fortran_matrix.o hypre_ap.o hypre_complex.o hypre_memory.o hypre_printf.o hypre_qsort.o memory_dmalloc.o mpistubs.o qsplit.o random.o threading.o timer.o timing.o umalloc_local.o hypre_mpi_comm_f2c.o hypre_error.o F90_HYPRE_error.o hypre_prefix_sum.o hypre_merge_sort.o hypre_hopscotch_hash.o -Wl,-soname,libHYPRE_utilities-2.11.1.so
+ln -s libHYPRE_utilities-2.11.1.so libHYPRE_utilities.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_utilities.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./hypre_hopscotch_hash.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./fortran*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/utilities'
+
+Making multivector ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/multivector'
+pecc -O -fPIC -DHAVE_CONFIG_H -I. -I./.. -I./../utilities   -c multivector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I. -I./.. -I./../utilities   -c temp_multivector.c 
+Building libHYPRE_multivector.so ... 
+pecc -shared -o libHYPRE_multivector-2.11.1.so multivector.o temp_multivector.o -Wl,-soname,libHYPRE_multivector-2.11.1.so
+ln -s libHYPRE_multivector-2.11.1.so libHYPRE_multivector.so
+cp -fR *.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/multivector'
+
+Making krylov ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/krylov'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c bicgstab.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c cgnr.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c gmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c flexgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c lgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c HYPRE_bicgstab.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c HYPRE_cgnr.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c HYPRE_gmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c HYPRE_lgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c HYPRE_flexgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c HYPRE_pcg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c pcg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c HYPRE_lobpcg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../multivector -I./../utilities   -c lobpcg.c 
+Building libHYPRE_krylov.so ... 
+pecc -shared -o libHYPRE_krylov-2.11.1.so bicgstab.o cgnr.o gmres.o flexgmres.o lgmres.o HYPRE_bicgstab.o HYPRE_cgnr.o HYPRE_gmres.o HYPRE_lgmres.o HYPRE_flexgmres.o HYPRE_pcg.o pcg.o HYPRE_lobpcg.o lobpcg.o -Wl,-soname,libHYPRE_krylov-2.11.1.so
+ln -s libHYPRE_krylov-2.11.1.so libHYPRE_krylov.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./krylov.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./lobpcg.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/krylov'
+
+Making seq_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/seq_mv'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c csr_matop.c 
+csr_matop.c(180): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(ia, ib, ic, ja, jb, num_nonzeros, row_start, counter, a_entry, b_entry)
+          ^
+
+csr_matop.c(234): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+csr_matop.c(260): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+csr_matop.c(458): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel
+          ^
+
+csr_matop.c(488): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+csr_matop.c(499): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+csr_matop.c(500): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp master
+          ^
+
+csr_matop.c(512): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+csr_matop.c(527): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c csr_matrix.c 
+csr_matrix.c(404): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matrix.c(411): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matrix.c(423): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c csr_matvec.c 
+csr_matvec.c(105): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(142): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(150): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(170): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,jj,m,tempx) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(203): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,jj,tempx) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(226): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(235): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i,jj,tempx)
+          ^
+
+csr_matvec.c(494): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(519): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(527): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(546): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i,jj,j,my_thread_num,offset)
+          ^
+
+csr_matvec.c(552): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp for HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(565): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp for HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(631): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(700): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(719): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(727): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(739): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,jj) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_matvec.c(760): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c genpart.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c HYPRE_csr_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c HYPRE_mapped_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c HYPRE_multiblock_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c HYPRE_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c mapped_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c multiblock_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c vector.c 
+vector.c(263): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+vector.c(329): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+vector.c(408): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+vector.c(444): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+vector.c(478): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) reduction(+:result) HYPRE_SMP_SCHEDULE
+          ^
+
+vector.c(503): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) reduction(+:sum) HYPRE_SMP_SCHEDULE
+          ^
+
+Building libHYPRE_seq_mv.so ... 
+pecc -shared -o libHYPRE_seq_mv-2.11.1.so csr_matop.o csr_matrix.o csr_matvec.o genpart.o HYPRE_csr_matrix.o HYPRE_mapped_matrix.o HYPRE_multiblock_matrix.o HYPRE_vector.o mapped_matrix.o multiblock_matrix.o vector.o -Wl,-soname,libHYPRE_seq_mv-2.11.1.so
+ln -s libHYPRE_seq_mv-2.11.1.so libHYPRE_seq_mv.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./seq_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/seq_mv'
+
+Making parcsr_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_mv'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c communicationT.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c F90_HYPRE_parcsr_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c F90_HYPRE_parcsr_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c F90_parcsr_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c F90_par_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c HYPRE_parcsr_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c HYPRE_parcsr_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c new_commpkg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c numbers.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_csr_aat.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_csr_assumed_part.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_csr_bool_matop.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_csr_bool_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_csr_communication.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_csr_matop.c 
+par_csr_matop.c(97): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(ii, i1, jj_row_begin_diag, jj_row_begin_offd, jj_count_diag, jj_count_offd, jj2, i2, jj3, i3) 
+          ^
+
+par_csr_matop.c(245): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_csr_matop.c(600): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel 
+          ^
+
+par_csr_matop.c(641): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_csr_matop.c(687): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_csr_matop.c(709): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_csr_matop.c(755): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_csr_matop.c(824): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel 
+          ^
+
+par_csr_matop.c(1148): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i,j,k)
+          ^
+
+par_csr_matop.c(1261): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp master
+          ^
+
+par_csr_matop.c(1286): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_csr_matop.c(3011): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii, i, j)
+          ^
+
+par_csr_matop.c(3449): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel 
+          ^
+
+par_csr_matop.c(3526): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_csr_matop.c(3554): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_csr_matrix.c 
+par_csr_matrix.c(1454): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii, i, j, count) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_csr_matop_marked.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_csr_matvec.c 
+par_csr_matvec.c(148): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../seq_mv   -c par_make_system.c 
+Building libHYPRE_parcsr_mv.so ... 
+pecc -shared -o libHYPRE_parcsr_mv-2.11.1.so communicationT.o F90_HYPRE_parcsr_matrix.o F90_HYPRE_parcsr_vector.o F90_parcsr_matrix.o F90_par_vector.o HYPRE_parcsr_matrix.o HYPRE_parcsr_vector.o new_commpkg.o numbers.o par_csr_aat.o par_csr_assumed_part.o par_csr_bool_matop.o par_csr_bool_matrix.o par_csr_communication.o par_csr_matop.o par_csr_matrix.o par_csr_matop_marked.o par_csr_matvec.o par_vector.o par_make_system.o -Wl,-soname,libHYPRE_parcsr_mv-2.11.1.so
+ln -s libHYPRE_parcsr_mv-2.11.1.so libHYPRE_parcsr_mv.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_parcsr_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_mv'
+
+Making parcsr_block_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_block_mv'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c csr_block_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c csr_block_matvec.c 
+csr_block_matvec.c(69): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_block_matvec.c(87): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_block_matvec.c(95): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_block_matvec.c(107): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,jj,b1,b2,temp) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_block_matvec.c(131): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_block_matvec.c(202): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_block_matvec.c(221): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_block_matvec.c(229): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_block_matvec.c(241): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i, jj,j, b1, b2) HYPRE_SMP_SCHEDULE
+          ^
+
+csr_block_matvec.c(267): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c par_csr_block_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c par_csr_block_matvec.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c par_csr_block_comm.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c par_csr_block_rap.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c par_csr_block_rap_communication.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c par_csr_block_interp.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c par_csr_block_relax.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../multivector -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls -I./../IJ_mv -I./../krylov   -c par_block_nodal_systems.c 
+Building libHYPRE_parcsr_block_mv.so ... 
+pecc -shared -o libHYPRE_parcsr_block_mv-2.11.1.so csr_block_matrix.o csr_block_matvec.o par_csr_block_matrix.o par_csr_block_matvec.o par_csr_block_comm.o par_csr_block_rap.o par_csr_block_rap_communication.o par_csr_block_interp.o par_csr_block_relax.o par_block_nodal_systems.o -Wl,-soname,libHYPRE_parcsr_block_mv-2.11.1.so
+ln -s libHYPRE_parcsr_block_mv-2.11.1.so libHYPRE_parcsr_block_mv.so
+cp -fR ./par_csr_block_matrix.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include	
+cp -fR ./csr_block_matrix.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_block_mv'
+
+Making distributed_matrix ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_matrix'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../parcsr_mv -I./../seq_mv   -c distributed_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../parcsr_mv -I./../seq_mv   -c HYPRE_distributed_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../parcsr_mv -I./../seq_mv   -c distributed_matrix_ISIS.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../parcsr_mv -I./../seq_mv   -c distributed_matrix_PETSc.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../parcsr_mv -I./../seq_mv   -c distributed_matrix_parcsr.c 
+Building libHYPRE_DistributedMatrix.so ... 
+pecc -shared -o libHYPRE_DistributedMatrix-2.11.1.so distributed_matrix.o HYPRE_distributed_matrix.o distributed_matrix_ISIS.o distributed_matrix_PETSc.o distributed_matrix_parcsr.o -Wl,-soname,libHYPRE_DistributedMatrix-2.11.1.so
+ln -s libHYPRE_DistributedMatrix-2.11.1.so libHYPRE_DistributedMatrix.so
+cp -fR ./distributed_matrix.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_matrix'
+
+Making IJ_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/IJ_mv'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c aux_parcsr_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c aux_par_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c F90_HYPRE_IJMatrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c F90_HYPRE_IJVector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c F90_IJMatrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c HYPRE_IJMatrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c HYPRE_IJVector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c IJ_assumed_part.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c IJMatrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c IJMatrix_parcsr.c 
+IJMatrix_parcsr.c(281): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+IJMatrix_parcsr.c(345): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i, row_index) HYPRE_SMP_SCHEDULE
+          ^
+
+IJMatrix_parcsr.c(2639): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i, j, i_diag, i_offd)
+          ^
+
+IJMatrix_parcsr.c(2684): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(2716): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(2776): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private (i,j,j0,temp)
+          ^
+
+IJMatrix_parcsr.c(2821): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i)
+          ^
+
+IJMatrix_parcsr.c(2977): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel 
+          ^
+
+IJMatrix_parcsr.c(3012): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(3020): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(3042): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3067): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3089): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3107): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3133): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3229): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel 
+          ^
+
+IJMatrix_parcsr.c(3267): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(3275): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(3397): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3431): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3610): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel 
+          ^
+
+IJMatrix_parcsr.c(3645): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(3653): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(3672): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3697): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3719): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3737): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3763): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(3845): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel 
+          ^
+
+IJMatrix_parcsr.c(3883): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(3891): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+IJMatrix_parcsr.c(4011): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+IJMatrix_parcsr.c(4045): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c IJVector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../parcsr_ls   -c IJVector_parcsr.c 
+IJVector_parcsr.c(290): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+IJVector_parcsr.c(435): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j) HYPRE_SMP_SCHEDULE
+          ^
+
+IJVector_parcsr.c(596): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j) HYPRE_SMP_SCHEDULE
+          ^
+
+IJVector_parcsr.c(818): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j) HYPRE_SMP_SCHEDULE
+          ^
+
+IJVector_parcsr.c(834): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j) HYPRE_SMP_SCHEDULE
+          ^
+
+Building libHYPRE_IJ_mv.so ... 
+pecc -shared -o libHYPRE_IJ_mv-2.11.1.so aux_parcsr_matrix.o aux_par_vector.o F90_HYPRE_IJMatrix.o F90_HYPRE_IJVector.o F90_IJMatrix.o HYPRE_IJMatrix.o HYPRE_IJVector.o IJ_assumed_part.o IJMatrix.o IJMatrix_parcsr.o IJVector.o IJVector_parcsr.o -Wl,-soname,libHYPRE_IJ_mv-2.11.1.so
+ln -s libHYPRE_IJ_mv-2.11.1.so libHYPRE_IJ_mv.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_IJ_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/IJ_mv'
+
+Making matrix_matrix ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/matrix_matrix'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../distributed_matrix -I./../seq_mv -I./../parcsr_mv   -c HYPRE_ConvertParCSRMatrixToDistributedMatrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I./.. -I./../utilities -I./../distributed_matrix -I./../seq_mv -I./../parcsr_mv   -c HYPRE_ConvertPETScMatrixToDistributedMatrix.c 
+Building libHYPRE_MatrixMatrix.so ... 
+pecc -shared -o libHYPRE_MatrixMatrix-2.11.1.so HYPRE_ConvertParCSRMatrixToDistributedMatrix.o HYPRE_ConvertPETScMatrixToDistributedMatrix.o -Wl,-soname,libHYPRE_MatrixMatrix-2.11.1.so
+ln -s libHYPRE_MatrixMatrix-2.11.1.so libHYPRE_MatrixMatrix.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/matrix_matrix'
+
+Making distributed_ls ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls'
+Making pilut ...
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/pilut'
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c comm.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c debug.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c distributed_qsort.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c distributed_qsort_si.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c HYPRE_DistributedMatrixPilutSolver.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c ilut.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c parilut.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c parutil.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c pblas1.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c serilut.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c trifactor.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c util.c 
+Building libHYPRE_DistributedMatrixPilutSolver.so ... 
+pecc -shared -o libHYPRE_DistributedMatrixPilutSolver-2.11.1.so comm.o debug.o distributed_qsort.o distributed_qsort_si.o HYPRE_DistributedMatrixPilutSolver.o ilut.o parilut.o parutil.o pblas1.o serilut.o trifactor.o util.o -Wl,-soname,libHYPRE_DistributedMatrixPilutSolver-2.11.1.so
+ln -s libHYPRE_DistributedMatrixPilutSolver-2.11.1.so libHYPRE_DistributedMatrixPilutSolver.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/pilut'
+Making ParaSails ...
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/ParaSails'
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c ConjGrad.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c DiagScale.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c FGmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c Hash.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c hypre_ParaSails.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c LoadBal.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c Matrix.c 
+Matrix.c(765): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(row,len,ind,val,temp,i) schedule(static)
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c Mem.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c Numbering.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c OrderStat.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c ParaSails.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c PrunedRows.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c RowPatt.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../distributed_matrix   -c StoredRows.c 
+Building libHYPRE_ParaSails.so ... 
+pecc -shared -o libHYPRE_ParaSails-2.11.1.so ConjGrad.o DiagScale.o FGmres.o Hash.o hypre_ParaSails.o LoadBal.o Matrix.o Mem.o Numbering.o OrderStat.o ParaSails.o PrunedRows.o RowPatt.o StoredRows.o -Wl,-soname,libHYPRE_ParaSails-2.11.1.so
+ln -s libHYPRE_ParaSails-2.11.1.so libHYPRE_ParaSails.so
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/ParaSails'
+Making Euclid ...
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/Euclid'
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c blas_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Euclid_apply.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Euclid_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c ExternalRows_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Factor_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c getRow_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c globalObjects.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Hash_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Hash_i_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c ilu_mpi_bj.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c ilu_mpi_pilu.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c ilu_seq.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c io_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c krylov_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Mat_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c mat_dh_private.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c MatGenFD.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Mem_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Numbering_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Parser_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c shellSort_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c sig_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c SortedList_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c SortedSet_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c SubdomainGraph_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c TimeLog_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Timer_dh.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I../.. -I. -I./../.. -I./../../utilities -I./../../parcsr_mv -I./../../seq_mv -I./../../distributed_matrix -I./../../hypre/include   -c Vec_dh.c 
+Building libHYPRE_Euclid.so ... 
+pecc -shared -o libHYPRE_Euclid-2.11.1.so blas_dh.o Euclid_apply.o Euclid_dh.o ExternalRows_dh.o Factor_dh.o getRow_dh.o globalObjects.o Hash_dh.o Hash_i_dh.o ilu_mpi_bj.o ilu_mpi_pilu.o ilu_seq.o io_dh.o krylov_dh.o Mat_dh.o mat_dh_private.o MatGenFD.o Mem_dh.o Numbering_dh.o Parser_dh.o shellSort_dh.o sig_dh.o SortedList_dh.o SortedSet_dh.o SubdomainGraph_dh.o TimeLog_dh.o Timer_dh.o Vec_dh.o -Wl,-soname,libHYPRE_Euclid-2.11.1.so
+ln -s libHYPRE_Euclid-2.11.1.so libHYPRE_Euclid.so
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/Euclid'
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls'
+
+Making parcsr_ls ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_ls'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c amg_hybrid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c aux_interp.c 
+aux_interp.c(70): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+aux_interp.c(94): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+aux_interp.c(259): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+aux_interp.c(272): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+aux_interp.c(284): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+aux_interp.c(297): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+aux_interp.c(554): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+aux_interp.c(695): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_hypre_laplace.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_amg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_bicgstab.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_block.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_cgnr.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_Euclid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_gmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_flexgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_lgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_hybrid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_int.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_ParaSails.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_pcg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_pilut.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_parcsr_schwarz.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c F90_HYPRE_ams.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c gen_redcs_mat.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_amg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_bicgstab.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_block.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_cgnr.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_Euclid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_gmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_flexgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_lgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_hybrid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_int.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_ParaSails.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_pcg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_pilut.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_parcsr_schwarz.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_ams.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_ads.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c HYPRE_ame.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_amg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_amg_setup.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_amg_solve.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_amg_solveT.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_cg_relax_wt.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_coarsen.c 
+par_coarsen.c(2101): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_coarsen.c(2104): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+par_coarsen.c(2108): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_coarsen.c(2127): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_coarsen.c(2130): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp atomic
+          ^
+
+par_coarsen.c(2134): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_coarsen.c(2322): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ig, i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_coarsen.c(2333): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ig, i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_coarsen.c(2349): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ig, i, jS, j, jj) HYPRE_SMP_SCHEDULE
+          ^
+
+par_coarsen.c(2430): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ig, i, jS, j) HYPRE_SMP_SCHEDULE
+          ^
+
+par_coarsen.c(2511): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(ig,i)
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_cgc_coarsen.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_coarse_parms.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_coordinates.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_cr.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_cycle.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_add_cycle.c 
+par_add_cycle.c(140): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_add_cycle.c(160): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_add_cycle.c(200): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_add_cycle.c(712): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_add_cycle.c(725): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_add_cycle.c(920): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_add_cycle.c(929): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_difconv.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_gsmg.c 
+par_gsmg.c(960): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(973): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,i1,jj,ns,ne,size,rest) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1081): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,ns,ne,size,rest,coarse_shift) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1127): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1136): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,jl,i1,jj,ns,ne,size,rest,P_marker,jj_counter,jj_counter_offd) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1254): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1278): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1525): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1538): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,i1,jj,ns,ne,size,rest) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1653): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,ns,ne,size,rest,coarse_shift) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1699): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(1708): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,jl,i1,i2,jj,jj1,ns,ne,size,rest,sum,distribute,P_marker,P_marker_offd,strong_f_marker,jj_counter,jj_counter_offd,c_num,jj_begin_row,jj_end_row,jj_begin_row_offd,jj_end_row_offd) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(2113): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_gsmg.c(2137): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_indepset.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_interp.c 
+par_interp.c(275): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(288): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,i1,jj,ns,ne,size,rest) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(417): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,ns,ne,size,rest,coarse_shift) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(463): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(472): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,jl,i1,i2,jj,jj1,ns,ne,size,rest,sum,diagonal,distribute,P_marker,P_marker_offd,strong_f_marker,jj_counter,jj_counter_offd,sgn,c_num,jj_begin_row,jj_end_row,jj_begin_row_offd,jj_end_row_offd) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(952): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(978): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(1266): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(1279): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,i1,jj,ns,ne,size,rest) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(1408): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,ns,ne,size,rest,coarse_shift) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(1454): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(1463): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,jl,i1,i2,jj,jj1,ns,ne,size,rest,sum,diagonal,distribute,P_marker,P_marker_offd,jj_counter,jj_counter_offd,sgn,c_num,jj_begin_row,jj_end_row,jj_begin_row_offd,jj_end_row_offd) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(1873): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(1899): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(2122): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(2135): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,i1,jj,ns,ne,size,rest) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(2264): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,ns,ne,size,rest,coarse_shift) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(2310): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(2319): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,jl,i1,jj,ns,ne,size,rest,diagonal,P_marker,P_marker_offd,jj_counter,jj_counter_offd,jj_begin_row,jj_end_row,jj_begin_row_offd,jj_end_row_offd) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(2594): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(2620): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(2721): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i,my_thread_num,num_threads,max_coef,j,start_j,row_sum,scale,num_lost,now_checking,next_open,num_lost_offd,now_checking_offd,next_open_offd,start,stop,cnt_diag,cnt_offd,num_elmts,cnt)
+          ^
+
+par_interp.c(2989): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_interp.c(3002): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_interp.c(3035): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_interp.c(3056): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_interp.c(3086): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_interp.c(3107): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_interp.c(3129): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_interp.c(3451): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(3464): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,i1,jj,ns,ne,size,rest) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(3593): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,ns,ne,size,rest,coarse_shift) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(3639): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(3648): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,jl,i1,i2,jj,jj1,ns,ne,size,rest,sum,diagonal,distribute,P_marker,P_marker_offd,strong_f_marker,jj_counter,jj_counter_offd,sgn,c_num,jj_begin_row,jj_end_row,jj_begin_row_offd,jj_end_row_offd) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(4151): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_interp.c(4177): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_jacobi_interp.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_multi_interp.c 
+par_multi_interp.c(267): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) reduction(+:n_coarse,n_SF ) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(335): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) reduction(+:n_coarse_offd,n_SF_offd) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(675): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(680): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(701): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j,j1) reduction(+:Pext_send_size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(886): warning #3180: unrecognized OpenMP #pragma
+        #pragma omp parallel private(i,my_thread_num,num_threads,thread_start,thread_stop,cnt_nz,cnt_nz_offd,i1,j,j1,j_start,j_end,k1,k,P_marker,P_marker_offd)
+                ^
+
+par_multi_interp.c(1008): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_multi_interp.c(1019): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_multi_interp.c(1050): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_multi_interp.c(1162): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,i1) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(1179): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(thread_start,thread_stop,my_thread_num,num_threads,P_marker,P_marker_offd,i,i1,sum_C_pos,sum_C_neg,sum_N_pos,sum_N_neg,j_start,j_end,j,k1,cnt,j1,cnt_offd,diagonal,alfa,beta)
+          ^
+
+par_multi_interp.c(1364): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(thread_start,thread_stop,my_thread_num,num_threads,P_marker,P_marker_offd,i,i1,sum_C_neg,sum_C_pos,sum_N_neg,sum_N_pos,j_start,j_end,cnt,j,k1,cnt_offd,j1,k,alfa,beta,diagonal,C_array,C_array_offd)
+          ^
+
+par_multi_interp.c(1570): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(thread_start,thread_stop,my_thread_num,num_threads,k,k1,i,i1,j,j1,sum_C,sum_N,j_start,j_end,cnt,tmp_marker,tmp_marker_offd,cnt_offd,diagonal,alfa)
+          ^
+
+par_multi_interp.c(1732): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(thread_start,thread_stop,my_thread_num,num_threads,k,k1,i,i1,j,j1,sum_C,sum_N,j_start,j_end,cnt,tmp_marker,tmp_marker_offd,cnt_offd,diagonal,alfa,tmp_array,tmp_array_offd)
+          ^
+
+par_multi_interp.c(1951): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(1971): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(1992): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,k1) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(2002): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_multi_interp.c(2027): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_laplace_27pt.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_laplace_9pt.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_laplace.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_lr_interp.c 
+par_lr_interp.c(1191): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i,my_thread_num,num_threads,start,stop,coarse_counter,jj_counter,jj_counter_offd, P_marker, P_marker_offd,jj,kk,i1,k1,loc_col,jj_begin_row,jj_begin_row_offd,jj_end_row,jj_end_row_offd,diagonal,sum,sgn,jj1,i2,distribute,strong_f_marker)
+          ^
+
+par_lr_interp.c(1358): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_lr_interp.c(1368): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_lr_interp.c(1381): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_lr_interp.c(1402): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_lr_interp.c(1462): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_lr_interp.c(1819): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_nongalerkin.c 
+par_nongalerkin.c(349): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,diag,row_scale,row_sum,jA) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_nodal_systems.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_rap.c 
+par_rap.c(519): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i,j)
+          ^
+
+par_rap.c(540): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp master
+          ^
+
+par_rap.c(555): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_rap.c(689): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,ic,i1,i2,i3,jj1,jj2,jj3,ns,ne,size,rest,jj_counter,jj_row_begining,A_marker,P_marker) HYPRE_SMP_SCHEDULE
+          ^
+
+par_rap.c(897): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,ic,i1,i2,i3,jj1,jj2,jj3,ns,ne,size,rest,jj_counter,jj_row_begining,A_marker,P_marker,r_entry,r_a_product,r_a_p_product) HYPRE_SMP_SCHEDULE
+          ^
+
+par_rap.c(1293): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+par_rap.c(1326): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,k,jcol,ii,ic,i1,i2,i3,jj1,jj2,jj3,ns,ne,size,rest,jj_count_diag,jj_count_offd,jj_row_begin_diag,jj_row_begin_offd,A_marker,P_marker) HYPRE_SMP_SCHEDULE
+          ^
+
+par_rap.c(1641): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,j,k,jcol,ii,ic,i1,i2,i3,jj1,jj2,jj3,ns,ne,size,rest,jj_count_diag,jj_count_offd,jj_row_begin_diag,jj_row_begin_offd,A_marker,P_marker,r_entry,r_a_product,r_a_p_product) HYPRE_SMP_SCHEDULE
+          ^
+
+par_rap.c(2027): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+par_rap.c(2034): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i3) reduction(+:jj_count_offd) HYPRE_SMP_SCHEDULE
+          ^
+
+par_rap.c(2065): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i3) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_rap_communication.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_rotate_7pt.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_vardifconv.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_relax.c 
+par_relax.c(173): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(192): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,jj,res) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(227): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,jj,res) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(308): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,jj,res) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(342): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,jj,res) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(422): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(472): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(477): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(560): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(565): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(646): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(659): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(664): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(764): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(769): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1260): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1265): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1349): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1354): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1436): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1449): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1454): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1554): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1559): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1721): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1726): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1862): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(1867): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2006): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2019): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2024): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2188): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2193): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2453): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2458): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2594): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2599): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2738): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2751): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2756): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2920): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(2925): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3155): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3160): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3245): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3250): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3333): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3346): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3351): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3450): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3455): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3615): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3620): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3705): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3710): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3793): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3806): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3811): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3910): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax.c(3915): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_relax_more.c 
+par_relax_more.c(242): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax_more.c(511): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j) HYPRE_SMP_SCHEDULE 
+          ^
+
+par_relax_more.c(521): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE 
+          ^
+
+par_relax_more.c(554): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j,diag) HYPRE_SMP_SCHEDULE 
+          ^
+
+par_relax_more.c(566): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j) HYPRE_SMP_SCHEDULE 
+          ^
+
+par_relax_more.c(577): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j) HYPRE_SMP_SCHEDULE 
+          ^
+
+par_relax_more.c(591): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j) HYPRE_SMP_SCHEDULE 
+          ^
+
+par_relax_more.c(603): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j,tmp_d) HYPRE_SMP_SCHEDULE 
+          ^
+
+par_relax_more.c(616): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j) HYPRE_SMP_SCHEDULE 
+          ^
+
+par_relax_more.c(1073): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax_more.c(1093): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,jj,res) HYPRE_SMP_SCHEDULE
+          ^
+
+par_relax_more.c(1125): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,jj,res) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_relax_interface.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_scaled_matnorm.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_schwarz.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_stats.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_strength.c 
+par_strength.c(196): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+par_strength.c(241): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i,diag,row_scale,row_sum,jA,jS)
+          ^
+
+par_strength.c(730): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,diag,row_scale,row_sum,jA) HYPRE_SMP_SCHEDULE
+          ^
+
+par_strength.c(1248): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i)
+          ^
+
+par_strength.c(1296): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+par_strength.c(1309): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for HYPRE_SMP_SCHEDULE
+          ^
+
+par_strength.c(1333): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(j,k) reduction(+:num_nonzeros) HYPRE_SMP_SCHEDULE
+          ^
+
+par_strength.c(1608): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i)
+          ^
+
+par_strength.c(1662): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i1,i2,i3,jj1,jj2,index)
+          ^
+
+par_strength.c(1955): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+par_strength.c(1956): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp master
+          ^
+
+par_strength.c(1969): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_sv_interp.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c par_sv_interp_ln.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c partial.c 
+partial.c(253): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel private(i, diagonal, distribute, sgn, sum)
+          ^
+
+partial.c(414): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+partial.c(477): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp barrier
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c pcg_par.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c schwarz.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c block_tridiag.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c ams.c 
+ams.c(3352): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,k,ns,ne,rest,size,diag,cf_diag) HYPRE_SMP_SCHEDULE
+          ^
+
+ams.c(3644): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+ams.c(3651): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,jj,res) HYPRE_SMP_SCHEDULE
+          ^
+
+ams.c(3681): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+ams.c(3686): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+ams.c(3765): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+ams.c(3772): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i,ii,j,jj,ns,ne,res,rest,size) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c ads.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I../distributed_ls/Euclid -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../seq_mv -I./../parcsr_mv -I./../distributed_matrix -I./../matrix_matrix -I./../IJ_mv -I./../parcsr_block_mv   -c ame.c 
+Building libHYPRE_parcsr_ls.so ... 
+pecc -shared -o libHYPRE_parcsr_ls-2.11.1.so amg_hybrid.o aux_interp.o F90_hypre_laplace.o F90_HYPRE_parcsr_amg.o F90_HYPRE_parcsr_bicgstab.o F90_HYPRE_parcsr_block.o F90_HYPRE_parcsr_cgnr.o F90_HYPRE_parcsr_Euclid.o F90_HYPRE_parcsr_gmres.o F90_HYPRE_parcsr_flexgmres.o F90_HYPRE_parcsr_lgmres.o F90_HYPRE_parcsr_hybrid.o F90_HYPRE_parcsr_int.o F90_HYPRE_parcsr_ParaSails.o F90_HYPRE_parcsr_pcg.o F90_HYPRE_parcsr_pilut.o F90_HYPRE_parcsr_schwarz.o F90_HYPRE_ams.o gen_redcs_mat.o HYPRE_parcsr_amg.o HYPRE_parcsr_bicgstab.o HYPRE_parcsr_block.o HYPRE_parcsr_cgnr.o HYPRE_parcsr_Euclid.o HYPRE_parcsr_gmres.o HYPRE_parcsr_flexgmres.o HYPRE_parcsr_lgmres.o HYPRE_parcsr_hybrid.o HYPRE_parcsr_int.o HYPRE_parcsr_ParaSails.o HYPRE_parcsr_pcg.o HYPRE_parcsr_pilut.o HYPRE_parcsr_schwarz.o HYPRE_ams.o HYPRE_ads.o HYPRE_ame.o par_amg.o par_amg_setup.o par_amg_solve.o par_amg_solveT.o par_cg_relax_wt.o par_coarsen.o par_cgc_coarsen.o par_coarse_parms.o par_coordinates.o par_cr.o par_cycle.o par_add_cycle.o par_difconv.o par_gsmg.o par_indepset.o par_interp.o par_jacobi_interp.o par_multi_interp.o par_laplace_27pt.o par_laplace_9pt.o par_laplace.o par_lr_interp.o par_nongalerkin.o par_nodal_systems.o par_rap.o par_rap_communication.o par_rotate_7pt.o par_vardifconv.o par_relax.o par_relax_more.o par_relax_interface.o par_scaled_matnorm.o par_schwarz.o par_stats.o par_strength.o par_sv_interp.o par_sv_interp_ln.o partial.o pcg_par.o schwarz.o block_tridiag.o ams.o ads.o ame.o -Wl,-soname,libHYPRE_parcsr_ls-2.11.1.so
+ln -s libHYPRE_parcsr_ls-2.11.1.so libHYPRE_parcsr_ls.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_parcsr_ls.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_ls'
+
+Making struct_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_mv'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c assumed_part.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c box_algebra.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c box_boundary.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c box.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c box_manager.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c communication_info.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c computation.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c F90_HYPRE_struct_grid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c F90_HYPRE_struct_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c F90_HYPRE_struct_stencil.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c F90_HYPRE_struct_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c HYPRE_struct_grid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c HYPRE_struct_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c HYPRE_struct_stencil.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c HYPRE_struct_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c project.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_axpy.c 
+struct_axpy.c(67): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,yi) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_communication.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_copy.c 
+struct_copy.c(66): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,yi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_copy.c(130): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,yi) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_grid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_innerprod.c 
+struct_innerprod.c(73): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,yi) reduction(+:local_result) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_io.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_matrix.c 
+struct_matrix.c(709): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai,dvali) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matrix.c(723): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai,dvali) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matrix.c(737): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai,dvali) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matrix.c(1077): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matrix.c(1209): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matrix.c(1454): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,mi ) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matrix.c(1869): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,ixyz) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_matrix_mask.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_matvec.c 
+struct_matvec.c(161): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(225): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(240): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(402): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(445): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(484): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(519): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(550): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(577): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(600): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(618): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(752): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(799): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(841): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(878): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(910): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(937): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(959): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(1123): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(1183): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(1236): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(1283): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(1324): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(1359): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(1385): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(1408): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_matvec.c(1424): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_scale.c 
+struct_scale.c(58): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_stencil.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities   -c struct_vector.c 
+struct_vector.c(367): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai,dvali) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(381): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai,dvali) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(395): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai,dvali) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(542): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(568): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(652): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,vi ) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(705): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,vi ) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(833): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,vi ) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(908): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,vi ) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(956): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai) HYPRE_SMP_SCHEDULE
+          ^
+
+struct_vector.c(1221): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,datai) HYPRE_SMP_SCHEDULE
+          ^
+
+Building libHYPRE_struct_mv.so ... 
+pecc -shared -o libHYPRE_struct_mv-2.11.1.so assumed_part.o box_algebra.o box_boundary.o box.o box_manager.o communication_info.o computation.o F90_HYPRE_struct_grid.o F90_HYPRE_struct_matrix.o F90_HYPRE_struct_stencil.o F90_HYPRE_struct_vector.o HYPRE_struct_grid.o HYPRE_struct_matrix.o HYPRE_struct_stencil.o HYPRE_struct_vector.o project.o struct_axpy.o struct_communication.o struct_copy.o struct_grid.o struct_innerprod.o struct_io.o struct_matrix.o struct_matrix_mask.o struct_matvec.o struct_scale.o struct_stencil.o struct_vector.o -Wl,-soname,libHYPRE_struct_mv-2.11.1.so
+ln -s libHYPRE_struct_mv-2.11.1.so libHYPRE_struct_mv.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_struct_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_mv'
+
+Making struct_ls ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_ls'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c coarsen.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c cyclic_reduction.c 
+cyclic_reduction.c(337): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,iAc,iAm1,iAp1) HYPRE_SMP_SCHEDULE
+          ^
+
+cyclic_reduction.c(368): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,iAc,iAm1,iAp1) HYPRE_SMP_SCHEDULE
+          ^
+
+cyclic_reduction.c(434): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+cyclic_reduction.c(456): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+cyclic_reduction.c(829): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,bi) HYPRE_SMP_SCHEDULE
+          ^
+
+cyclic_reduction.c(882): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+cyclic_reduction.c(961): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,xci) HYPRE_SMP_SCHEDULE
+          ^
+
+cyclic_reduction.c(1006): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+cyclic_reduction.c(1066): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,xci) HYPRE_SMP_SCHEDULE
+          ^
+
+cyclic_reduction.c(1131): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_bicgstab.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_cycred.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_flexgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_gmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_lgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_hybrid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_int.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_jacobi.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_pcg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_pfmg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_smg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c F90_HYPRE_struct_sparse_msg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c general.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c hybrid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_bicgstab.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_cycred.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_flexgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_gmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_hybrid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_int.c 
+HYPRE_struct_int.c(56): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,vi ) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_jacobi.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_lgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_pcg.c 
+HYPRE_struct_pcg.c(243): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,xi,Ai) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_pfmg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_smg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c HYPRE_struct_sparse_msg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c jacobi.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pcg_struct.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg2_setup_rap.c 
+pfmg2_setup_rap.c(478): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg2_setup_rap.c(532): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg2_setup_rap.c(1003): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg2_setup_rap.c(1074): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg2_setup_rap.c(1677): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg2_setup_rap.c(1723): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg2_setup_rap.c(2173): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg2_setup_rap.c(2234): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg3_setup_rap.c 
+pfmg3_setup_rap.c(568): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(642): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(1308): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(1438): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(2305): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(2464): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(3385): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(3447): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(4077): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(4196): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(5030): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg3_setup_rap.c(5180): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg_relax.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg_setup.c 
+pfmg_setup.c(733): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,si,Ap,diag,Astenc,tcx,tcy,tcz) reduction(+:cx,cy,cz,sqcx,sqcy,sqcz) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg_setup.c(913): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai) reduction(*:diag_product) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg_setup_interp.c 
+pfmg_setup_interp.c(257): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,Pi,si,center,Ap,Astenc,mrk0,mrk1) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg_setup_interp.c(519): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,Pi,center,Ap,Astenc,mrk0,mrk1) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg_setup_rap5.c 
+pfmg_setup_rap5.c(351): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iA,iAc,iAm1,iAp1,iPm1,iPp1,west,east) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg_setup_rap5.c(410): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg_setup_rap5.c(445): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg_setup_rap7.c 
+pfmg_setup_rap7.c(376): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iA,iAc,iAm1,iAp1,iPm1,iPp1,west,east,south,north) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg_setup_rap7.c(444): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+pfmg_setup_rap7.c(479): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg_setup_rap.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c pfmg_solve.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c point_relax.c 
+point_relax.c(474): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,bi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(491): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,bi,xi) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(611): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(729): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,bi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(805): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(827): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(848): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(868): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(887): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(905): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(922): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1021): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,bi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1036): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,bi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1120): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1147): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1172): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1195): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1216): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1235): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1252): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1568): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+point_relax.c(1652): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c red_black_constantcoef_gs.c 
+red_black_constantcoef_gs.c(198): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_constantcoef_gs.c(222): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,Ai,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_constantcoef_gs.c(362): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_constantcoef_gs.c(388): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_constantcoef_gs.c(412): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_constantcoef_gs.c(445): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,Ai,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_constantcoef_gs.c(472): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,Ai,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_constantcoef_gs.c(497): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,Ai,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c red_black_gs.c 
+red_black_gs.c(296): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,Ai,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_gs.c(426): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,Ai,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_gs.c(453): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,Ai,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+red_black_gs.c(478): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(ii,jj,Ai,bi,xi,kk) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c semi.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c semi_interp.c 
+semi_interp.c(204): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,ei,xci) HYPRE_SMP_SCHEDULE
+          ^
+
+semi_interp.c(283): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,ei) HYPRE_SMP_SCHEDULE
+          ^
+
+semi_interp.c(298): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Pi,ei) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c semi_restrict.c 
+semi_restrict.c(251): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,ri,rci) HYPRE_SMP_SCHEDULE
+          ^
+
+semi_restrict.c(267): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ri,ri,rci) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c semi_setup_rap.c 
+semi_setup_rap.c(488): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+semi_setup_rap.c(564): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAp,iPp) HYPRE_SMP_SCHEDULE
+          ^
+
+semi_setup_rap.c(600): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAp,iPp) HYPRE_SMP_SCHEDULE
+          ^
+
+semi_setup_rap.c(673): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAp,iPp) HYPRE_SMP_SCHEDULE
+          ^
+
+semi_setup_rap.c(742): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAp,iPp) HYPRE_SMP_SCHEDULE
+          ^
+
+semi_setup_rap.c(850): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg2_setup_rap.c 
+smg2_setup_rap.c(360): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg2_setup_rap.c(412): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg2_setup_rap.c(674): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg2_setup_rap.c(717): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg2_setup_rap.c(839): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc,iAcm1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg2_setup_rap.c(853): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+smg2_setup_rap.c(953): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg3_setup_rap.c 
+smg3_setup_rap.c(577): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(641): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(722): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(825): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(1285): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(1340): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(1414): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(1509): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(1742): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc,iAcmx,iAcmy) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(1758): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(1781): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc,iAcmxmy,iAcpxmy) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(1798): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(1977): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+smg3_setup_rap.c(2015): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg_axpy.c 
+smg_axpy.c(61): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,yi) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg.c 
+smg.c(494): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,vi) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg_relax.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg_residual.c 
+smg_residual.c(204): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,bi,ri) HYPRE_SMP_SCHEDULE
+          ^
+
+smg_residual.c(256): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,ri) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg_setup.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg_setup_interp.c 
+smg_setup_interp.c(266): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xi,PTi) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg_setup_rap.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg_setup_restrict.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c smg_solve.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c sparse_msg2_setup_rap.c 
+sparse_msg2_setup_rap.c(400): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg2_setup_rap.c(452): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg2_setup_rap.c(740): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg2_setup_rap.c(783): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c sparse_msg3_setup_rap.c 
+sparse_msg3_setup_rap.c(566): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg3_setup_rap.c(636): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg3_setup_rap.c(740): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg3_setup_rap.c(1231): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg3_setup_rap.c(1292): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg3_setup_rap.c(1388): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iP,iR,iA,iAc,iAm1,iAp1,iP1) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c sparse_msg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c sparse_msg_filter.c 
+sparse_msg_filter.c(395): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,vi,lambdax,lambday,lambdaz,si,Ap,Astenc) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg_filter.c(522): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,ei,vi) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c sparse_msg_interp.c 
+sparse_msg_interp.c(206): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,ei,xci) HYPRE_SMP_SCHEDULE
+          ^
+
+sparse_msg_interp.c(266): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Pi,ei) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c sparse_msg_restrict.c 
+sparse_msg_restrict.c(234): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ri,ri,rci) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c sparse_msg_setup.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c sparse_msg_setup_rap.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv   -c sparse_msg_solve.c 
+Building libHYPRE_struct_ls.so ... 
+pecc -shared -o libHYPRE_struct_ls-2.11.1.so coarsen.o cyclic_reduction.o F90_HYPRE_struct_bicgstab.o F90_HYPRE_struct_cycred.o F90_HYPRE_struct_flexgmres.o F90_HYPRE_struct_gmres.o F90_HYPRE_struct_lgmres.o F90_HYPRE_struct_hybrid.o F90_HYPRE_struct_int.o F90_HYPRE_struct_jacobi.o F90_HYPRE_struct_pcg.o F90_HYPRE_struct_pfmg.o F90_HYPRE_struct_smg.o F90_HYPRE_struct_sparse_msg.o general.o hybrid.o HYPRE_struct_bicgstab.o HYPRE_struct_cycred.o HYPRE_struct_flexgmres.o HYPRE_struct_gmres.o HYPRE_struct_hybrid.o HYPRE_struct_int.o HYPRE_struct_jacobi.o HYPRE_struct_lgmres.o HYPRE_struct_pcg.o HYPRE_struct_pfmg.o HYPRE_struct_smg.o HYPRE_struct_sparse_msg.o jacobi.o pcg_struct.o pfmg2_setup_rap.o pfmg3_setup_rap.o pfmg.o pfmg_relax.o pfmg_setup.o pfmg_setup_interp.o pfmg_setup_rap5.o pfmg_setup_rap7.o pfmg_setup_rap.o pfmg_solve.o point_relax.o red_black_constantcoef_gs.o red_black_gs.o semi.o semi_interp.o semi_restrict.o semi_setup_rap.o smg2_setup_rap.o smg3_setup_rap.o smg_axpy.o smg.o smg_relax.o smg_residual.o smg_setup.o smg_setup_interp.o smg_setup_rap.o smg_setup_restrict.o smg_solve.o sparse_msg2_setup_rap.o sparse_msg3_setup_rap.o sparse_msg.o sparse_msg_filter.o sparse_msg_interp.o sparse_msg_restrict.o sparse_msg_setup.o sparse_msg_setup_rap.o sparse_msg_solve.o -Wl,-soname,libHYPRE_struct_ls-2.11.1.so
+ln -s libHYPRE_struct_ls-2.11.1.so libHYPRE_struct_ls.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_struct_ls.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_ls'
+
+Making sstruct_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_mv'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c F90_HYPRE_sstruct_graph.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c F90_HYPRE_sstruct_grid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c F90_HYPRE_sstruct_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c F90_HYPRE_sstruct_stencil.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c F90_HYPRE_sstruct_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c HYPRE_sstruct_graph.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c HYPRE_sstruct_grid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c HYPRE_sstruct_matrix.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c HYPRE_sstruct_stencil.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c HYPRE_sstruct_vector.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_axpy.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_copy.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_graph.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_grid.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_innerprod.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_matrix.c 
+sstruct_matrix.c(742): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,mi) HYPRE_SMP_SCHEDULE
+          ^
+
+sstruct_matrix.c(990): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+sstruct_matrix.c(1055): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,mi,vi,index,d) HYPRE_SMP_SCHEDULE
+          ^
+
+sstruct_matrix.c(1486): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,mi,vi) HYPRE_SMP_SCHEDULE
+          ^
+
+sstruct_matrix.c(1518): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,mi,vi) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_matvec.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_scale.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_stencil.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../utilities -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv   -c sstruct_vector.c 
+sstruct_vector.c(662): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,bi) HYPRE_SMP_SCHEDULE
+          ^
+
+sstruct_vector.c(748): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,yi,bi) HYPRE_SMP_SCHEDULE
+          ^
+
+Building libHYPRE_sstruct_mv.so ... 
+pecc -shared -o libHYPRE_sstruct_mv-2.11.1.so F90_HYPRE_sstruct_graph.o F90_HYPRE_sstruct_grid.o F90_HYPRE_sstruct_matrix.o F90_HYPRE_sstruct_stencil.o F90_HYPRE_sstruct_vector.o HYPRE_sstruct_graph.o HYPRE_sstruct_grid.o HYPRE_sstruct_matrix.o HYPRE_sstruct_stencil.o HYPRE_sstruct_vector.o sstruct_axpy.o sstruct_copy.o sstruct_graph.o sstruct_grid.o sstruct_innerprod.o sstruct_matrix.o sstruct_matvec.o sstruct_scale.o sstruct_stencil.o sstruct_vector.o -Wl,-soname,libHYPRE_sstruct_mv-2.11.1.so
+ln -s libHYPRE_sstruct_mv-2.11.1.so libHYPRE_sstruct_mv.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_sstruct_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_mv'
+
+Making sstruct_ls ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_ls'
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_bicgstab.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_gmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_flexgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_lgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_InterFAC.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_int.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_maxwell.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_pcg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_split.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c F90_HYPRE_sstruct_sys_pfmg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_bicgstab.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_gmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_flexgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_lgmres.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_InterFAC.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_int.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_maxwell.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_pcg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_split.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c HYPRE_sstruct_sys_pfmg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_amr_rap.c 
+fac_amr_rap.c(223): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+fac_amr_rap.c(280): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+fac_amr_rap.c(418): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,iAc) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_amr_fcoarsen.c 
+fac_amr_fcoarsen.c(3493): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iA,i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_amr_zero_data.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_cf_coarsen.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_cfstencil_box.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_CFInterfaceExtents.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_interp2.c 
+fac_interp2.c(975): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,ei,xci,lindex,imax,jmax,kmax,k,offset_kp1,zweight2,kshift,zweight1,j,offset_jp1,yweight2,jshift,yweight1,i,offset_ip1,xweight2,ishift,xweight1) HYPRE_SMP_SCHEDULE
+          ^
+
+fac_interp2.c(1314): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,ei,xci,lindex,imax,jmax,kmax,k,offset_kp1,zweight2,kshift,zweight1,j,offset_jp1,yweight2,jshift,yweight1,i,offset_ip1,xweight2,ishift,xweight1) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_relax.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_restrict2.c 
+fac_restrict2.c(864): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,xfi,xci) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_setup2.c 
+fac_setup2.c(501): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,k,iA) HYPRE_SMP_SCHEDULE
+          ^
+
+fac_setup2.c(576): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,k,iA) HYPRE_SMP_SCHEDULE
+          ^
+
+fac_setup2.c(837): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,k,iA) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_solve3.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_zero_cdata.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c fac_zero_stencilcoef.c 
+fac_zero_stencilcoef.c(179): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,iac) HYPRE_SMP_SCHEDULE
+          ^
+
+fac_zero_stencilcoef.c(405): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,ia) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c hypre_bsearch.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c krylov.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c krylov_sstruct.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c eliminate_rowscols.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c maxwell_grad.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c maxwell_physbdy.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c maxwell_PNedelec.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c maxwell_PNedelec_bdy.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c maxwell_semi_interp.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c maxwell_TV.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c maxwell_TV_setup.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c maxwell_zeroBC.c 
+maxwell_zeroBC.c(39): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(i) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c hypre_MaxwellSolve.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c hypre_MaxwellSolve2.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c nd1_amge_interpolation.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c node_relax.c 
+node_relax.c(707): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,bi,xi,vi,vj,x_loc,A_loc) HYPRE_SMP_SCHEDULE
+          ^
+
+node_relax.c(839): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,bi,ti,vi) HYPRE_SMP_SCHEDULE
+          ^
+
+node_relax.c(877): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,xi,ti) HYPRE_SMP_SCHEDULE
+          ^
+
+node_relax.c(907): warning #3180: unrecognized OpenMP #pragma
+  #pragma omp parallel for private(HYPRE_BOX_PRIVATE,Ai,ti,vi,vj,x_loc,A_loc) HYPRE_SMP_SCHEDULE
+          ^
+
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sstruct_amr_intercommunication.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sstruct_owninfo.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sstruct_recvinfo.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sstruct_sendinfo.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sstruct_sharedDOFComm.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sys_pfmg.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sys_pfmg_relax.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sys_pfmg_setup.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sys_pfmg_setup_interp.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sys_pfmg_setup_rap.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sys_pfmg_solve.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sys_semi_interp.c 
+pecc -O -fPIC -DHAVE_CONFIG_H -I.. -I. -I./.. -I./../multivector -I./../utilities -I./../krylov -I./../struct_mv -I./../seq_mv -I./../parcsr_mv -I./../IJ_mv -I./../sstruct_mv -I./../struct_ls -I./../parcsr_ls   -c sys_semi_restrict.c 
+Building libHYPRE_sstruct_ls.so ... 
+pecc -shared -o libHYPRE_sstruct_ls-2.11.1.so F90_HYPRE_sstruct_bicgstab.o F90_HYPRE_sstruct_gmres.o F90_HYPRE_sstruct_flexgmres.o F90_HYPRE_sstruct_lgmres.o F90_HYPRE_sstruct_InterFAC.o F90_HYPRE_sstruct_int.o F90_HYPRE_sstruct_maxwell.o F90_HYPRE_sstruct_pcg.o F90_HYPRE_sstruct_split.o F90_HYPRE_sstruct_sys_pfmg.o HYPRE_sstruct_bicgstab.o HYPRE_sstruct_gmres.o HYPRE_sstruct_flexgmres.o HYPRE_sstruct_lgmres.o HYPRE_sstruct_InterFAC.o HYPRE_sstruct_int.o HYPRE_sstruct_maxwell.o HYPRE_sstruct_pcg.o HYPRE_sstruct_split.o HYPRE_sstruct_sys_pfmg.o fac.o fac_amr_rap.o fac_amr_fcoarsen.o fac_amr_zero_data.o fac_cf_coarsen.o fac_cfstencil_box.o fac_CFInterfaceExtents.o fac_interp2.o fac_relax.o fac_restrict2.o fac_setup2.o fac_solve3.o fac_zero_cdata.o fac_zero_stencilcoef.o hypre_bsearch.o krylov.o krylov_sstruct.o eliminate_rowscols.o maxwell_grad.o maxwell_physbdy.o maxwell_PNedelec.o maxwell_PNedelec_bdy.o maxwell_semi_interp.o maxwell_TV.o maxwell_TV_setup.o maxwell_zeroBC.o hypre_MaxwellSolve.o hypre_MaxwellSolve2.o nd1_amge_interpolation.o node_relax.o sstruct_amr_intercommunication.o sstruct_owninfo.o sstruct_recvinfo.o sstruct_sendinfo.o sstruct_sharedDOFComm.o sys_pfmg.o sys_pfmg_relax.o sys_pfmg_setup.o sys_pfmg_setup_interp.o sys_pfmg_setup_rap.o sys_pfmg_solve.o sys_semi_interp.o sys_semi_restrict.o -Wl,-soname,libHYPRE_sstruct_ls-2.11.1.so
+ln -s libHYPRE_sstruct_ls-2.11.1.so libHYPRE_sstruct_ls.so
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_sstruct_ls.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_ls'
+
+Making lib ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/lib'
+Building libHYPRE.so ... 
+pecc -shared -o libHYPRE-2.11.1.so    /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/IJ_mv/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/Euclid/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/ParaSails/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/pilut/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_matrix/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/krylov/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/matrix_matrix/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/multivector/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_ls/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_mv/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_block_mv/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/seq_mv/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_ls/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_mv/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_ls/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_mv/*.o /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/utilities/*.o     -L/lib/intel64/  -lmkl_intel_lp64 -lmkl_core -lmkl_intel_thread -lpthread -lm -ldl -L/lib/intel64/  -lmkl_intel_lp64 -lmkl_core -lmkl_intel_thread -lpthread -lm -ldl -lm  -Wl,-soname,libHYPRE-2.11.1.so -Wl,-z,defs -qopenmp
+ln -s libHYPRE-2.11.1.so libHYPRE.so
+cp -fR libHYPRE* /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/lib
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/lib'
+
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE make failed"
+  exit 1
+fi
+
+make install
+Making utilities ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/utilities'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_utilities.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./hypre_hopscotch_hash.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./fortran*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/utilities'
+
+Making multivector ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/multivector'
+cp -fR *.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/multivector'
+
+Making krylov ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/krylov'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./krylov.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./lobpcg.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/krylov'
+
+Making seq_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/seq_mv'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./seq_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/seq_mv'
+
+Making parcsr_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_mv'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_parcsr_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_mv'
+
+Making parcsr_block_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_block_mv'
+cp -fR ./par_csr_block_matrix.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include	
+cp -fR ./csr_block_matrix.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_block_mv'
+
+Making distributed_matrix ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_matrix'
+cp -fR ./distributed_matrix.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_matrix'
+
+Making IJ_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/IJ_mv'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_IJ_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/IJ_mv'
+
+Making matrix_matrix ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/matrix_matrix'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/matrix_matrix'
+
+Making distributed_ls ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls'
+Making pilut ...
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/pilut'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/pilut'
+Making ParaSails ...
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/ParaSails'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/ParaSails'
+Making Euclid ...
+make[2]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/Euclid'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls/Euclid'
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/distributed_ls'
+
+Making parcsr_ls ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_ls'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_parcsr_ls.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/parcsr_ls'
+
+Making struct_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_mv'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_struct_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_mv'
+
+Making struct_ls ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_ls'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_struct_ls.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/struct_ls'
+
+Making sstruct_mv ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_mv'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_sstruct_mv.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_mv'
+
+Making sstruct_ls ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_ls'
+cp -fR ./HYPRE_*.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+cp -fR ./_hypre_sstruct_ls.h /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/include
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/sstruct_ls'
+
+Making lib ...
+make[1]: Entering directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/lib'
+cp -fR libHYPRE* /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/hypre/lib
+make[1]: Leaving directory `/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/hypre/2.11.1/centos7.2_intel16.0.1/hypre-2.11.1/src/lib'
+
+Installing hypre ...
+mkdir -p -- /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/lib /software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/include
+
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+cd $SW_BLDDIR
+
+#-- Write pkg-config file
+mkdir -p $SW_BLDDIR/lib/pkgconfig
+cat > $SW_BLDDIR/lib/pkgconfig/${PACKAGE}.pc << EOF
+prefix=$SW_BLDDIR
+includedir=\${prefix}/include
+libdir=\${prefix}/lib
+
+Name: ${PACKAGE}
+Description: ${PACKAGE} Library
+URL: http://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods/software
+Version: $VERSION
+Cflags: -I\${includedir}  
+Libs: -L\${libdir} -lHYPRE-2.11.1
+EOF
+
+
+############################### if this far, return 0
+exit 0
+/software/dev_tools/swtree/cs400/hypre/2.11.1/centos7.2_intel16.0.1/rebuild : passed (0)
