@@ -1,0 +1,27 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module unload PE-gnu
+  module unload PE-intel
+  module unload PE-pgi
+  module load PE-intel
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+
+# env vars here
+
+PACKAGE=bzip2
+VERSION=1.0.6
+SRCDIR=${PACKAGE}-${VERSION}
+
+# these may need to go up in the special section between ###
+export CC=pecc
+export CXX=pec++
+export F77=pefortran
+export F90=pefortran
+export F9C=pefortran
+export F9X=pefortran
+export F03=pefortran
+export FC=pefortran
+
+export PE_ADD_RPATH=1
