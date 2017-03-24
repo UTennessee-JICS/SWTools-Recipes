@@ -1,0 +1,36 @@
+set -o verbose
+
+echo "------ Building and Installing $NETCDF4 ----------"
+which python
+which gcc
+
+rm -rf $NETCDF4
+tar -zxf ${SW_SOURCES}/python/$PYTHON_VER/$NETCDF4.tar.gz
+
+cd $NETCDF4
+
+#-- Comment out lines  as it caused linking error (see build-note)
+#sed -i '374 s/^/#/' setup.py
+#sed -i '373 s/^/#/' setup.py
+#sed -i '372 s/^/#/' setup.py
+#sed -i '371 s/^/#/' setup.py
+sed -i '403 s/^/#/' setup.py
+sed -i '446 s/^/#/' setup.py
+sed -i '402 s/,/),/' setup.py
+sed -i '445 s/,/),/' setup.py
+
+python setup.py build
+if [ $? -ne 0 ] ; then
+  echo "$NETCDF4 setup.py build failed."
+  exit 1
+fi
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$NETCDF4 setup.py install --$SW_BLDDIR failed."
+  exit 1  
+fi
+
+cd ../
+        
+set +o verbose

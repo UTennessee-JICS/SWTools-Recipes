@@ -1,0 +1,30 @@
+set -o verbose
+
+echo "------ Building and Installing NOSE ----------"
+
+#bin/easy_install nose
+#if [ $? -ne 0 ] ; then
+#  echo "Installation of \"nose\" failed."
+#  exit 1
+#fi
+
+rm -rf $NOSE_SRC
+tar -zxf ${SW_SOURCES}/python/$PYTHON_VER/$NOSE_SRC.tar.gz
+
+cd $NOSE_SRC
+
+python setup.py build
+if [ $? -ne 0 ] ; then
+  echo "$NOSE_SRC setup.py build failed."
+  exit 1
+fi
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$NOSE_SRC setup.py install --$SW_BLDDIR failed."
+  exit 1  
+fi
+
+cd ../
+
+set +o verbose
