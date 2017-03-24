@@ -1,0 +1,80 @@
+#%Module
+#PE-gnu
+
+set desc	"This modulefile sets up the NAG Programming Environment (PE)."
+set whatis	"PE-nag defines the environment needed to build \n
+                 applications using NAG Fortran compiler on this system."
+set onload	""
+
+set arch	cs400_centos7.2_pe2016-08
+set app 	PE
+set ver 	1.0
+set swhome	/software/dev_tools/swtree
+set build	noarch
+
+set this_mpi	mpich/3.2
+set this_comp	nag/6.0
+
+set other_mpi	"mpi/openmpi/gcc/5.3.0 \
+                 mpi/openmpi/intel/1.10.2 \
+                 openmpi/1.10.3"
+set other_comp	"linux-x86_64/gcc@5.3.0%gcc@4.8.5+gold-5hy3c4b \
+		 gcc/5.3.0 \
+                 compilers/intel/2016.1 \
+		 intel/16.0.1 \
+                 compilers/pgi/15.7"
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+conflict PE-gnu PE-intel PE-pgi
+
+if { [ module-info mode switch1 ] || [ module-info mode switch3 ] } {
+
+  #-- Unload all other MPI
+  foreach mpi [ list $other_mpi ] {
+    if [ is-loaded "$mpi" ] {
+      module unload "$mpi"
+    }
+  }
+
+  #-- Unload all other compilers
+  foreach compiler [ list $other_comp ] {
+    if [ is-loaded "$compiler" ] {
+      module unload "$compiler"
+    }
+  }
+
+}
+
+if { [ module-info mode switch2 ] || [ module-info mode load ] } {
+  module load $this_comp
+  module load $this_mpi
+}
+
+if { [ module-info mode remove ] } {
+  module unload $this_mpi
+  module unload $this_comp
+}
+
+setenv		PE_NAME		"NAG"
+setenv		PE_CC		"mpicc"
+setenv		PE_CXX		"mpic++"
+setenv		PE_FORTRAN	"mpif90"
+
+prepend-path	PATH		$swhome/$arch/$app/$ver/$build/bin
+
+module load xalt
