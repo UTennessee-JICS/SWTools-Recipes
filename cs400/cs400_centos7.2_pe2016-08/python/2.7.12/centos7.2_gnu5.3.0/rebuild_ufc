@@ -1,0 +1,35 @@
+set -o verbose
+
+
+echo "------ Building and Installing UFC ----------"
+
+rm -rf $UFC_SRC
+
+tar -xvzf  ${SW_SOURCES}/python/$PYTHON_VER/$UFC_SRC.tar.gz
+
+cd $UFC_SRC
+
+#cmake -DCMAKE_INSTALL_PREFIX=$SW_BLDDIR/local .
+cmake -DCMAKE_INSTALL_PREFIX=$SW_BLDDIR .
+#cmake .
+
+if [ $? -ne 0 ] ; then
+  echo "$UFC_SRC cmake failed."
+  exit 1
+fi
+
+
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$UFC make install  failed."
+  exit 1
+fi
+
+
+
+cd ../
+
+
+
+set +o verbose

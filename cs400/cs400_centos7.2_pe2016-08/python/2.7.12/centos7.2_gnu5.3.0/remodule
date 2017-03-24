@@ -1,16 +1,22 @@
   ### Set Environment (do not remove this line only change what is in between)
   . ${MODULESHOME}/init/bash
   module purge
-  module load PE-gnu
+  export MODULEPATH=${MODULEPATH}:/software/dev_tools/swtree/cs400/modulefiles
+  module load PE-gnu/1.3
   ### End Environment (do not remove this line only change what is in between)
   
 # load any other dependent modules here
 module load hdf5-parallel
-module load mkl 		#-- Set MKL_DIR and MKLROOT
-module load netcdf
-
+#module load mkl 		#-- Set MKL_DIR and MKLROOT
+export MKLROOT=/software/tools/compilers/intel/composer_2016.1/compilers_and_libraries_2016.1.150/linux/mkl
+export MKL_DIR=/software/tools/compilers/intel/composer_2016.1/compilers_and_libraries_2016.1.150/linux/mkl
 # This is needed to build scientific python with NetCDF support:
-export NETCDF_PREFIX=$NETCDF_DIR
+#export NETCDF_PREFIX=$NETCDF_DIR
+
+# For Dolfin
+module load cmake
+module load bzip2 
+module load boost
 
 # env vars here
 
@@ -37,7 +43,16 @@ DOCOPT_VER=0.6.2
 #;PILLOW_VER=2.4.0
 #;SCIKITIMAGE_VER=0.9.3
 #;PYWAVELETS_VER=0.2.2
-NETCDF4_VER=1.2.7
+DOLFIN_VER=2016.1.0
+EIGEN_VER=3.3.2
+PLY_VER=3.10
+SWIG_VER=3.0.12
+FFC_VER=2016.2.0
+FIAT_VER=2016.2.0
+UFL_VER=2016.2.0
+UFC_VER=2.1.0
+DIJITSO_VER=2016.2.0
+
 # This is needed to build scientific python with NetCDF support:
 #export NETCDF_PREFIX=$NETCDF_DIR
 
@@ -64,16 +79,28 @@ DOCOPT_SRC=docopt-$DOCOPT_VER
 PILLOW_SRC=Pillow-$PILLOW_VER
 SCIKITIMAGE_SRC=scikit-image-$SCIKITIMAGE_VER
 PYWAVELETS_SRC=PyWavelets-$PYWAVELETS_VER
-NETCDF4=netCDF4-$NETCDF4_VER
+DOLFIN_SRC=dolfin-$DOLFIN_VER
+EIGEN_SRC=eigen-$EIGEN_VER
+PLY_SRC=ply-$PLY_VER
+FFC_SRC=ffc-$FFC_VER
+SWIG_SRC=swig-$SWIG_VER
+FIAT_SRC=fiat-$FIAT_VER
+UFL_SRC=ufl-$UFL_VER
+UFC_SRC=ufc-$UFC_VER
+DIJITSO_SRC=dijitso-$DIJITSO_VER
+INSTANT_SRC=instant
 
 # these may need to go up in the special section between ###
 #export CC=cc
 #export CXX="CC -DMPICH_IGNORE_CXX_SEEK"
-export CC=pecc
-export CXX=pec++
-export F77=pefortran
-export F90=pefortran
-export F95=pefortran
-export FC=pefortran
+
+export CC=gcc
+export CXX=g++
+export F77=gfortran
+export F90=gfortran
+export F95=gfortran
+export FC=gfortran
+export MPI_CC=mpicc
+
 
 export PE_ADD_RPATH=1

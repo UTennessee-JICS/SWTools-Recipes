@@ -58,13 +58,18 @@ source rebuild_mpi4py
 #;source rebuild_pytables
 #;source rebuild_astropy
 #;source rebuild_lxml
-source rebuild_h5py
+#;source rebuild_h5py
 source rebuild_simpy
 source rebuild_docopt
-source rebuild_netcdf4
 #;source rebuild_pillow
 #;source rebuild_scikitimage
 #;source rebuild_pywavelets
-
+# Add for dolfin
+source rebuild_ply
+source rebuild_fiat
+source rebuild_ufl
+source rebuild_ufc
+source rebuild_dijitso
+source rebuild_dolfin
 ############################### if this far, return 0
 exit 0

@@ -1,0 +1,28 @@
+set -o verbose
+
+
+echo "------ Building and Installing PLY ----------"
+
+rm -rf $PLY_SRC
+#tar -xvzf /software/dev_tools/swsources/python/2.7.12/ply-3.10.tar.gz
+tar -xvzf  ${SW_SOURCES}/python/$PYTHON_VER/$PLY_SRC.tar.gz
+
+cd $PLY_SRC
+
+python setup.py build
+if [ $? -ne 0 ] ; then
+  echo "$PLY_SRC setup.py build failed."
+  exit 1
+fi
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$PLY_SRC setup.py install --$SW_BLDDIR failed."
+  exit 1
+fi
+
+cd ../
+
+
+
+set +o verbose

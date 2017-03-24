@@ -1,0 +1,30 @@
+set -o verbose
+
+
+echo "------ Building and Installing DIJITSO ----------"
+
+rm -rf $DIJITSO_SRC
+
+tar -xvzf  ${SW_SOURCES}/python/$PYTHON_VER/$DIJITSO_SRC.tar.gz
+
+cd $DIJITSO_SRC
+
+python setup.py build
+if [ $? -ne 0 ] ; then
+  echo "$DIJITSO_SRC setup.py build failed."
+  exit 1
+fi
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$DIJITSO setup.py install --$SW_BLDDIR failed."
+  exit 1
+fi
+
+cd ../
+
+
+
+
+
+set +o verbose

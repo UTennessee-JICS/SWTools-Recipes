@@ -1,0 +1,137 @@
+set -o verbose
+
+# Install EIGEN SWIG FFC and INSTANT  before DOLFIN
+
+echo "------ Building and Installing EIGEN ----------"
+
+rm -rf $EIGEN_SRC
+
+tar -xvzf ${SW_SOURCES}/python/$PYTHON_VER/$EIGEN_SRC.tar.gz
+mv eigen-eigen* $EIGEN_SRC
+cd $EIGEN_SRC
+
+mkdir build
+cd build
+mkdir install_dir
+cmake .. -DCMAKE_INSTALL_PREFIX=install_dir -DBOOST_ROOT=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/boost/1.61.0/centos7.2_gnu5.3.0/boost_1_61_0 -DBOOST_LIBRARYDIR=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/boost/1.61.0/centos7.2_gnu5.3.0/lib
+#cmake .. -DCMAKE_INSTALL_PREFIX=install_dir 
+if [ $? -ne 0 ] ; then
+  echo "eigen cmake failed"
+  exit 1
+fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "eigen make install failed"
+  exit 1
+fi
+
+export PATH="/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/python/2.7.12/centos7.2_gnu5.3.0/eigen-3.3.2/build/install_dir/include/eigen3:$PATH"
+
+cd ../../
+
+
+
+echo "------ Building and Installing SWIG-3.0.12 ----------"
+
+
+rm -rf $SWIG_SRC
+tar -xvzf ${SW_SOURCES}/python/$PYTHON_VER/$SWIG_SRC.tar.gz
+
+cd $SWIG_SRC
+
+#./configure --prefix=$SW_BLDDIR 
+./configure --prefix=$SW_BLDDIR --with-boost=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/boost/1.61.0/centos7.2_gnu5.3.0/boost_1_61_0 --with-boost-lib=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/boost/1.61.0/centos7.2_gnu5.3.0/lib --with-boost-include=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/boost/1.61.0/centos7.2_gnu5.3.0/include/ 
+
+if [ $? -ne 0 ] ; then
+  echo "swgi configure failed"
+  exit 1
+fi
+
+make
+  if [ $? -ne 0 ] ; then
+    echo "swgi make failed"
+    exit 1
+  fi
+
+make install
+  if [ $? -ne 0 ] ; then
+    echo "swgi install failed"
+    exit 1
+  fi
+
+export PATH="/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/python/2.7.12/centos7.2_gnu5.3.0/swig-3.0.12:$PATH"
+
+cd ../
+
+echo "------ Building and Installing FFC ----------"
+
+rm -rf $FFC_SRC
+
+tar -xvzf ${SW_SOURCES}/python/$PYTHON_VER/$FFC_SRC.tar.gz
+cd $FFC_SRC
+
+pip install --prefix=$SW_BLDDIR .
+
+cd ../
+
+
+echo "------ Building and Installing INSTANT ----------"
+
+rm -rf $INSTANT_SRC
+git clone https://bitbucket.org/fenics-project/instant.git
+
+cd $INSTANT_SRC
+
+pip install --prefix=$SW_BLDDIR .
+
+cd ../
+
+
+
+
+echo "------ Building and Installing DOLFIN ----------"
+
+rm -rf $DOLFIN_SRC  
+tar -xvzf ${SW_SOURCES}/python/$PYTHON_VER/$DOLFIN_SRC.tar.gz
+
+cd $DOLFIN_SRC
+
+# Type Enter for ./cmake/scripts/generate-all
+echo -ne '\n' | ./cmake/scripts/generate-all
+
+#Add Include Directory for ufc.h
+sed -i '32 s/^/# Add inclide directory/' CMakeLists.txt
+sed -i "33i include_directories(" CMakeLists.txt
+sed -i "34i    /software/dev_tools/swtree/cs400_centos7.2_pe2016-08/python/2.7.12/centos7.2_gnu5.3.0/ffc-2016.2.0/ffc/backends/ufc/" CMakeLists.txt
+sed -i "35i )" CMakeLists.txt
+
+
+mkdir build
+cd build
+
+#cmake ..
+#cmake -DCMAKE_INSTALL_PREFIX=$PWD/../local ..
+
+cmake  -DBOOST_ROOT=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/boost/1.61.0/centos7.2_gnu5.3.0/boost_1_61_0 -DBOOST_LIBRARYDIR=/software/dev_tools/swtree/cs400_centos7.2_pe2016-08/boost/1.61.0/centos7.2_gnu5.3.0/lib -DCMAKE_INSTALL_PREFIX=$SW_BLDDIR/.. ..
+
+if [ $? -ne 0 ] ; then
+  echo "dolfin cmake failed"
+  exit 1
+fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "dolfin make install failed"
+  exit 1
+fi
+
+source /software/dev_tools/swtree/cs400/python/2.7.12/share/dolfin/dolfin.conf
+
+cd ../../
+
+# Find module _common libdolfin.so
+cp $SW_BLDDIR/lib/python2.7/site-packages/dolfin/cpp/_common.so $SW_BLDDIR/lib/.
+cp $SW_BLDDIR/$DOLFIN_SRC/build/dolfin/libdolfin.so.2016.1 $SW_BLDDIR/lib/.
+
+set +o verbose

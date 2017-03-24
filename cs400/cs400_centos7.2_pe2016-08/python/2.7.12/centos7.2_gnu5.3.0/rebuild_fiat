@@ -1,0 +1,28 @@
+set -o verbose
+
+
+echo "------ Building and Installing FIAT ----------"
+
+rm -rf $FIAT_SRC
+
+tar -xvzf  ${SW_SOURCES}/python/$PYTHON_VER/$FIAT_SRC.tar.gz
+
+cd $FIAT_SRC
+
+python setup.py build
+if [ $? -ne 0 ] ; then
+  echo "$FIAT_SRC setup.py build failed."
+  exit 1
+fi
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$FIAT_SRC setup.py install --$SW_BLDDIR failed."
+  exit 1
+fi
+
+cd ../
+
+
+
+set +o verbose

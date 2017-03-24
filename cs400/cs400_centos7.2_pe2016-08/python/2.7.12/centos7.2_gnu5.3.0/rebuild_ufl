@@ -1,0 +1,30 @@
+set -o verbose
+
+
+echo "------ Building and Installing UFL ----------"
+
+rm -rf $UFL_SRC
+
+tar -xvzf  ${SW_SOURCES}/python/$PYTHON_VER/$UFL_SRC.tar.gz
+
+cd $UFL_SRC
+
+python setup.py build
+if [ $? -ne 0 ] ; then
+  echo "$UFL_SRC setup.py build failed."
+  exit 1
+fi
+
+python setup.py install --prefix=$SW_BLDDIR
+if [ $? -ne 0 ] ; then
+  echo "$UFL_SRC setup.py install --$SW_BLDDIR failed."
+  exit 1
+fi
+
+cd ../
+
+
+
+
+
+set +o verbose
