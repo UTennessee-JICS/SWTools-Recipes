@@ -1,0 +1,24 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  module purge
+  export MODULEPATH=${MODULEPATH}:/software/dev_tools/swtree/cs400/modulefiles
+  module load compilers/intel/2017.0.098  
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+module unload mpi
+
+# env vars here
+PACKAGE=mvapich2
+VERSION=2.2
+SRCDIR=${PACKAGE}-${VERSION}
+
+# these may need to go up in the special section between ###
+export SW_SOURCES='/software/dev_tools/swsources/'
+export CC=icc
+export CXX=icpc
+export F77=ifort
+export F9C=ifort
+export F9X=ifort
+export F03=ifort
+export FC=ifort

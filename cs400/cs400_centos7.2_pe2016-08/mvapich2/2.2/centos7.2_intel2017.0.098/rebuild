@@ -1,0 +1,91 @@
+#!/bin/bash
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   unique work dir that local script can use
+# Output
+#   Return code of 0=success or 1=failure 
+##############################
+
+# exit 3 is a signal to the sw infrastructure that this template has not 
+# been updated; please delete it when ready
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+set -o verbose
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include doc share man etc libexec info
+
+#clear out status and old SRCDIR file since re-making
+rm -f status
+rm -rf $SRCDIR
+
+tar -xzf $SW_SOURCES/${PACKAGE}/${VERSION}/$SRCDIR.tar.gz
+
+cp mvapich2-2.2/src/mpid/ch3/channels/mrail/src/gen2/ibv_param.h mvapich2-2.2/src/mpid/common/datatype/dataloop/
+cp mvapich2-2.2/src/mpid/ch3/channels/mrail/src/gen2/ibv_param.h mvapich2-2.2/src/mpid/ch3/channels/common/src/ft/
+cd $SRCDIR
+
+#./configure --with-pm=hydra \
+#--with-pbs=/opt/torque \
+#--with-rdma=gen2 \
+#--with-hwloc \
+#--prefix=$SW_BLDDIR \
+#--with-device=ch3:nemesis:ib
+
+./configure --with-pm=hydra \
+--with-pbs=/opt/torque \
+--with-rdma=gen2 \
+--prefix=$SW_BLDDIR
+#--with-device=ch3:mrail \
+#--with-hwloc \
+
+#./configure --prefix=$SW_BLDDIR \
+#--with-pbs=/opt/torque 
+#--enable-fortran=yes \
+#--enable-cxx \
+#--with-device=ch3:mrail \
+#--with-rdma=gen2
+
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+make -j 4
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE make failed"
+  exit 1
+fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+cd ..
+
+############################### if this far, return 0
+exit 0
