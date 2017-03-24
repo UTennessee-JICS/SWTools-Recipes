@@ -36,15 +36,17 @@ set -o verbose
 # clear out old installation to prevent potential libtool chmod 
 # commands from failing when reinstalled by another person
 rm -rf bin lib include doc share man etc libexec info
+# rm symbolic link of scons
+rm scons
 
 #clear out status and old SRCDIR file since re-making
 rm -f status
-rm -rf $SRCDIR $PREREQ_1
+rm -rf $SRCDIR $PREREQ_1 $PREREQ_2 $PREREQ_5
 
 tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$PREREQ_1.tar.gz
 cd $PREREQ_1
 
-./configure --prefix=$SW_BLDDIR
+./configure --prefix=$SW_BLDDIR 
 if [ $? -ne 0 ] ; then
   echo "$PACKAGE configure failed"
   exit 1
@@ -61,6 +63,7 @@ if [ $? -ne 0 ] ; then
   echo "$PACKAGE install failed"
   exit 1
 fi
+
 
 cd $SW_BLDDIR
 
@@ -88,17 +91,30 @@ if [ $? -ne 0 ] ; then
   exit 1
 fi
 
+# scons
 cd $SW_BLDDIR
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$PREREQ_4.tar.gz
+ln -s ./scons.py scons
 
+# serf
+cd $SW_BLDDIR
+unzip $SW_SOURCES/${PACKAGE}/${VERSION}/$PREREQ_5.zip
+cd  $PREREQ_5
+../scons  APR=$SW_BLDDIR APU=$SW_BLDDIR PREFIX=$SW_BLDDIR
+../scons  PREFIX=$SW_BLDDIR install
+
+cp $SW_BLDDIR/$PREREQ_5/libserf-1.so.1.3.0  $SW_BLDDIR/lib/libserf-1.so.1
+
+
+cd $SW_BLDDIR
 tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$SRCDIR.tar.bz2
-
 cd $SRCDIR
 
 unzip $SW_SOURCES/${PACKAGE}/${VERSION}/$PREREQ_3.zip
 mv $PREREQ_3 sqlite-amalgamation
 
 ./configure --prefix=$SW_BLDDIR \
---with-apr=$SW_BLDDIR --with-apr-util=$SW_BLDDIR
+--with-apr=$SW_BLDDIR --with-apr-util=$SW_BLDDIR --with-serf=$SW_BLDDIR/$PREREQ_5
 if [ $? -ne 0 ] ; then
   echo "$PACKAGE configure failed"
   exit 1

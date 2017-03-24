@@ -14,3 +14,5 @@ SRCDIR=${PACKAGE}-${VERSION}
 PREREQ_1=apr-1.5.2
 PREREQ_2=apr-util-1.5.4
 PREREQ_3=sqlite-amalgamation-3071501
+PREREQ_4=scons-local-2.3.0
+PREREQ_5=serf-1.3.9
