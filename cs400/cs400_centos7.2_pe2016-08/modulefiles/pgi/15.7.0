@@ -1,0 +1,86 @@
+#%Module
+#
+# pgi module
+#
+
+conflict pgi
+
+set sys         [uname sysname]
+set os          [uname release]
+
+set m [uname machine]
+if { $m == "x86_64" } {
+   set bits 64
+   set plat linux86-64
+} else {
+   set bits 32
+   set plat linux86
+}
+set PGI_LEVEL 15.7.0
+set PGI_CURPATH /software/tools/compilers/pgi/2015.157
+set PGI_VERS_STR [ join [ lrange [ split $PGI_LEVEL . ] 0 1 ] . ]
+
+setenv PGI_VERSION  $PGI_VERS_STR
+setenv PGI_VERS_STR $PGI_LEVEL
+setenv PGI_PATH $PGI_CURPATH
+setenv PGI $PGI_CURPATH
+
+#prepend-path PGROUPD_LICENSE_FILE /opt/pgi/license.dat
+
+set pgidir $PGI_CURPATH/$plat/$PGI_VERS_STR
+
+if { [ file exist $pgidir/bin ] } {
+    prepend-path PATH               $pgidir/bin
+} else {
+    puts stderr "Warning: bin directory doesn't exist"
+}
+if { [ file exist $pgidir/man ] } {
+    prepend-path MANPATH            $pgidir/man
+} else {
+    puts stderr "Warning: man directory doesn't exist"
+}
+if { [ file exist $pgidir/lib ] } {
+    prepend-path LD_LIBRARY_PATH    $pgidir/lib
+} else {
+    puts stderr "Warning: lib directory doesn't exist"
+}
+
+proc ModulesHelp { } {
+    global pgidir
+    global PGI_LEVEL
+    global PGI_VERS_STR
+    global PGI_CURPATH
+    set PGI_DOC_DIR $pgidir/doc
+    puts stderr "PGI $PGI_LEVEL"
+    puts stderr "==========="
+    puts stderr ""
+    puts stderr "Purpose:"
+    puts stderr "--------"
+    puts stderr "  Features of PGI $PGI_LEVEL are documented at:"
+    puts stderr "    http://www.pgroup.com/doc/pgirn[ join [split $PGI_VERS_STR . ] "" ].pdf"
+    puts stderr ""
+    puts stderr "Documentation:"
+    puts stderr "--------------"
+    puts stderr "  Documentation for PGI $PGI_LEVEL is in $PGI_CURPATH/linux86-64/$PGI_VERS_STR/doc/"
+    puts stderr "  PGI User's Guide,            pgi15ug.pdf"
+    puts stderr "  PGI Fortran Reference,       pgifortref.pdf"
+    puts stderr "  PGI CUDA Fortran Guide,      pgicudaforug.pdf"
+    puts stderr "  PGI $PGI_VERS_STR Release Notes,      pgirn[ join [split $PGI_VERS_STR . ] "" ].pdf"
+    puts stderr "  PGI $PGI_VERS_STR Installation Guide, pgiinstall[ join [split $PGI_VERS_STR . ] "" ].pdf"
+    puts stderr ""
+    puts stderr "Modulefile:"
+    puts stderr "-----------"
+    puts stderr "  module load pgi/$PGI_LEVEL"
+    puts stderr ""
+#    puts stderr "Making Default:"
+#    puts stderr "---------------"
+#    puts stderr "  To make this the default version, execute:"
+#    puts stderr "    /opt/admin-pe/set_default_files/set_default_pgi_$PGI_LEVEL"
+#    puts stderr ""
+    puts stderr "Certain components, files or programs contained within this package or product are Copyright -2015 Cray Inc. All rights reserved."
+    puts stderr ""
+}
+
+module-whatis   "PGI compiler"
+
+# This module was produced with craypkg-gen trunk rev 7657c
