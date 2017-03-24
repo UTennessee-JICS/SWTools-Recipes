@@ -1,0 +1,128 @@
+#%Module
+#
+
+#if { [ info exists env(OMPI_COMP) ] } {
+#	set ompi_dir  $env(OPENMPI_DIR)
+#	if { $env(OMPI_COMP) == "INTEL16" } {
+#		regsub -all "16\.\[0-9\]+\.\[0-9\]+" $ompi_dir "17.0.0" ompi_dir
+#		prepend-path    PATH            $ompi_dir/bin
+#		prepend-path	LD_LIBRARY_PATH $ompi_dir/lib
+#		prepend-path	MANPATH		$ompi_dir/share/man
+#		setenv          OPENMPI_DIR	$ompi_dir
+#		setenv          OPENMPI_INC	$ompi_dir/include
+#		setenv          OPENMPI_LIB	$ompi_dir/lib
+#		setenv 		OMPI_COMP	"INTEL17"
+#	}
+#}
+
+#if { [ info exists env(OPENMPI_DIR) ] } {
+#	module unload openmpi
+#}
+#setenv INTEL_COMP "17"
+#module load openmpi
+
+#setenv VT_MPI {impi4};
+append-path MIC_LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mpi/mic/lib};
+append-path MIC_LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/compiler/lib/mic};
+append-path MIC_LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/ipp/lib/mic};
+append-path MIC_LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/compiler/lib/mic};
+append-path MIC_LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mkl/lib/mic};
+append-path MIC_LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/tbb/lib/mic};
+setenv MPS_KMP_FORKJOIN_FRAMES_MODE {3};
+setenv CPLUS_INCLUDE_PATH {/software/tools/compilers/intel_2017//clck/2017.0.014/include};
+prepend-path PATH {/software/tools/compilers/intel_2017/debugger_2017/gdb/intel64_mic/bin};
+#prepend-path PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mpi/intel64/bin};
+prepend-path PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/bin/intel64};
+prepend-path PATH {/software/tools/compilers/intel_2017//clck/2017.0.014/bin/intel64};
+prepend-path PATH {/software/tools/compilers/intel_2017//itac/2017.0.020/intel64/bin};
+prepend-path PATH {/software/tools/compilers/intel_2017//itac/2017.0.020/intel64/bin};
+prepend-path PATH {/software/tools/compilers/intel_2017/itac/2017.0.020/intel64/bin};
+prepend-path PATH {/software/tools/compilers/intel_2017/inspector_2017.1.0.475470/bin64};
+prepend-path PATH {/software/tools/compilers/intel_2017/vtune_amplifier_xe_2017.0.2.478468/bin64};
+prepend-path PATH {/software/tools/compilers/intel_2017/advisor_2017.1.0.477503/bin64};
+append-path PATH {/software/tools/compilers/intel_2017/bin};
+setenv MPS_STAT_ENABLE_IDLE_VAL {1};
+setenv INSPECTOR_2017_DIR {/software/tools/compilers/intel_2017/inspector_2017.1.0.475470};
+setenv CLCK_ROOT {/software/tools/compilers/intel_2017//clck/2017.0.014};
+setenv MPS_STAT_MESSAGES {1};
+prepend-path MANPATH {/software/tools/compilers/intel_2017/documentation_2017/en/debugger//gdb-igfx/man/};
+prepend-path MANPATH {/software/tools/compilers/intel_2017/documentation_2017/en/debugger//gdb-mic/man/};
+prepend-path MANPATH {/software/tools/compilers/intel_2017/documentation_2017/en/debugger//gdb-ia/man/};
+prepend-path MANPATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mpi/man};
+prepend-path MANPATH {/software/tools/compilers/intel_2017/man/common};
+prepend-path MANPATH {/software/tools/compilers/intel_2017//itac/2017.0.020/man};
+setenv MPS_STAT_DIR_POSTFIX {_%D-%T};
+prepend-path LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/daal/lib/intel64_lin};
+prepend-path LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/tbb/lib/intel64/gcc4.7};
+prepend-path LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mkl/lib/intel64};
+prepend-path LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/compiler/lib/intel64};
+prepend-path LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/ipp/lib/intel64};
+prepend-path LIBRARY_PATH {/software/tools/compilers/intel_2017//clck/2017.0.014/lib/intel64};
+setenv MPS_LD_PRELOAD {libmps.so};
+setenv ADVISOR_2017_DIR {/software/tools/compilers/intel_2017/advisor_2017.1.0.477503};
+append-path MIC_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mpi/mic/lib};
+append-path MIC_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/compiler/lib/mic};
+append-path MIC_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/compiler/lib/mic};
+append-path MIC_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mkl/lib/mic};
+append-path MIC_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/tbb/lib/mic};
+setenv VT_ROOT {/software/tools/compilers/intel_2017//itac/2017.0.020};
+append-path CLASSPATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mpi/intel64/lib/mpi.jar};
+append-path CLASSPATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/daal/lib/daal.jar};
+setenv MPS_STAT_LEVEL {5};
+setenv VT_ARCH {intel64};
+prepend-path INTEL_LICENSE_FILE {/root/intel/licenses};
+prepend-path INTEL_LICENSE_FILE {/opt/intel/licenses};
+prepend-path INTEL_LICENSE_FILE {/root/intel/licenses};
+prepend-path INTEL_LICENSE_FILE {/opt/intel/licenses};
+prepend-path INTEL_LICENSE_FILE {/software/tools/compilers/intel_2017/licenses};
+append-path INTEL_LICENSE_FILE {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/licenses};
+append-path INTEL_LICENSE_FILE {/opt/intel/licenses};
+append-path INTEL_LICENSE_FILE {/root/intel/licenses};
+append-path INTEL_LICENSE_FILE {/software/tools/compilers/intel_2017//clck/2017.0.014/licenses};
+append-path INTEL_LICENSE_FILE {/opt/intel/licenses};
+append-path INTEL_LICENSE_FILE {/root/intel/licenses};
+append-path INTEL_LICENSE_FILE {/Users/Shared/Library/Application Support/Intel/Licenses};
+setenv MPS_STAT_ENABLE_IDLE {I_MPI_PVAR_IDLE};
+append-path CPATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/ipp/include};
+append-path CPATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mkl/include};
+append-path CPATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/tbb/include};
+append-path CPATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/daal/include};
+setenv VT_ADD_LIBS {-ldwarf -lelf -lvtunwind -lpthread};
+setenv VT_LIB_DIR {/software/tools/compilers/intel_2017//itac/2017.0.020/intel64/lib};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/daal/lib/intel64_lin};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/debugger_2017/libipt/intel64/lib};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/debugger_2017/iga/lib};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/tbb/lib/intel64/gcc4.7};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mkl/lib/intel64};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/compiler/lib/intel64};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/ipp/lib/intel64};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mpi/mic/lib};
+#prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mpi/intel64/lib};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/compiler/lib/intel64_lin};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/compiler/lib/intel64};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017//itac/2017.0.020/intel64/slib};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017//itac/2017.0.020/mic/slib};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/itac/2017.0.020/intel64/slib};
+prepend-path LD_LIBRARY_PATH {/software/tools/compilers/intel_2017/itac/2017.0.020/mic/slib};
+setenv VTUNE_AMPLIFIER_XE_2017_DIR {/software/tools/compilers/intel_2017/vtune_amplifier_xe_2017.0.2.478468};
+setenv MPS_TOOL_ROOT {/software/tools/compilers/intel_2017/itac/2017.0.020};
+setenv VT_SLIB_DIR {/software/tools/compilers/intel_2017//itac/2017.0.020/intel64/slib};
+setenv MPS_INTEL_LIBITTNOTIFY64 {libmps.so};
+append-path INFOPATH {/software/tools/compilers/intel_2017/documentation_2017/en/debugger//gdb-ia/info/};
+append-path INFOPATH {/software/tools/compilers/intel_2017/documentation_2017/en/debugger//gdb-mic/info/};
+append-path INFOPATH {/software/tools/compilers/intel_2017/documentation_2017/en/debugger//gdb-igfx/info/};
+append-path NLSPATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/compiler/lib/intel64/locale/%l_%t/%N};
+append-path NLSPATH {/software/tools/compilers/intel_2017/compilers_and_libraries_2017.0.098/linux/mkl/lib/intel64/locale/%l_%t/%N};
+append-path NLSPATH {/software/tools/compilers/intel_2017/debugger_2017/gdb/intel64_mic/share/locale/%l_%t/%N};
+append-path NLSPATH {/software/tools/compilers/intel_2017/debugger_2017/gdb/intel64/share/locale/%l_%t/%N};
+
+setenv INTEL_VERSION 17.0.0
+
+#-- If swap-ed, reload openmpi if loaded
+if { [ module-info mode switch2 ] } {
+  if { [ is-loaded openmpi ] } {
+    set ompi_ver $env(OPENMPI_VERSION)
+    puts stderr "Please reload openmpi module: "
+    puts stderr "module swap openmpi openmpi/${ompi_ver}"
+  }
+}

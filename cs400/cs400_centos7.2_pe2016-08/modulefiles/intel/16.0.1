@@ -1,0 +1,99 @@
+#%Module
+
+conflict intel
+
+#setenv INTEL_COMP "16"
+set INTEL_CURPATH /software/tools/compilers/intel/compilers_and_libraries_2016.1.150
+set INTEL_LEVEL 16.0.1.150
+set INTEL_MAJOR_LEVEL [ join [ lrange [ split $INTEL_LEVEL . ] 0 1 ] . ]
+set INTEL_MINOR_LEVEL [ join [ lrange [ split $INTEL_LEVEL . ] 2 3 ] . ]
+
+setenv INTEL_PATH          $INTEL_CURPATH
+setenv INTEL_VERSION       $INTEL_LEVEL
+setenv INTEL_MAJOR_VERSION $INTEL_MAJOR_LEVEL
+setenv INTEL_MINOR_VERSION $INTEL_MINOR_LEVEL
+
+setenv I_MPI_ROOT $INTEL_CURPATH/linux/mpi
+setenv GDB_CROSS /software/tools/compilers/intel/debugger_2016/gdb/intel64_mic/bin/gdb-mic
+setenv INTEL_PYTHONHOME /software/tools/compilers/intel/debugger_2016/python/intel64/
+setenv IPPROOT $INTEL_CURPATH/linux/ipp
+prepend-path MIC_LD_LIBRARY_PATH $INTEL_CURPATH/linux/compiler/lib/mic:$INTEL_CURPATH/linux/mpi/mic/lib:$INTEL_CURPATH/linux/compiler/lib/mic:$INTEL_CURPATH/linux/mkl/lib/mic:$INTEL_CURPATH/linux/tbb/lib/mic
+setenv DAALROOT $INTEL_CURPATH/linux/daal
+prepend-path PATH /software/tools/compilers/intel/debugger_2016/gdb/intel64_mic/bin
+#prepend-path PATH $INTEL_CURPATH/linux/mpi/intel64/bin
+prepend-path PATH $INTEL_CURPATH/linux/bin/intel64
+append-path INTEL_LICENSE_FILE $INTEL_CURPATH/linux/licenses
+append-path INTEL_LICENSE_FILE /opt/intel/licenses
+append-path INTEL_LICENSE_FILE /root/intel/licenses
+append-path CPATH $INTEL_CURPATH/linux/ipp/include:$INTEL_CURPATH/linux/mkl/include:$INTEL_CURPATH/linux/tbb/include:$INTEL_CURPATH/linux/daal/include
+prepend-path LD_LIBRARY_PATH $INTEL_CURPATH/linux/compiler/lib/intel64:$INTEL_CURPATH/linux/mpi/intel64/lib:$INTEL_CURPATH/linux/mpi/mic/lib:$INTEL_CURPATH/linux/ipp/lib/intel64:$INTEL_CURPATH/linux/compiler/lib/intel64:$INTEL_CURPATH/linux/mkl/lib/intel64:$INTEL_CURPATH/linux/tbb/lib/intel64/gcc4.4:/software/tools/compilers/intel/debugger_2016/libipt/intel64/lib:$INTEL_CURPATH/linux/daal/lib/intel64_lin:$INTEL_CURPATH/linux/daal/../tbb/lib/intel64_lin/gcc4.4:$INTEL_CURPATH/linux/daal/../compiler/lib/intel64_lin
+append-path MANPATH /software/tools/compilers/intel/man/common:$INTEL_CURPATH/linux/mpi/man:$INTEL_CURPATH/linux/man/en_US:/software/tools/compilers/intel/documentation_2016/en/debugger//gdb-ia/man/:/software/tools/compilers/intel/documentation_2016/en/debugger//gdb-mic/man/:/software/tools/compilers/intel/documentation_2016/en/debugger//gdb-igfx/man/:/opt/torque/share/man:/usr/local/share/man:/usr/share/man/overrides:/usr/share/man:
+setenv MPM_LAUNCHER /software/tools/compilers/intel/debugger_2016/mpm/mic/bin/start_mpm.sh
+prepend-path LIBRARY_PATH $INTEL_CURPATH/linux/ipp/lib/intel64:$INTEL_CURPATH/linux/compiler/lib/intel64:$INTEL_CURPATH/linux/mkl/lib/intel64:$INTEL_CURPATH/linux/tbb/lib/intel64/gcc4.4:$INTEL_CURPATH/linux/daal/lib/intel64_lin:$INTEL_CURPATH/linux/daal/../tbb/lib/intel64_lin/gcc4.4:$INTEL_CURPATH/linux/daal/../compiler/lib/intel64_lin
+setenv TBBROOT $INTEL_CURPATH/linux/tbb
+prepend-path INFOPATH /software/tools/compilers/intel/documentation_2016/en/debugger//gdb-ia/info/:/software/tools/compilers/intel/documentation_2016/en/debugger//gdb-mic/info/:/software/tools/compilers/intel/documentation_2016/en/debugger//gdb-igfx/info/
+prepend-path MIC_LIBRARY_PATH $INTEL_CURPATH/linux/compiler/lib/mic:$INTEL_CURPATH/linux/mpi/mic/lib:$INTEL_CURPATH/linux/tbb/lib/mic
+setenv GDBSERVER_MIC /software/tools/compilers/intel/debugger_2016/gdb/targets/mic/bin/gdbserver
+setenv MKLROOT $INTEL_CURPATH/linux/mkl
+setenv NLSPATH $INTEL_CURPATH/linux/compiler/lib/intel64/locale/%l_%t/%N:$INTEL_CURPATH/linux/mkl/lib/intel64/locale/%l_%t/%N:/software/tools/compilers/intel/debugger_2016/gdb/intel64_mic/share/locale/%l_%t/%N:/software/tools/compilers/intel/debugger_2016/gdb/intel64/share/locale/%l_%t/%N
+prepend-path CLASSPATH $INTEL_CURPATH/linux/daal/lib/daal.jar
+
+proc ModulesHelp { } {
+     global INTEL_LEVEL
+     global INTEL_CURPATH
+     puts stderr "This modulefile defines the system paths and environment variables"
+     puts stderr "needed to use the Intel compilers icc, ifort and icpc"
+#     puts stderr "Cray XE, XK, and XC systems.  This modulefile may be loaded"
+#     puts stderr "as a standalone or as part of PrgEnv-intel, when the user"
+#     puts stderr "will call these products using cc, ftn, and CC."
+#     puts stderr "If loaded as part of PrgEnv-intel, it cannot be unloaded"
+#     puts stderr "individually, but it can be swapped for another version."
+     puts stderr ""
+     puts stderr "intel $INTEL_LEVEL"
+     puts stderr "================"
+     puts stderr ""
+     puts stderr "Purpose:"
+     puts stderr "--------"
+     puts stderr "  Intel Composer XE version $INTEL_LEVEL."
+     puts stderr ""
+#     puts stderr "Product and OS Dependencies:"
+#     puts stderr "----------------------------"
+#     puts stderr "  On Cray XE, XK, and XC systems or systems used to compile"
+#     puts stderr "  for these Cray systems:"
+#     puts stderr "    - Cray recommends doing a custom installation of"
+#     puts stderr "      Intel Composer XE version $INTEL_LEVEL (C/C++ and FTN) and"
+#     puts stderr "      installing the entire Intel(R) Math Kernel Library."
+#     puts stderr "    - It is not necessary to install Intel Composer $INTEL_LEVEL"
+#     puts stderr "      for the IA-32 architecture."
+#     puts stderr ""
+#     puts stderr "  Intel Composer XE version $INTEL_LEVEL (C/C++ and FTN) must be installed in"
+#     puts stderr "  the default location.  The Intel C/C++ only installation is not supported"
+#     puts stderr "  because the Intel Fortran run time libraries are required by Cray XE, XK,"
+#     puts stderr "  and XC libraries (hdf5, for example) when using the Intel compiler."
+#     puts stderr ""
+     puts stderr "Documentation:"
+     puts stderr "--------------"
+     puts stderr "In the installation directory see:"
+     puts stderr "  /software/tools/compilers/intel/documentation_2016/en/"
+#     puts stderr "  Documentation/en_US/Release_Notes_F_2013SP1_L_EN.pdf"
+     puts stderr ""
+#     puts stderr "Making Default:"
+#     puts stderr "-------------"
+#     puts stderr "  To make this the default version, execute:"
+#     puts stderr "    [ join [ lrange [ split $INTEL_CURPATH / ] 0 end-2 ] / ]/admin-pe/set_default_craypkg/set_default_intel_$INTEL_LEVEL"
+#     puts stderr ""
+#     puts stderr "Certain components, files or programs contained within this package or product are Copyright -2014 Cray Inc. All rights reserved."
+#     puts stderr ""
+}
+module-whatis   "Intel compiler"
+
+setenv INTEL_VERSION 16.0.1
+
+#-- If swap-ed, reload openmpi if loaded
+if { [ module-info mode switch2 ] } {
+  if { [ is-loaded openmpi ] } {
+    set ompi_ver $env(OPENMPI_VERSION)
+    puts stderr "Please reload openmpi module: "
+    puts stderr "module swap openmpi openmpi/${ompi_ver}"
+  }
+}
