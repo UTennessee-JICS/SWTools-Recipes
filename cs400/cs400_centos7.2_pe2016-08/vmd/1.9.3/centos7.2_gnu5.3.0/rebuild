@@ -1,0 +1,113 @@
+#!/bin/bash
+
+############################## standard interface to /sw tools
+# Input:
+#   Environment variables
+#     SW_BLDDIR    current directory (PWD) minus /autofs/na1_ stuff
+#     SW_ENVFILE   file to be sourced which has alternate prog environment
+#                     only to be used in special circumstances
+#     SW_WORKDIR   unique work dir that local script can use
+# Output
+#   Return code of 0=success or 1=failure 
+##############################
+
+# exit 3 is a signal to the sw infrastructure that this template has not 
+# been updated; please delete it when ready
+
+if [ -z $SW_BLDDIR ]; then
+  echo "Error: SW_BLDDIR not set!"
+  exit 1
+else
+  cd $SW_BLDDIR
+fi
+
+if [ -z $SW_ENVFILE ]; then
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/ksh
+  . ${SW_BLDDIR}/remodule
+  ### End Environment (do not remove this line only change what is in between)
+else
+  . $SW_ENVFILE
+fi
+
+############################## app specific section
+#  
+set -o verbose
+# clear out old installation to prevent potential libtool chmod 
+# commands from failing when reinstalled by another person
+rm -rf bin lib include doc share man etc libexec info
+
+#clear out status and old SRCDIR file since re-making
+rm -f status 
+rm -rf $SRCDIR plugins
+
+#-- Build TCL first since NAMD depends on TCL. Do not use other TCL version
+rm -rf tcl${TCL_VER}
+tar -xzf ${SW_SOURCES}/${PACKAGE}/${VERSION}/tcl${TCL_VER}-src.tar.gz
+cd tcl*/unix
+
+./configure --prefix=$SW_BLDDIR
+make
+  if [ $? -ne 0 ] ; then
+    echo "TCL make failed"
+    exit 1
+  fi
+make install
+  if [ $? -ne 0 ] ; then
+    echo "TCL make install failed"
+    exit 1
+  fi
+
+cd $SW_BLDDIR
+
+
+tar -xf $SW_SOURCES/${PACKAGE}/${VERSION}/$SRCDIR.src.tar.gz
+
+cd plugins
+
+#-- Build VMD Plugins
+make clean
+
+sed -i 's/-lnetcdf//g' Make-arch #-- No netcdf library needed
+
+make LINUXAMD64 TCLINC="-I${SW_BLDDIR}/include" TCLLIB="-L${SW_BLDDIR}/lib"
+  if [ $? -ne 0 ] ; then
+    echo "VMD Plugins make failed"
+    exit 1
+  fi
+
+make distrib PLUGINDIR=$SW_BLDDIR/$SRCDIR/plugins
+
+cd $SW_BLDDIR/$SRCDIR
+
+export VMDINSTALLBINDIR=${SW_BLDDIR}/bin
+export VMDINSTALLLIBRARYDIR=${SW_BLDDIR}/lib
+
+./configure LINUXAMD64 GCC
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE configure failed"
+  exit 1
+fi
+
+cd src
+
+sed -i 's/-ll//g' Makefile  #-- remove -ll 
+sed -i '/^INCDIRS/ s/$/ $(VMDEXTRAINCS)/' Makefile #-- Add extra include
+
+make VMDEXTRALIBS="-L${SW_BLDDIR}/lib -ltcl8.5" \
+     VMDEXTRAINCS="-I${SW_BLDDIR}/include"
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE make failed"
+  exit 1
+fi
+
+make install
+if [ $? -ne 0 ] ; then
+  echo "$PACKAGE install failed"
+  exit 1
+fi
+
+cd $SW_BLDDIR
+
+############################### if this far, return 0
+exit 0

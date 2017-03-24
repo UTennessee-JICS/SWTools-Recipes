@@ -1,0 +1,25 @@
+  ### Set Environment (do not remove this line only change what is in between)
+  . ${MODULESHOME}/init/bash
+  module purge
+  module load PE-gnu
+  ### End Environment (do not remove this line only change what is in between)
+  
+# load any other dependent modules here
+
+# env vars here
+
+PACKAGE=vmd
+VERSION=1.9.3
+SRCDIR=${PACKAGE}-${VERSION}
+TCL_VER=8.5.9
+
+export CC=pecc
+export CXX=pec++
+export F77=pefortran
+export F90=pefortran
+export F9C=pefortran
+export F9X=pefortran
+export F03=pefortran
+export FC=pefortran
+
+export PE_ADD_RPATH=1

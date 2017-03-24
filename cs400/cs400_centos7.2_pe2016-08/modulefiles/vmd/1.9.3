@@ -1,0 +1,45 @@
+#%Module
+#@APPLICATION@ apps
+
+set desc	"This modulefile sets up environment to use VMD."
+set whatis	"VMD is a molecular visualization program for displaying,\
+                 animating, and analyzing large biomolecular systems using\
+                 3-D graphics and built-in scripting. \n\
+                 This version of VMD is Text-mode only."
+set onload	""
+
+set arch	cs400_centos7.2_pe2016-08
+set app 	vmd
+set ver 	1.9.3
+set swhome	/software/dev_tools/swtree
+set build	centos7.2_binary
+
+#------------------------------------------------
+
+proc ModulesHelp { } {
+  global desc whatis
+  puts stderr "$desc"
+  puts stderr "$whatis"
+}
+
+module-whatis $whatis
+
+if { [ string length $onload ] > 0 } {
+  if [ module-info mode load ] {
+      puts stderr "$onload"
+  }
+}
+
+set app_dir 	$swhome/$arch/$app/$ver/$build
+set app_inc	"-I $app_dir/include"
+set app_lib 	"-L $app_dir/lib"
+
+prepend-path    PATH            $app_dir/bin
+prepend-path	LD_LIBRARY_PATH $app_dir/lib64
+prepend-path	MANPATH		$app_dir/share/man
+
+set APP		[string toupper $app]
+
+setenv          ${APP}_DIR	$app_dir
+setenv          ${APP}_INC	$app_inc
+setenv          ${APP}_LIB	$app_lib
